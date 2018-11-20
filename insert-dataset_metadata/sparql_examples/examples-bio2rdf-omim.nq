@@ -1,0 +1,43 @@
+
+
+          # ORIGINAL DATASET
+<http://identifiers.org/omim/> <http://www.w3.org/ns/dcat#distribution> <http://api.omim.org/api/entry?include=all&format=json> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://identifiers.org/omim/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/dc/terms/Dataset> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+
+
+      
+<http://api.omim.org/api/entry?include=all&format=json> <http://www.w3.org/2000/01/rdf-schema#label> "OMIM " <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/title> "OMIM " <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/pav/retrievedOn> "2014-11-10T7:03:36Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/publisher> <http://omim.org> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://xmlns.com/foaf/0.1/page> <http://omim.org> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/format> "application/json" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/license> <http://www.omim.org/help/agreement> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/rights> "use" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/rights> "no-commercial" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://api.omim.org/api/entry?include=all&format=json> <http://purl.org/dc/terms/rights> "registration-required" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+
+
+
+
+
+            # RDF DATASET (Bio2RDF)
+<http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> <http://www.w3.org/ns/dcat#distribution> <http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/dc/terms/Dataset> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+
+
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://www.w3.org/2000/01/rdf-schema#label> "Bio2RDF v3 RDF version of omim (generated at 2014-11-10T7:03:36Z) generated at 2014-11-10T7:03:36Z" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/title> "Bio2RDF v3 RDF version of omim (generated at 2014-11-10T7:03:36Z)" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/created> "2014-11-10T7:03:36Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/source> <http://api.omim.org/api/entry?include=all&format=json> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/creator> <https://github.com/bio2rdf/bio2rdf-scripts/blob/master/omim/omim.php> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/publisher> <http://bio2rdf.org> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://xmlns.com/foaf/0.1/page> <http://download.bio2rdf.org/release/3/omim/omim.html> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/format> "application/gzip" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/format> "application/n-quads" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/license> <http://creativecommons.org/licenses/by/3.0/> <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/rights> "use-share-modify" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/rights> "by-attribution" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .
+<http://download.bio2rdf.org/release/3/omim/omim.nq.gz> <http://purl.org/dc/terms/rights> "restricted-by-source-license" <http://bio2rdf.org/omim_resource:bio2rdf.dataset.omim.R3> .

@@ -1,0 +1,111 @@
+PREFIX x2rm: <http://ids.unimaas.nl/rdf2xml/model/>
+PREFIX d2s: <http://data2services/vocab/>
+PREFIX ido: <http://identifiers.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bioentity: <http://bioentity.io/vocab/>
+INSERT { 
+    GRAPH <http://data2services/biolink/drugbank/direct_link> {   
+
+        ### Represent enzyme (Drug to protein or DNA) ChemicalToGeneAssociation
+        #Should we use: ?drugUri bioentity:interacts_with ?enzymeUri .
+
+        # Direct link
+        ?drugUri ?enzymeActionPropertyUri ?enzymeUri .
+
+        ?enzymeActionUri a bioentity:Attribute ;
+            bioentity:name ?enzymeAction .
+
+        ?enzymeUri a bioentity:GeneOrGeneProduct ;
+            bioentity:name ?enzymeName ;
+            bioentity:id ?enzymeId .
+
+        # Publications
+        ?enzymeArticleUri a bioentity:Publication ;
+            bioentity:id ?enzymeArticlePubmedId ;
+            bioentity:name ?enzymeArticleCitation ;
+            bioentity:relates_to ?enzymeUri . 
+
+    }
+}
+WHERE {
+    SERVICE <http://localhost:7200/repositories/test>  {
+        GRAPH <http://kraken/graph/xml2rdf> {
+
+            # Get drug primary ID
+            ?drugObj a x2rm:drugbank\/drug ;
+                # Get drug primary ID
+                x2rm:hasChild [
+                    a x2rm:drugbank\/drug\/drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id\/\@primary ] ;
+                    x2rm:hasValue ?drugId
+                ] ;
+                # Get drug-enzymeS associations
+                x2rm:hasChild [
+                    a x2rm:drugbank\/drug\/enzymes; 
+                    x2rm:hasChild [
+                        a x2rm:drugbank\/drug\/enzymes\/enzyme ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/id ; 
+                            x2rm:hasValue ?enzymeId
+                        ] ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/name; 
+                            x2rm:hasValue ?enzymeName 
+                        ] ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/organism;
+                            x2rm:hasValue ?enzymeOrganism 
+                        ] ;
+                        # Possible ACTIONS:
+                        # inhibitor, activator, agonist, antagonist, binder, antibody
+                        x2rm:hasChild [
+                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/actions; 
+                            x2rm:hasChild [ 
+                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/actions\/action; 
+                                x2rm:hasValue ?enzymeAction
+                            ] 
+                        ] ;
+                        # Get drug-enzymes PUBLICATIONS.
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/references;
+                            x2rm:hasChild [
+                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles; 
+                                x2rm:hasChild [ 
+                                    a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article;
+                                    x2rm:hasChild [ 
+                                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article\/pubmed-id; 
+                                        x2rm:hasValue ?enzymeArticlePubmedId 
+                                    ];
+                                    x2rm:hasChild [
+                                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article\/citation; 
+                                        x2rm:hasValue ?enzymeArticleCitation
+                                    ]
+                                ] 
+                            ] 
+                        ]
+                    ]
+                ] .
+
+
+            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank/", ?enzymeId)) AS ?enzymeUri )
+            BIND ( iri(concat("http://data2services/model/association/enzyme/", md5(concat(?drugId, ?enzymeId)))) AS ?enzymeAssociationUri )
+            BIND ( iri(concat("http://data2services/vocab/action/", ?enzymeAction)) AS ?enzymeActionUri )
+
+            BIND ( iri(concat("http://identifiers.org/pubmed/", ?enzymeArticlePubmedId)) AS ?enzymeArticleUri ) .
+
+            VALUES (?enzymeAction ?enzymeActionPropertyUri) {
+                ( "inhibitor" bioentity:decreases_activity_of )
+                ( "antagonist" bioentity:decreases_activity_of )
+                ( "agonist" bioentity:increases_activity_of )
+                ( "activator" bioentity:increases_activity_of )
+                (UNDEF bioentity:affects)
+            }
+        }
+    }
+}

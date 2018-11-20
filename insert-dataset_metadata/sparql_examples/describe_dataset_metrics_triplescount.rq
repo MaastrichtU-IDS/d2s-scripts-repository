@@ -1,0 +1,597 @@
+BASE <http://rdf.ebi.ac.uk/chembl/>
+PREFIX : <http://rdf.ebi.ac.uk/chembl/>
+PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX cito: <http://purl.org/spar/cito/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX freq: <http://purl.org/cld/freq/>
+PREFIX idot: <http://identifiers.org/idot/>
+PREFIX lexvo: <http://lexvo.org/ontology#>
+PREFIX pav: <http://purl.org/pav/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schemaorg: <http://schema.org/>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX void: <http://rdfs.org/ns/void/>
+PREFIX void-ext: <http://ldf.fi/void-ext#>
+
+
+PREFIX bl: <http://bioentity.io/vocab/>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX hcls: <http://www.w3.org/hcls#>
+PREFIX d2sdata: <http://data2services/data/>
+
+
+# Complete example at https://www.w3.org/TR/hcls-dataset/#appendix_1
+
+CONSTRUCT {
+
+    ### Summary Level (Complete)
+    ?summaryUri
+        rdf:type dctypes:Dataset;
+
+        ### General informations
+        dct:title "DrugBank"@en ; # Must
+        #dct:alternative "ChEMBLdb"@en ; # May
+        dct:description "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug data with comprehensive drug target information."@en ; # Must
+        dct:publisher ?publisherUri ; # Must
+        # Use https://orcid.org/ for researchers
+
+        # foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should
+        # schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should
+        #dct:rights "The data in ChEMBL is covered by the Creative Commons By Attribution. Under the -BY clause, we request attribution for subsequent use of ChEMBL. For publications using ChEMBL data, the primary current citation is:If ChEMBL is incorporated into other works, we ask that the ChEMBL IDs are preserved, and that the release  number of ChEMBL is clearly displayed."@en ; # May
+        #dcat:theme ncit:C48807 ; #chemical May
+        #dcat:keyword "assay"^^xsd:string, "chemical"^^xsd:string ; # May
+        #dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ; # May
+        #rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ; # May
+        #cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ; # May
+        #dct:hasPart :chembl17_rdf_molecule_dataset, :chembl17_rdf_target_dataset ; # May
+        #dct:license <http://creativecommons.org/licenses/by-sa/3.0/> ; # May
+
+        ### Identifiers
+        idot:preferredPrefix "drugbank" ; # May Sould we use this as source ?
+        #idot:alternatePrefix "chembldb" ; # May
+
+        ### Provenance and Change
+        #dct:accrualPeriodicity freq:quarterly; # Should
+        #pav:hasCurrentVersion ?versionUri ; # May (only using isVersionOf atm)
+        
+        ### Availability/Distributions
+        dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb> ; # May Use this to define the graph? A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution of the dataset
+        void:sparqlEndpoint <https://www.ebi.ac.uk/rdf/services/chembl/sparql>; # Should. Only in summary
+    .
+
+    ?publisherUri a dct:Agent ;
+        rdfs:label "EBI" ;
+        foaf:page <https://www.ebi.ac.uk/chembl/> ;
+    .
+
+    ?creatorUri a dct:Agent ;
+        rdfs:label "EBI" ;
+        foaf:page <https://www.ebi.ac.uk/chembl/> ;
+    .
+
+    ### Version Level (Complete)
+    ?versionUri
+        rdf:type dctypes:Dataset;
+        dct:title "ChEMBL Version 17"@en ; # Must
+        #dct:alternative "ChEMBLdb"@en ; # May
+        dct:description "description"@en ; # Must
+
+        dct:created "2013-08"^^xsd:gYearMonth; # Should
+        dct:creator ?creatorUri ; # Must
+        dct:issued "2013-08-29"^^xsd:date ; # Should
+        dct:publisher ?publisherUri ; # Must
+
+        ### Additional dates and actors
+        #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+        #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+        #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+        #dct:contributor ?contributorUri ; # May
+        #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+        #pav:authoredBy ?contributorUri ; # May
+        #pav:curatedBy ?contributorUri ; # May
+
+        #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+        #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+        dct:license <http://creativecommons.org/licenses/by-sa/3.0/> ; # Must sum
+        dct:rights "rights"@en ; # May sum
+        dct:language <http://lexvo.org/id/iso639-3/eng> ; # Should
+
+        #dcat:theme ncit:C48807 ; #chemical May sum
+        #dcat:keyword "assay"^^xsd:string, "chemical"^^xsd:string ; # May sum
+        #dct:conformsTo <http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> ; # May
+        #dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ; # May sum
+        #rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ; # May sum
+        #cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ; # May sum
+        #dct:hasPart :chembl17_rdf_molecule_dataset, :chembl17_rdf_target_dataset ; # May sum
+        
+        ### Identifiers
+        idot:preferredPrefix "chembl" ; # May sum
+        #idot:alternatePrefix "chembldb" ; # May sum
+        
+        ### Provenance and Change
+        pav:version "17"^^xsd:string, "17.0" ; # Must
+        dct:isVersionOf ?summaryUri ; # Must
+        pav:previousVersion :chembl16 ; # Should
+        dct:source :pubchem-bioassay-09-01-2014 ; # Should
+        
+        ### Availability/Distributions
+        dcat:distribution ?distributionDbUri, ?distributionRdfUri ; # Should
+        dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/> ; # May sum
+        dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_release_notes.txt> ; # May
+    .
+
+    ?contributorUri foaf:name "Anna Gaulton" .
+
+    ### Distribution (non-RDF) description (Complete)
+    ?distributionDbUri
+        a dctypes:Dataset, dcat:Distribution ;
+        dct:title "ChEMBL Version 17 Database Distribution"@en ; # Must
+        #dct:alternative "ChEMBLdb17db"@en ; # May
+        dct:description "description"@en ;  # Must
+        dct:created "2013-08"^^xsd:gYearMonth; # Should
+        #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+        #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+        #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+        dct:creator ?publisherUri ; # Must
+        dct:contributor ?contributorUri ; # May
+        #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+        #pav:authoredBy ?contributorUri ; # May
+        #pav:curatedBy ?contributorUri ; # May
+        dct:issued "2013-08-29"^^xsd:date ; # Should
+        dct:publisher ?publisherUri ; # Must
+        #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+        #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+        dct:license <http://creativecommons.org/licenses/by-sa/3.0/> ; # Must sum
+        dct:rights "rights" ; # May sum
+
+        dct:language <http://lexvo.org/id/iso639-3/eng> ; # Should
+        #dcat:theme ncit:C48807 ; #chemical May sum
+        #dcat:keyword "assay"^^xsd:string, "chemical"^^xsd:string ; # May sum
+        dct:conformsTo <http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> ; # Should
+        #dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ; # May sum
+        #rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ; # May sum
+        #cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ; # May sum
+        ### Identifiers
+        idot:preferredPrefix "chembl" ; # May sum
+        idot:alternatePrefix "chembldb" ; # May sum
+        idot:identifierPattern "CHEMBL\\d+"^^xsd:string ; # May
+        #idot:accessPattern "http://bio2rdf.org/chembl" ; # May
+        idot:exampleIdentifier "CHEMBL25"^^xsd:string ; # Should
+        ###void:exampleResource does not make sense for a non-RDF resource
+        
+        ### Provenance and Change
+        pav:version "17"^^xsd:string, "17.0" ; # Should version
+        pav:previousVersion :chembl16db ; # Should version (but not same value)
+        dct:source :pubchem-bioassay-09-01-2014 ; # Should version 
+        pav:createdWith <http://example.com/madeUp/editor> ; # Should 
+        
+        ### Availability/Distributions
+        dct:format "application/sql" ; # Must
+        dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/> ; # May version
+        dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_release_notes.txt> ; # May version
+        dcat:downloadURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_mysql.tar.gz> ; # Should
+        dcat:byteSize "861443887"^^xsd:decimal ; # Should
+    .
+
+    ### RDF Distribution description (Complete)
+    ?distributionRdfUri
+        a dctypes:Dataset, dcat:Distribution, void:Dataset ;
+        dct:title "ChEMBL Version 17 RDF Distribution"@en ; # Must
+        #dct:alternative "ChEMBLdb"@en ; # May
+        dct:description "description"@en ; # Must
+        dct:created "2013-08"^^xsd:gYearMonth; # Should
+        #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+        #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+        #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+        dct:creator ?publisherUri ; # Must
+        dct:contributor ?contributorUri ; # May
+        #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+        #pav:authoredBy ?contributorUri ; # May
+        #pav:curatedBy ?contributorUri ; # May
+        dct:issued "2013-08-29"^^xsd:date ; # Should
+        dct:publisher ?publisherUri ; # Must
+        #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+        #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+        dct:license <http://creativecommons.org/licenses/by-sa/3.0/> ; # Must sum
+        dct:rights "rights" ; # May sum
+        dct:language <http://lexvo.org/id/iso639-3/eng> ; # Should
+        void:vocabulary <http://purl.org/dc/terms/>, <http://rdf.ebi.ac.uk/terms/chembl#>, <http://www.w3.org/ns/dcat#> ; # Should
+        dct:conformsTo <http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> ; # Should
+        void:subset :chembl17_rdf_molecule_dataset, :chembl17_rdf_target_dataset ; # Should
+
+        ### Identifiers
+        idot:preferredPrefix "chembl" ; # May sum
+        idot:alternatePrefix "chembldb" ; # May sum
+        idot:identifierPattern "CHEMBL\\d+"^^xsd:string ; # May
+        void:uriRegexPattern "http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL\\d+" ; # May
+        idot:accessPattern "http://bio2rdf.org/chembl", 
+        "http://identifiers.org/chembl.compound/", 
+        "http://linkedchemistry.info/chembl/chemblid", 
+        "http://www.ebi.ac.uk/chembl/compound/inspect/" ; # May Use accessPattern for the graph URI? 
+        idot:exampleIdentifier "CHEMBL25"^^xsd:string ; # Should
+        void:exampleResource <http://rdf.ebi.ac.uk/resource/chembl/compound/CHEMBL25> ; # Should
+        
+        ### Provenance and Change
+        #Only one data item given for the purpose of the example, all resources should be listed
+        sio:has-data-item <http://rdf.ebi.ac.uk/resource/chembl/compound/CHEMBL25> ; # May
+        pav:version "17"^^xsd:string, "17.0" ; # Should
+        pav:previousVersion :chembl16rdf ; # Should
+        dct:source :pubchem-bioassay-09-01-2014 ; # Should
+        pav:createdWith :chembl-sql2rdf-exporter-v1 ; # Should
+        
+        ### Availability/Distributions
+        dct:format <http://www.w3.org/ns/formats/Turtle>, "application/gzip", "text/turtle" ; # Must
+        dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/> ; # May
+        dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/chembl_17_release_notes.txt> ; # May
+        dcat:downloadURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/chembl_17_molecule.ttl.gz> ; # Should
+        void:dataDump <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17_molecule.ttl.gz> ; # Should
+        void:subset ?linksetUri ; # Should
+        
+        ### Statistics: Note that numbers are taken from Bio2RDF release 3
+        void:triples "409942525"^^xsd:integer ; # Should
+        void:entities "50061452"^^xsd:integer ; # Should
+        void:distinctSubjects "50062405"^^xsd:integer ; # Should
+        void:properties "141"^^xsd:integer ; # Should
+        void:distinctObjects "50128234"^^xsd:integer ; # Should
+        
+        #Number of unique classes
+        void:classPartition [
+          void:class rdfs:Class ;
+          void:distinctSubjects "110"^^xsd:integer
+        ] ; # Should
+        #Number of unique literals
+        void:classPartition [
+          void:class rdfs:Literal ;
+          void:distinctSubjects "58067345"^^xsd:integer
+        ] ; # Should
+        #Number of graphs
+        void:classPartition [
+          void:class sd:Graph ;
+          void:distinctSubjects "8"^^xsd:integer
+        ] ; # Should
+        #Enhanced Statistics
+        #Class and number of instances
+        void:classPartition [
+            void:class <http://rdf.ebi.ac.uk/terms/chembl#Activity> ;
+            void:distinctSubjects "12419715"^^xsd:integer
+        ] ;
+
+        # Property and number of triples
+        void:propertyPartition [
+            void:property <http://rdf.ebi.ac.uk/terms/chembl#hasActivity> ;
+            void:triples "37259145"^^xsd:integer
+        ] ;
+
+        # Property, triples, and number of unique subjects of a certain type
+        void:propertyPartition [
+        void:property <http://rdf.ebi.ac.uk/terms/chembl#hasMolecule> ;
+        void:triples "12419715"^^xsd:integer ;
+        void:classPartition [
+          void:class <http://rdf.ebi.ac.uk/terms/chembl#Activity> ;
+          void:distinctSubjects "12419715"^^xsd:integer ;
+        ]] ;
+
+        # Property, triples, and number of unique objects of a certain type
+        void:propertyPartition [
+        void:property <http://rdf.ebi.ac.uk/terms/chembl#hasActivity> ;
+        void:triples "37259145"^^xsd:integer ;      
+        void-ext:objectClassPartition [
+          void:class <http://rdf.ebi.ac.uk/terms/chembl#Activity> ;
+          void:distinctObjects "12419715"^^xsd:integer
+        ]] ;
+
+        # Property, triples, and number of unique literals
+        void:propertyPartition [
+        void:property <http://www.w3.org/2004/02/skos/core#prefLabel> ;
+        void:triples "1360455"^^xsd:integer ;
+        void-ext:objectClassPartition [
+          void:class rdfs:Literal;
+          void:distinctObjects "1359785"^^xsd:integer
+        ]] ;
+
+        # Property, triples, and number of unique subjects and objects of a certain type
+        void:propertyPartition [
+        void:property <http://rdf.ebi.ac.uk/terms/chembl#hasAssay> ;
+        void:triples "12419715"^^xsd:integer ;
+        void:classPartition [
+            void:class <http://rdf.ebi.ac.uk/terms/chembl#Activity> ;
+            void:distinctSubjects "12419715"^^xsd:integer ;
+        ];
+        void-ext:objectClassPartition [
+          void:class <http://rdf.ebi.ac.uk/terms/chembl#Assay> ;
+          void:distinctObjects "1042288"^^xsd:integer ;
+        ]] .
+      
+<http://www.ebi.ac.uk/chembl/compound/inspect/>
+    idot:primarySource true ;
+    dct:format "text/html" ;
+    dct:publisher <http://www.ebi.ac.uk> ;
+    idot:accessIdentifierPattern "^http://www.ebi.ac.uk/chembl/compound/inspect/CHEMBL\\d+" ;
+    a idot:AccessPattern .
+
+<http://identifiers.org/chembl.compound/>
+    dct:format "text/html" ;
+    idot:accessIdentifierPattern "^http://identifiers.org/chembl.compound/CHEMBL\\d+" ;
+    a idot:AccessPattern .
+
+<http://bio2rdf.org/chembl:>
+    dct:format "application/rdf+xml" ;
+    dct:publisher <http://bio2rdf.org> ;
+    idot:accessIdentifierPattern "^http://bio2rdf.org/chembl:CHEMBL\\d+" ;
+    a idot:AccessPattern .
+
+<http://linkedchemistry.info/chembl/chemblid>
+    dct:format "application/rdf+xml" ;
+    idot:accessIdentifierPattern "^http://linkedchemistry.info/chembl/CHEMBL\\d+" ;
+    a idot:AccessPattern .
+
+    ###Linkset specific metadata
+    ?linksetUri
+        a void:Linkset ;
+        void:subjectsTarget :chembl-rdf ;
+        void:objectsTarget <http://purl.uniprot.org/void#UniProtDataset_2015_03> ;
+        void:linkPredicate skos:exactMatch ;
+        void:triples "6367"^^xsd:integer ;
+        
+        ### Metadata for a RDF distribution
+        a dctypes:Dataset, dcat:Distribution, void:Dataset ;
+        dct:title "ChEMBL Target Component to UniProt Protein Exact Match Linkset"@en ;
+        dct:alternative "ChEMBLTargetCmpt2UniProtEMLS"@en ;
+        dct:description "A linkset connecting ChEMBL target components with their corresponding UniProt protein entry where the match is deemed to be exact."@en ;
+        dct:created "2013-08"^^xsd:gYearMonth;
+        pav:createdOn "2013-08"^^xsd:gYearMonth;
+        pav:authoredOn "2013-07"^^xsd:gYearMonth;
+        pav:curatedOn "2013-07"^^xsd:gYearMonth;
+        dct:creator ?publisherUri ;
+        dct:contributor ?contributorUri ;
+        pav:createdBy <http://orcid.org/0000-0002-8011-0300> ;
+        pav:authoredBy ?contributorUri ;
+        pav:curatedBy ?contributorUri ;
+        dct:issued "2013-08-29"^^xsd:date ;
+        dct:publisher ?publisherUri ;
+        dct:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+        dct:language <http://lexvo.org/id/iso639-3/eng> ;
+        dcat:theme ncit:C17021 ;
+        dcat:keyword "assay"^^xsd:string, "protein"^^xsd:string ;
+        void:vocabulary <http://purl.org/dc/terms/>, <http://rdf.ebi.ac.uk/terms/chembl#>, <http://www.w3.org/ns/dcat#> ;
+        dct:conformsTo <http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> ;
+        dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ;
+        rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ;
+        cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ;
+        ### Identifiers
+        idot:preferredPrefix "chembl" ; # May sum
+        idot:alternatePrefix "chembldb" ; # May sum
+        idot:identifierPattern "CHEMBL\\d+"^^xsd:string ;
+        void:uriRegexPattern "http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL\\d+" ;
+        idot:accessPattern "http://bio2rdf.org/chembl",
+            "http://identifiers.org/chembl.compound/",
+            "http://linkedchemistry.info/chembl/chemblid",
+            "http://www.ebi.ac.uk/chembl/compound/inspect/" ;
+        idot:exampleIdentifier "CHEMBL_TC_4803"^^xsd:string ;
+        void:exampleResource <http://rdf.ebi.ac.uk/resource/chembl/targetcomponent/CHEMBL_TC_4803> ;
+        
+        ### Provenance and Change
+        #Only one data item given for the purpose of the example, all resources should be listed
+        sio:has-data-item <http://rdf.ebi.ac.uk/resource/chembl/targetcomponent/CHEMBL_TC_4803> ;
+        pav:version "17"^^xsd:string, "17.0" ;
+        pav:previousVersion :chembl16-uniprot-exactMatch-linkset ;
+        dct:source :pubchem-bioassay-09-01-2014 ;
+        pav:createdWith :chembl-sql2rdf-exporter-v1 ;
+        
+        ### Availability/Distributions
+        dct:format <http://www.w3.org/ns/formats/Turtle>, "application/gzip", "text/turtle" ;
+        dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/> ;
+        dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/chembl_17_release_notes.txt> ;
+        dcat:downloadURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17.0_targetcmpt_uniprot_ls.ttl.gz> ;
+        void:dataDump <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17.0_targetcmpt_uniprot_ls.ttl.gz> .
+
+}
+WHERE 
+{ 
+    BIND(<> AS ?publisherUri)
+    BIND(<> AS ?publisherUri)
+}
+
+
+
+
+
+
+        #########################################
+
+
+
+
+
+    # Use dct:Dataset like in Bio2RDF or dcat:Catalog like in dcat?
+    ?datasetUri a dct:Dataset ;
+        dcat:distribution ?distributionUri .
+
+    ?summaryUri a dcat:Catalog ;
+        dc:title "DrugBank catalog" ;
+        dc:description "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug data with comprehensive drug target information." ;
+        dct:publisher <> 
+        dct:accrualPeriodicity <> ; # IRI of type dctypes:Frequency
+
+        rdfs:label "Imaginary Catalog" ;
+        foaf:homepage <http://example.org/catalog> ;
+        dct:publisher :transparency-office ;
+        dct:language <http://id.loc.gov/vocabulary/iso639-1/en>  ;
+        dcat:dataset :dataset-001  , :dataset-002 , :dataset-003 ; 
+        .
+
+
+        http://www.geonames.org/6295630 # Earth
+        http://reference.data.gov.uk/doc/quarter/2006-Q1 # temporal definition 
+
+    ?oldVersionUri a dctypes:Dataset ;
+        dc:title "DrugBank version" ;
+        dc:description "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug data with comprehensive drug target information." ;
+        dct:publisher <>
+        dct:creator <> ;
+        pav:version "" ;
+        dct:isVersionOf <> ;
+        pav:previousVersion <> ;
+        dct:source <> ;
+        pav:createdWith <> ; # Creation tool
+        .
+
+    ?distributionUri a dcat:Distribution, void:Dataset ;
+        dc:title "DrugBank distribution" ;
+        dc:description "The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug data with comprehensive drug target information." ;
+        dct:publisher <>
+        dct:creator <> ;
+        dct:license <> ;
+        idot:exampleIdentifier <> ;
+        void:exampleResource <> ;
+        pav:version "" ;
+        pav:previousVersion <> ;
+        dct:source <> 
+        pav:createdWith <> ; # Creation tool
+        .
+
+
+
+
+    hcls:numberOfTriples a dqv:QualityMeasurement ;
+    dqv:isMeasurementOf dqv:R1metric .
+    hcls:numberOfTriples dqv:value ?triples .
+    dqv:R1metric a dqv:Metric ;
+    skos:definition "Measuring the coverage (i.e. number of entities described in a dataset) and level of detail (i.e. number of properties) in a dataset to ensure that the data retrieved is appropriate for the task at hand"@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Relevancy .
+    dqv:Relevancy a dqv:Dimension ;
+    skos:prefLabel "Relevancy" ;
+    skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+    dqv:inCategory dqv:Contextual .
+    dqv:Contextual a dqv:Category.
+} 
+WHERE 
+{ 
+    SELECT (COUNT(*) AS ?triples) 
+    { 
+        ?s ?p ?o .
+    } 
+}
+
+
+  # 6.6.1.2 To specify the number of unique, typed entities in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfEntities a dqv:QualityMeasurement ;
+    dqv:isMeasurementOf dqv:R2metric ;
+    dqv:value ?entities .
+    dqv:R2metric a dqv:Metric ;
+    skos:definition "Number of unique, typed entities in the dataset"@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Relevancy .
+    dqv:Relevancy a dqv:Dimension ;
+    skos:prefLabel "Relevancy" ;
+    skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+    dqv:inCategory dqv:Contextual .
+    dqv:Contextual a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } }
+  # 6.6.1.3 To specify the number of unique subjects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueSubjects a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1smetric ;
+    dqv:value ?distinctSubjects .
+    dqv:CN1smetric a dqv:Metric ;
+    skos:definition "Number of unique subjects in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?s) AS ?distinctSubjects) {  ?s ?p ?o } }
+  # 6.6.1.4 To specify the number of unique properties in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueProperties a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1pmetric ;
+    dqv:value ?distinctProperties .
+    dqv:CN1pmetric a dqv:Metric ;
+    skos:definition "Number of unique properties in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.   
+    } WHERE { SELECT (COUNT(DISTINCT ?p) AS ?distinctProperties) { ?s ?p ?o } }
+  # 6.6.1.5 To specify the number of unique objects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueObjects a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN2metric ;
+    dqv:value ?distinctObjects .
+    dqv:CN2metric a dqv:Metric ;
+    skos:definition "Number of unique objects in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o ) AS ?distinctObjects) {  ?s ?p ?o  FILTER(!isLiteral(?o)) } }
+  # 6.6.1.6 To specify the number of unique objects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueClasses a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1cmetric ;
+    dqv:value ?distinctClasses .
+    dqv:CN1cmetric a dqv:Metric ;
+    skos:definition "Number of unique classes in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o) AS ?distinctClasses) { ?s a ?o } }
+  # 6.6.1.7 To specify the number of unique literals in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueLiterals a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN2lmetric ;
+    dqv:value ?distinctLiterals .
+    dqv:CN2l a dqv:Metric ;
+    skos:definition "Number of unique literals in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o) AS ?distinctLiterals) {  ?s ?p ?o  filter(isLiteral(?o)) } }
+  # 6.6.1.8 To specify the number of graphs in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfGraphs a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN4metric ;
+    dqv:value ?graphs .
+    dqv:CN4 a dqv:Metric ;
+    skos:definition "Number of graphs in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?g ) AS ?graphs) { GRAPH ?g { ?s ?p ?o } } }

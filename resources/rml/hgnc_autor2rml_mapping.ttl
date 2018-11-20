@@ -1,0 +1,548 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+# ["HGNC ID","Approved Symbol","Approved Name","Status","Locus Type","Locus Group","Previous Symbols","Previous Names","Synonyms","Name Synonyms","Chromosome","Date Approved","Date Modified","Date Symbol Changed","Date Name Changed","Accession Numbers","Enzyme IDs","Entrez Gene ID","Ensembl Gene ID","Mouse Genome Database ID","Specialist Database Links","Specialist Database IDs","Pubmed IDs","RefSeq IDs","Gene Family Tag","Gene family description","Record Type","Primary IDs","Secondary IDs","CCDS IDs","VEGA IDs","Locus Specific Databases","Entrez Gene ID (supplied by NCBI)","OMIM ID (supplied by NCBI)","RefSeq (supplied by NCBI)","UniProt ID (supplied by UniProt)","Ensembl ID (supplied by Ensembl)","Vega ID (supplied by Vega)","UCSC ID (supplied by UCSC)","Mouse Genome Database ID (supplied by MGI)","Rat Genome Database ID (supplied by RGD)","RNAcentral IDs (supplied by RNAcentral)","LNCipedia symbol (supplied by LNCipedia)"]
+# ["HGNC:5","A1BG","alpha-1-B glycoprotein","Approved","gene with protein product","protein-coding gene","","","","","19q13.43","1989-06-30","2015-07-13","","","","","1","ENSG00000121410","MGI:2152878","<!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <a href=\"http://merops.sanger.ac.uk/cgi-bin/merops.cgi?id=I43.950\">MEROPS</a><!--,--> <a href=\"http://cancer.sanger.ac.uk/cosmic/gene/overview?ln=A1BG\">COSMIC</a><!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> ",", , , , , , , , , I43.950, A1BG, , , , , , , ","2591067","NM_130786","IGD","Immunoglobulin superfamily / Immunoglobulin-like domain containing","Standard","","","CCDS12976","OTTHUMG00000183507","","1","138670","NM_130786","P04217","ENSG00000121410","OTTHUMG00000183507","uc002qsd.5","MGI:2152878","RGD:69417","",""]
+# ["HGNC:37133","A1BG-AS1","A1BG antisense RNA 1","Approved","RNA, long non-coding","non-coding RNA","NCRNA00181, A1BGAS, A1BG-AS","non-protein coding RNA 181\", \"A1BG antisense RNA (non-protein coding)\", \"A1BG antisense RNA 1 (non-protein coding)","FLJ23569","","19q13.43","2009-07-20","2013-06-27","2010-11-25","2012-08-15","BC040926","","503538","ENSG00000268895","","<!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> ",", , , , , , , , , , , , , , , , , ","","NR_015380","LNCRNA","Long non-coding RNAs","Standard","","","","OTTHUMG00000183508","","503538","","NR_015380","","ENSG00000268895","OTTHUMG00000183508","uc002qse.3","","","URS00007E4F6E","A1BG-AS1"]
+# ["HGNC:24086","A1CF","APOBEC1 complementation factor","Approved","gene with protein product","protein-coding gene","","","ACF, ASP, ACF64, ACF65, APOBEC1CF","","10q11.23","2007-11-23","2016-10-05","","","AF271790","","29974","ENSG00000148584","MGI:1917115","<!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <a href=\"http://cancer.sanger.ac.uk/cosmic/gene/overview?ln=A1CF\">COSMIC</a><!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> <!--,--> ",", , , , , , , , , , A1CF, , , , , , , ","11815617, 11072063","NM_014576","RBM","RNA binding motif (RRM) containing","Standard","","","CCDS7241, CCDS7242, CCDS7243, CCDS73133","OTTHUMG00000018240","","29974","","NM_001198818","Q9NQ94","ENSG00000148584","OTTHUMG00000018240","uc057tgv.1","MGI:1917115","RGD:619834","",""]
+# ["HGNC:6","A1S9T~withdrawn","symbol withdrawn, see UBA1","Symbol Withdrawn","withdrawn","withdrawn","","","","","","","2007-12-14","","","","","","","","",", , , , , , , , , , , , , , , , , ","","","","","Standard","","","","","","","","","","","","","","","",""]
+<#Mapping1>
+rr:logicalTable [ rr:sqlQuery """
+  select row_number() over (partition by filename) as autor2rml_rownum
+    , columns[0] as `HgncId`
+    , columns[1] as `ApprovedSymbol`
+    , columns[2] as `ApprovedName`
+    , columns[3] as `Status`
+    , columns[4] as `LocusType`
+    , columns[5] as `LocusGroup`
+    , columns[6] as `PreviousSymbols`
+    , columns[7] as `PreviousNames`
+    , columns[8] as `Synonyms`
+    , columns[9] as `NameSynonyms`
+    , columns[10] as `Chromosome`
+    , columns[11] as `DateApproved`
+    , columns[12] as `DateModified`
+    , columns[13] as `DateSymbolChanged`
+    , columns[14] as `DateNameChanged`
+    , columns[15] as `AccessionNumbers`
+    , columns[16] as `EnzymeIds`
+    , columns[17] as `EntrezGeneId`
+    , columns[18] as `EnsemblGeneId`
+    , columns[19] as `MouseGenomeDatabaseId`
+    , columns[20] as `SpecialistDatabaseLinks`
+    , columns[21] as `SpecialistDatabaseIds`
+    , columns[22] as `PubmedIds`
+    , columns[23] as `RefseqIds`
+    , columns[24] as `GeneFamilyTag`
+    , columns[25] as `GeneFamilyDescription`
+    , columns[26] as `RecordType`
+    , columns[27] as `PrimaryIds`
+    , columns[28] as `SecondaryIds`
+    , columns[29] as `CcdsIds`
+    , columns[30] as `VegaIds`
+    , columns[31] as `LocusSpecificDatabases`
+    , columns[32] as `EntrezGeneIdSuppliedByNcbi`
+    , columns[33] as `OmimIdSuppliedByNcbi`
+    , columns[34] as `RefseqSuppliedByNcbi`
+    , columns[35] as `UniprotIdSuppliedByUniprot`
+    , columns[36] as `EnsemblIdSuppliedByEnsembl`
+    , columns[37] as `VegaIdSuppliedByVega`
+    , columns[38] as `UcscIdSuppliedByUcsc`
+    , columns[39] as `MouseGenomeDatabaseIdSuppliedByMgi`
+    , columns[40] as `RatGenomeDatabaseIdSuppliedByRgd`
+    , columns[41] as `RnacentralIdsSuppliedByRnacentral`
+    , columns[42] as `LncipediaSymbolSuppliedByLncipedia`
+  from dfs.root.`/data/ncats/hgnc/hgnc_complete_set.tsv`;
+"""];
+rr:subjectMap [
+  rr:termType rr:IRI;
+  rr:template "http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/{autor2rml_rownum}";
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/HgncId>;
+  rr:objectMap [ rr:column "HgncId" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/ApprovedSymbol>;
+  rr:objectMap [ rr:column "ApprovedSymbol" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/ApprovedName>;
+  rr:objectMap [ rr:column "ApprovedName" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Status>;
+  rr:objectMap [ rr:column "Status" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/LocusType>;
+  rr:objectMap [ rr:column "LocusType" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/LocusGroup>;
+  rr:objectMap [ rr:column "LocusGroup" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/PreviousSymbols>;
+  rr:objectMap [ rr:column "PreviousSymbols" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/PreviousNames>;
+  rr:objectMap [ rr:column "PreviousNames" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Synonyms>;
+  rr:objectMap [ rr:column "Synonyms" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/NameSynonyms>;
+  rr:objectMap [ rr:column "NameSynonyms" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Chromosome>;
+  rr:objectMap [ rr:column "Chromosome" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/DateApproved>;
+  rr:objectMap [ rr:column "DateApproved" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/DateModified>;
+  rr:objectMap [ rr:column "DateModified" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/DateSymbolChanged>;
+  rr:objectMap [ rr:column "DateSymbolChanged" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/DateNameChanged>;
+  rr:objectMap [ rr:column "DateNameChanged" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/AccessionNumbers>;
+  rr:objectMap [ rr:column "AccessionNumbers" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/EnzymeIds>;
+  rr:objectMap [ rr:column "EnzymeIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/EntrezGeneId>;
+  rr:objectMap [ rr:column "EntrezGeneId" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/EnsemblGeneId>;
+  rr:objectMap [ rr:column "EnsemblGeneId" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/MouseGenomeDatabaseId>;
+  rr:objectMap [ rr:column "MouseGenomeDatabaseId" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/SpecialistDatabaseLinks>;
+  rr:objectMap [ rr:column "SpecialistDatabaseLinks" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/SpecialistDatabaseIds>;
+  rr:objectMap [ rr:column "SpecialistDatabaseIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/PubmedIds>;
+  rr:objectMap [ rr:column "PubmedIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/RefseqIds>;
+  rr:objectMap [ rr:column "RefseqIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/GeneFamilyTag>;
+  rr:objectMap [ rr:column "GeneFamilyTag" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/GeneFamilyDescription>;
+  rr:objectMap [ rr:column "GeneFamilyDescription" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/RecordType>;
+  rr:objectMap [ rr:column "RecordType" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/PrimaryIds>;
+  rr:objectMap [ rr:column "PrimaryIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/SecondaryIds>;
+  rr:objectMap [ rr:column "SecondaryIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/CcdsIds>;
+  rr:objectMap [ rr:column "CcdsIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/VegaIds>;
+  rr:objectMap [ rr:column "VegaIds" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/LocusSpecificDatabases>;
+  rr:objectMap [ rr:column "LocusSpecificDatabases" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/EntrezGeneIdSuppliedByNcbi>;
+  rr:objectMap [ rr:column "EntrezGeneIdSuppliedByNcbi" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/OmimIdSuppliedByNcbi>;
+  rr:objectMap [ rr:column "OmimIdSuppliedByNcbi" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/RefseqSuppliedByNcbi>;
+  rr:objectMap [ rr:column "RefseqSuppliedByNcbi" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/UniprotIdSuppliedByUniprot>;
+  rr:objectMap [ rr:column "UniprotIdSuppliedByUniprot" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/EnsemblIdSuppliedByEnsembl>;
+  rr:objectMap [ rr:column "EnsemblIdSuppliedByEnsembl" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/VegaIdSuppliedByVega>;
+  rr:objectMap [ rr:column "VegaIdSuppliedByVega" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/UcscIdSuppliedByUcsc>;
+  rr:objectMap [ rr:column "UcscIdSuppliedByUcsc" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/MouseGenomeDatabaseIdSuppliedByMgi>;
+  rr:objectMap [ rr:column "MouseGenomeDatabaseIdSuppliedByMgi" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/RatGenomeDatabaseIdSuppliedByRgd>;
+  rr:objectMap [ rr:column "RatGenomeDatabaseIdSuppliedByRgd" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/RnacentralIdsSuppliedByRnacentral>;
+  rr:objectMap [ rr:column "RnacentralIdsSuppliedByRnacentral" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+rr:predicateObjectMap [
+  rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/LncipediaSymbolSuppliedByLncipedia>;
+  rr:objectMap [ rr:column "LncipediaSymbolSuppliedByLncipedia" ];
+  rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+];
+.
+
+
+# <#Mapping2>
+# rr:logicalTable [ rr:sqlQuery """
+#   select row_number() over (partition by filename) as autor2rml_rownum
+#     , columns[0] as `Column1`
+#     , columns[1] as `Column2`
+#     , columns[2] as `Column3`
+#     , columns[3] as `Column4`
+#     , columns[4] as `Column5`
+#     , columns[5] as `Column6`
+#     , columns[6] as `Column7`
+#     , columns[7] as `Column8`
+#     , columns[8] as `Column9`
+#     , columns[9] as `Column10`
+#     , columns[10] as `Column11`
+#     , columns[11] as `Column12`
+#     , columns[12] as `Column13`
+#     , columns[13] as `Column14`
+#     , columns[14] as `Column15`
+#     , columns[15] as `Column16`
+#     , columns[16] as `Column17`
+#     , columns[17] as `Column18`
+#     , columns[18] as `Column19`
+#     , columns[19] as `Column20`
+#     , columns[20] as `Column21`
+#     , columns[21] as `Column22`
+#     , columns[22] as `Column23`
+#     , columns[23] as `Column24`
+#     , columns[24] as `Column25`
+#     , columns[25] as `Column26`
+#     , columns[26] as `Column27`
+#     , columns[27] as `Column28`
+#     , columns[28] as `Column29`
+#     , columns[29] as `Column30`
+#     , columns[30] as `Column31`
+#     , columns[31] as `Column32`
+#     , columns[32] as `Column33`
+#     , columns[33] as `Column34`
+#     , columns[34] as `Column35`
+#     , columns[35] as `Column36`
+#     , columns[36] as `Column37`
+#     , columns[37] as `Column38`
+#     , columns[38] as `Column39`
+#     , columns[39] as `Column40`
+#     , columns[40] as `Column41`
+#     , columns[41] as `Column42`
+#     , columns[42] as `Column43`
+#   from dfs.root.`/data/ncats/hgnc/hgnc_complete_set.tsv`;
+# """];
+# rr:subjectMap [
+#   rr:termType rr:IRI;
+#   rr:template "http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/{autor2rml_rownum}";
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column1>;
+#   rr:objectMap [ rr:column "Column1" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column2>;
+#   rr:objectMap [ rr:column "Column2" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column3>;
+#   rr:objectMap [ rr:column "Column3" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column4>;
+#   rr:objectMap [ rr:column "Column4" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column5>;
+#   rr:objectMap [ rr:column "Column5" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column6>;
+#   rr:objectMap [ rr:column "Column6" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column7>;
+#   rr:objectMap [ rr:column "Column7" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column8>;
+#   rr:objectMap [ rr:column "Column8" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column9>;
+#   rr:objectMap [ rr:column "Column9" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column10>;
+#   rr:objectMap [ rr:column "Column10" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column11>;
+#   rr:objectMap [ rr:column "Column11" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column12>;
+#   rr:objectMap [ rr:column "Column12" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column13>;
+#   rr:objectMap [ rr:column "Column13" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column14>;
+#   rr:objectMap [ rr:column "Column14" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column15>;
+#   rr:objectMap [ rr:column "Column15" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column16>;
+#   rr:objectMap [ rr:column "Column16" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column17>;
+#   rr:objectMap [ rr:column "Column17" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column18>;
+#   rr:objectMap [ rr:column "Column18" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column19>;
+#   rr:objectMap [ rr:column "Column19" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column20>;
+#   rr:objectMap [ rr:column "Column20" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column21>;
+#   rr:objectMap [ rr:column "Column21" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column22>;
+#   rr:objectMap [ rr:column "Column22" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column23>;
+#   rr:objectMap [ rr:column "Column23" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column24>;
+#   rr:objectMap [ rr:column "Column24" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column25>;
+#   rr:objectMap [ rr:column "Column25" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column26>;
+#   rr:objectMap [ rr:column "Column26" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column27>;
+#   rr:objectMap [ rr:column "Column27" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column28>;
+#   rr:objectMap [ rr:column "Column28" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column29>;
+#   rr:objectMap [ rr:column "Column29" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column30>;
+#   rr:objectMap [ rr:column "Column30" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column31>;
+#   rr:objectMap [ rr:column "Column31" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column32>;
+#   rr:objectMap [ rr:column "Column32" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column33>;
+#   rr:objectMap [ rr:column "Column33" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column34>;
+#   rr:objectMap [ rr:column "Column34" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column35>;
+#   rr:objectMap [ rr:column "Column35" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column36>;
+#   rr:objectMap [ rr:column "Column36" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column37>;
+#   rr:objectMap [ rr:column "Column37" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column38>;
+#   rr:objectMap [ rr:column "Column38" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column39>;
+#   rr:objectMap [ rr:column "Column39" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column40>;
+#   rr:objectMap [ rr:column "Column40" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column41>;
+#   rr:objectMap [ rr:column "Column41" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column42>;
+#   rr:objectMap [ rr:column "Column42" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# rr:predicateObjectMap [
+#   rr:predicate <http://kraken//data/ncats/hgnc/hgnc_complete_set.ts/Column43>;
+#   rr:objectMap [ rr:column "Column43" ];
+#   rr:graph <http://kraken/graph/e26823e2-9e6c-44f7-8c36-1767289c17fb/>;
+# ];
+# .
+# 
+

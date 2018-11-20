@@ -1,0 +1,23 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?class ?classLabel ?classCount
+WHERE
+{
+    {
+        select ?g ?class (count(?class) as ?classCount)  
+        where {
+            graph ?g {
+                [] a ?class .
+            }
+            # Should be a variable (source)
+            FILTER(?g = <http://data2services/biolink/drugbank>)
+        }
+        group by ?g ?class
+        order by desc(?classCount)
+    }
+    
+    optional {
+        ?class rdfs:label ?classLabel .
+    }
+}

@@ -1,0 +1,136 @@
+# see https://www.w3.org/TR/hcls-dataset/#s6_6
+---
+metadata:
+  - title: http://www.w3.org/ns/dqv#
+  - description: http://www.w3.org/hcls#
+  - skos: http://www.w3.org/2004/02/skos/core#
+  - xsd: http://www.w3.org/2001/XMLSchema#
+queries :
+  # 6.6.1.1 To specify the number of triples in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfTriples a dqv:QualityMeasurement ;
+    dqv:isMeasurementOf dqv:R1metric .
+    hcls:numberOfTriples dqv:value ?triples .
+    dqv:R1metric a dqv:Metric ;
+    skos:definition "Measuring the coverage (i.e. number of entities described in a dataset) and level of detail (i.e. number of properties) in a dataset to ensure that the data retrieved is appropriate for the task at hand"@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Relevancy .
+    dqv:Relevancy a dqv:Dimension ;
+    skos:prefLabel "Relevancy" ;
+    skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+    dqv:inCategory dqv:Contextual .
+    dqv:Contextual a dqv:Category.
+    } WHERE { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } }
+  # 6.6.1.2 To specify the number of unique, typed entities in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfEntities a dqv:QualityMeasurement ;
+    dqv:isMeasurementOf dqv:R2metric ;
+    dqv:value ?entities .
+    dqv:R2metric a dqv:Metric ;
+    skos:definition "Number of unique, typed entities in the dataset"@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Relevancy .
+    dqv:Relevancy a dqv:Dimension ;
+    skos:prefLabel "Relevancy" ;
+    skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+    dqv:inCategory dqv:Contextual .
+    dqv:Contextual a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } }
+  # 6.6.1.3 To specify the number of unique subjects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueSubjects a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1smetric ;
+    dqv:value ?distinctSubjects .
+    dqv:CN1smetric a dqv:Metric ;
+    skos:definition "Number of unique subjects in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?s) AS ?distinctSubjects) {  ?s ?p ?o } }
+  # 6.6.1.4 To specify the number of unique properties in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueProperties a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1pmetric ;
+    dqv:value ?distinctProperties .
+    dqv:CN1pmetric a dqv:Metric ;
+    skos:definition "Number of unique properties in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.   
+    } WHERE { SELECT (COUNT(DISTINCT ?p) AS ?distinctProperties) { ?s ?p ?o } }
+  # 6.6.1.5 To specify the number of unique objects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueObjects a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN2metric ;
+    dqv:value ?distinctObjects .
+    dqv:CN2metric a dqv:Metric ;
+    skos:definition "Number of unique objects in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o ) AS ?distinctObjects) {  ?s ?p ?o  FILTER(!isLiteral(?o)) } }
+  # 6.6.1.6 To specify the number of unique objects in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueClasses a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN1cmetric ;
+    dqv:value ?distinctClasses .
+    dqv:CN1cmetric a dqv:Metric ;
+    skos:definition "Number of unique classes in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o) AS ?distinctClasses) { ?s a ?o } }
+  # 6.6.1.7 To specify the number of unique literals in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfUniqueLiterals a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN2lmetric ;
+    dqv:value ?distinctLiterals .
+    dqv:CN2l a dqv:Metric ;
+    skos:definition "Number of unique literals in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?o) AS ?distinctLiterals) {  ?s ?p ?o  filter(isLiteral(?o)) } }
+  # 6.6.1.8 To specify the number of graphs in the dataset
+  - |
+    CONSTRUCT {
+    hcls:numberOfGraphs a dqv:QualityMeasurement;
+    dqv:isMeasurementOf dqv:CN4metric ;
+    dqv:value ?graphs .
+    dqv:CN4 a dqv:Metric ;
+    skos:definition "Number of graphs in the dataset."@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+    skos:prefLabel "Conciseness" ;
+    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+    dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category.
+    } WHERE { SELECT (COUNT(DISTINCT ?g ) AS ?graphs) { GRAPH ?g { ?s ?p ?o } } }

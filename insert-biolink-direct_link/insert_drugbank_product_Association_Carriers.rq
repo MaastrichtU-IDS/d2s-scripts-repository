@@ -1,0 +1,111 @@
+PREFIX x2rm: <http://ids.unimaas.nl/rdf2xml/model/>
+PREFIX d2s: <http://data2services/vocab/>
+PREFIX ido: <http://identifiers.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bioentity: <http://bioentity.io/vocab/>
+INSERT { 
+    GRAPH <http://data2services/biolink/drugbank/direct_link> {   
+
+        ### Represent carrier (Drug to protein or DNA) ChemicalToGeneAssociation
+        #Should we use: ?drugUri bioentity:interacts_with ?carrierUri .
+
+        # Direct link
+        ?drugUri ?carrierActionPropertyUri ?carrierUri .
+
+        ?carrierActionUri a bioentity:Attribute ;
+            bioentity:name ?carrierAction .
+
+        ?carrierUri a bioentity:GeneOrGeneProduct ;
+            bioentity:name ?carrierName ;
+            bioentity:id ?carrierId .
+
+        # Publications
+        ?carrierArticleUri a bioentity:Publication ;
+            bioentity:id ?carrierArticlePubmedId ;
+            bioentity:name ?carrierArticleCitation ;
+            bioentity:relates_to ?carrierUri . 
+
+    }
+}
+WHERE {
+    SERVICE <http://localhost:7200/repositories/test>  {
+        GRAPH <http://kraken/graph/xml2rdf> {
+
+            # Get drug primary ID
+            ?drugObj a x2rm:drugbank\/drug ;
+                # Get drug primary ID
+                x2rm:hasChild [
+                    a x2rm:drugbank\/drug\/drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id\/\@primary ] ;
+                    x2rm:hasValue ?drugId
+                ] ;
+                # Get drug-carrierS associations
+                x2rm:hasChild [
+                    a x2rm:drugbank\/drug\/carriers; 
+                    x2rm:hasChild [
+                        a x2rm:drugbank\/drug\/carriers\/carrier ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/carriers\/carrier\/id ; 
+                            x2rm:hasValue ?carrierId
+                        ] ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/carriers\/carrier\/name; 
+                            x2rm:hasValue ?carrierName 
+                        ] ;
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/carriers\/carrier\/organism;
+                            x2rm:hasValue ?carrierOrganism 
+                        ] ;
+                        # Possible ACTIONS:
+                        # inhibitor, activator, agonist, antagonist, binder, antibody
+                        x2rm:hasChild [
+                            a x2rm:drugbank\/drug\/carriers\/carrier\/actions; 
+                            x2rm:hasChild [ 
+                                a x2rm:drugbank\/drug\/carriers\/carrier\/actions\/action; 
+                                x2rm:hasValue ?carrierAction
+                            ] 
+                        ] ;
+                        # Get drug-carriers PUBLICATIONS.
+                        x2rm:hasChild [ 
+                            a x2rm:drugbank\/drug\/carriers\/carrier\/references;
+                            x2rm:hasChild [
+                                a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles; 
+                                x2rm:hasChild [ 
+                                    a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article;
+                                    x2rm:hasChild [ 
+                                        a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article\/pubmed-id; 
+                                        x2rm:hasValue ?carrierArticlePubmedId 
+                                    ];
+                                    x2rm:hasChild [
+                                        a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article\/citation; 
+                                        x2rm:hasValue ?carrierArticleCitation
+                                    ]
+                                ] 
+                            ] 
+                        ]
+                    ]
+                ] .
+
+
+            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank/", ?carrierId)) AS ?carrierUri )
+            BIND ( iri(concat("http://data2services/model/association/carrier/", md5(concat(?drugId, ?carrierId)))) AS ?carrierAssociationUri )
+            BIND ( iri(concat("http://data2services/vocab/action/", ?carrierAction)) AS ?carrierActionUri )
+
+            BIND ( iri(concat("http://identifiers.org/pubmed/", ?carrierArticlePubmedId)) AS ?carrierArticleUri ) .
+
+            VALUES (?carrierAction ?carrierActionPropertyUri) {
+                ( "inhibitor" bioentity:decreases_transport_of )
+                ( "antagonist" bioentity:decreases_transport_of )
+                ( "agonist" bioentity:increases_transport_of )
+                ( "activator" bioentity:increases_transport_of )
+                (UNDEF bioentity:affects_transport_of)
+            }
+        }
+    }
+}

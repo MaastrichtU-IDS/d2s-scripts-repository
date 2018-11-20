@@ -1,0 +1,271 @@
+BASE <http://rdf.ebi.ac.uk/chembl/>
+PREFIX : <http://rdf.ebi.ac.uk/chembl/>
+PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX cito: <http://purl.org/spar/cito/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX freq: <http://purl.org/cld/freq/>
+PREFIX idot: <http://identifiers.org/idot/>
+PREFIX lexvo: <http://lexvo.org/ontology#>
+PREFIX pav: <http://purl.org/pav/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schemaorg: <http://schema.org/>
+PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX void: <http://rdfs.org/ns/void/>
+PREFIX void-ext: <http://ldf.fi/void-ext#>
+
+
+PREFIX bl: <http://bioentity.io/vocab/>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX hcls: <http://www.w3.org/hcls#>
+PREFIX d2sdata: <http://data2services/data/>
+
+
+# Complete example at https://www.w3.org/TR/hcls-dataset/#appendix_1
+
+INSERT {
+    GRAPH <http://data2services/metadata/datasets>
+    {
+
+        ?rdfCreatorUri a dct:Agent ;
+            foaf:name ?rdfCreatorName ;
+            foaf:page ?rdfCreatorPage ;
+        .
+
+        ### Version Level (Complete)
+        ?versionUri
+            rdf:type dctypes:Dataset;
+            dct:title ?versionTitle ; # Must
+            dct:description ?description ; # Must sum
+
+            pav:version ?version ; # Must
+            dct:isVersionOf ?summaryUri ; # Must
+            idot:preferredPrefix ?datasetPrefix ; # May sum
+
+            dcat:distribution ?distributionSourceUri, ?distributionRdfUri ; # Should. Must for us
+            dcat:accessURL ?accessURL ; # May sum
+
+            dct:license ?license ; # Must sum
+            dct:language ?language ; # Should
+
+            #dct:created "2013-08"^^xsd:gYearMonth; # Should
+            dct:creator ?publisherUri ; # Must
+            dct:issued ?dateIssued ; # Should
+            dct:publisher ?publisherUri ; # Must sum
+
+
+            ### Additional dates and actors
+            #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+            #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+            #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+            #dct:contributor ?contributorUri ; # May
+            #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+            #pav:authoredBy ?contributorUri ; # May
+            #pav:curatedBy ?contributorUri ; # May
+
+            #dct:alternative "ChEMBLdb"@en ; # May
+            #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+            #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+
+            #dct:rights "rights"@en ; # May sum
+
+            #dcat:theme ncit:C48807 ; #chemical May sum
+            #dcat:keyword "assay"^^xsd:string, "chemical"^^xsd:string ; # May sum
+            #dct:conformsTo <http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> ; # May
+            #dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ; # May sum
+            #rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ; # May sum
+            #cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ; # May sum
+            #dct:hasPart :chembl17_rdf_molecule_dataset, :chembl17_rdf_target_dataset ; # May sum
+            
+            ### Identifiers
+            #idot:alternatePrefix "chembldb" ; # May sum
+            
+            ### Provenance and Change
+            #pav:previousVersion :chembl16 ; # Should. TODO: automatically get it from the graph
+            #dct:source :pubchem-bioassay-09-01-2014 ; # Should. TODO:
+            
+            ### Availability/Distributions
+            #dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_release_notes.txt> ; # May
+        .
+
+
+        ### Distribution (non-RDF) description (Complete)
+        ?distributionSourceUri
+            a dctypes:Dataset, dcat:Distribution ;
+            dct:title ?sourceDistributionTitle ; # Must
+            dct:description ?description ;  # Must from sum
+            pav:version ?version ; # Should from version
+            dct:license ?license ; # Must from sum. But let the possibility to redefine it for a dataset
+            dct:conformsTo ?conformsTo ; # Should
+
+            dct:issued ?dateIssued ; # Should
+            dct:publisher ?publisherUri ; # Must from sum
+            #dct:created "2013-08"^^xsd:gYearMonth; # Should
+            dct:creator ?publisherUri ; # Must
+
+            dct:language ?language ; # Should from version
+
+            dct:format ?sourceFormat ; # Must
+            dcat:downloadURL ?sourceDownloadURL ; # Should
+
+
+            ### Additional dates and actors
+            #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+            #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+            #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+            #dct:contributor ?contributorUri ; # May
+            #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+            #pav:authoredBy ?contributorUri ; # May
+            #pav:curatedBy ?contributorUri ; # May
+
+            #dct:alternative "ChEMBLdb17db"@en ; # May
+            #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+            #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+            #dct:rights "rights" ; # May sum
+
+            #dcat:theme ncit:C48807 ; #chemical May sum
+            #dcat:keyword "assay"^^xsd:string, "chemical"^^xsd:string ; # May sum
+            #dct:references <http://dx.doi.org/10.1093/bioinformatics/btt765> ; # May sum
+            #rdfs:seeAlso <http://en.wikipedia.org/wiki/ChEMBL> ; # May sum
+            #cito:citesAsAuthority <http://nar.oxfordjournals.org/content/40/D1/D1100> ; # May sum
+
+            ### Identifiers
+            #idot:preferredPrefix ?datasetPrefix ; # May sum
+            #idot:alternatePrefix "chembldb" ; # May sum
+            #idot:identifierPattern "CHEMBL\\d+"^^xsd:string ; # May
+            #idot:accessPattern "http://bio2rdf.org/chembl" ; # May
+            #idot:exampleIdentifier "CHEMBL25"^^xsd:string ; # Should
+            ###void:exampleResource does not make sense for a non-RDF resource
+            
+            ### Provenance and Change
+            #pav:previousVersion :chembl16db ; # TODO: Should version (but not same value)
+            #dct:source :pubchem-bioassay-09-01-2014 ; # Should version 
+            #pav:createdWith <http://example.com/madeUp/editor> ; # Should
+            
+            ### Availability/Distributions
+            #dcat:accessURL <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/> ; # May version (not the graph for this distribution)
+            #dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_release_notes.txt> ; # May version
+            #dcat:byteSize "861443887"^^xsd:decimal ; # Should
+        .
+
+        ### RDF Distribution description (Complete)
+        ?distributionRdfUri
+            a dctypes:Dataset, dcat:Distribution, void:Dataset ;
+            pav:version ?version ; # Should
+            dct:title ?rdfDistributionTitle ; # Must
+            dct:description ?rdfDistributionDescription ; # Must from sum
+            dct:license ?license ; # Must sum
+            dct:conformsTo ?conformsTo ; # Should
+
+            dct:language ?language ; # Should from version
+            void:vocabulary ?vocabulary ; # Should
+
+            dct:publisher ?publisherUri ; # Must
+            dct:issued ?dateIssued ; # Should
+            dct:creator ?rdfCreatorUri ; # Must
+            #dct:created "2013-08"^^xsd:gYearMonth; # Should
+
+            idot:preferredPrefix ?datasetPrefix ; # May sum
+            idot:exampleIdentifier ?exampleIdentifier ; # Should.
+            void:exampleResource ?exampleResource ; # Should.
+
+            dct:format ?rdfFormat ; # Must
+            dcat:accessURL ?accessURL ; # May
+            dcat:downloadURL ?rdfDownloadURL ; # Should
+            void:dataDump ?rdfDatadump ; # Should
+
+
+            ### Additional dates and actors
+            #pav:createdOn "2013-08"^^xsd:gYearMonth; # May
+            #pav:authoredOn "2013-07"^^xsd:gYearMonth; # May
+            #pav:curatedOn "2013-07"^^xsd:gYearMonth; # May
+            #dct:contributor ?contributorUri ; # May
+            #pav:createdBy <http://orcid.org/0000-0002-8011-0300> ; # May
+            #pav:authoredBy ?contributorUri ; # May
+            #pav:curatedBy ?contributorUri ; # May
+
+            #dct:alternative "ChEMBLdb"@en ; # May
+            #foaf:page <http://www.ebi.ac.uk/chembl/> ; # Should sum
+            #schemaorg:logo <http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif> ; # Should sum
+
+            #dct:rights "rights" ; # May sum
+            #void:subset :chembl17_rdf_molecule_dataset, :chembl17_rdf_target_dataset ; # Should
+
+            ### Identifiers
+            #idot:alternatePrefix "chembldb" ; # May sum
+            #idot:identifierPattern "CHEMBL\\d+"^^xsd:string ; # May
+            #void:uriRegexPattern "http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL\\d+" ; # May
+            #idot:accessPattern "http://bio2rdf.org/chembl" ; # May (see describe_dataset_complete.rq to get how to construct this object)
+            
+            ### Provenance and Change
+            #Only one data item given for the purpose of the example, all resources should be listed
+            #sio:has-data-item <http://rdf.ebi.ac.uk/resource/chembl/compound/CHEMBL25> ; # May
+            #pav:previousVersion :chembl16rdf ; # Should TODO: get it automatically
+            #dct:source :pubchem-bioassay-09-01-2014 ; # Should
+            #pav:createdWith :chembl-sql2rdf-exporter-v1 ; # Should data2services framework
+            
+            ### Availability/Distributions
+            #dcat:landingPage <ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBL-RDF/17.0/chembl_17/chembl_17_release_notes.txt> ; # May version
+            #void:subset ?linksetUri ; # Should
+    }      
+}
+WHERE 
+{ 
+    GRAPH <http://data2services/metadata/datasets> {
+        BIND(<http://identifiers.org/drugbank/> AS ?summaryUri) # user input
+        # Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
+        
+        BIND("1"^^xsd:string AS ?version) # Increment it from the latest version? Or user input
+        BIND(iri(concat(str(?summaryUri), "version/", str(?version))) AS ?versionUri)
+        BIND(iri(concat(str(?summaryUri), "distribution/source/", str(?version))) AS ?distributionSourceUri)
+        BIND(iri(concat(str(?summaryUri), "distribution/rdf/", str(?version))) AS ?distributionRdfUri)
+
+        ?summaryUri dct:title ?title ;
+            dct:description ?description ;
+            dct:publisher ?publisherUri ;
+            idot:preferredPrefix ?datasetPrefix ;
+            dcat:accessURL ?accessURL ;
+            dct:license ?license .
+
+
+        BIND(<http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> AS ?conformsTo) # constant
+
+        BIND("2013-08-29"^^xsd:date AS ?dateIssued) # user input or generated?
+
+        BIND(<http://lexvo.org/id/iso639-3/eng> AS ?language) # user input
+
+        # Version
+        BIND(concat(str(?title), " Version ", str(?version)) AS ?versionTitle) # user input, automate it?
+
+        # Source distribution
+        BIND(concat(?versionTitle, " Database Distribution") AS ?sourceDistributionTitle)
+        BIND("application/xml" AS ?sourceFormat)
+        BIND(<https://www.drugbank.ca/releases/5-1-1/downloads/all-full-database> AS ?sourceDownloadURL) # user input
+        # TODO: format
+
+        # RDF distribution
+        BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
+        BIND(concat("Converted to BioLink RDF using data2services framework. ", ?description) AS ?rdfDistributionDescription)
+        BIND(<http://bioentity.io/vocab/> AS ?vocabulary) # user input
+        BIND(<http://graphdb.dumontierlab.com/graphs> AS ?rdfDownloadURL) # user input
+        BIND(<http://graphdb.dumontierlab.com/graphs> AS ?rdfDatadump) # user input
+        BIND("Institute of Data Science at Maastricht University" AS ?rdfCreatorName) # user input
+        BIND(<https://www.maastrichtuniversity.nl/research/institute-data-science> AS ?rdfCreatorPage) # user input
+        BIND(iri(concat("http://data2services/agent/", md5(?rdfCreatorName))) AS ?rdfCreatorUri)
+        # When multiple values for a predicate
+        VALUES (?rdfFormat) { ( <http://www.w3.org/ns/formats/Turtle> ) ( "application/n-quads" ) ( "application/rdf+xml" ) ( "application/n3" ) ( "application/ld+json" ) ( "text/turtle" ) }
+
+        # TODO: Automate those
+        BIND("DB00003"^^xsd:string AS ?exampleIdentifier) # user input. TODO: automate those.
+        BIND(<http://identifiers.org/drugbank/DB00003> AS ?exampleResource) # user input. TODO: automate those.
+
+    }
+}
+

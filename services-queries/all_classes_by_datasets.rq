@@ -1,0 +1,21 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select *
+where{
+    {
+        select ?g ?class (count(?class) as ?count)  
+        where {
+            graph ?g {
+                [] a ?class .
+            }
+        }
+        group by ?g ?class
+        order by desc(?count)
+    }
+    filter( strstarts(str(?class), "http://bioentity.io/vocab/") ) .
+    bind ( strafter(str(?class), "http://bioentity.io/vocab/") as ?className ).
+    
+    optional {
+        ?class rdfs:label ?label .
+    }
+}

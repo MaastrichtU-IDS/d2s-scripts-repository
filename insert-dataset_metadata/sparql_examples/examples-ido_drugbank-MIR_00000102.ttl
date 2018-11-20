@@ -1,0 +1,50 @@
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix idot:    <http://identifiers.org/terms#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix void:    <http://rdfs.org/ns/void#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+
+<http://identifiers.org/miriam.resource/MIR:00100691>
+      idot:reliability "74"^^<http://www.w3.org/2001/XMLSchema#decimal> ;
+      idot:state "down"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcterms:title "Bio2RDF"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      <http://www.w3.org/2001/vcard-rdf/3.0#Orgname>
+              "Bio2RDF.org"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:landingPage <http://drugbank.bio2rdf.org/fct/> .
+
+<http://identifiers.org/miriam.resource/MIR:00100133#application/xhtml+xml>
+      a       dcat:Distribution ;
+      dcat:accessURL <http://www.drugbank.ca/drugs/$id> ;
+      dcat:mediaType "application/xhtml+xml"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:publisher <http://identifiers.org/miriam.resource/MIR:00100133> .
+
+<http://identifiers.org/miriam.resource/MIR:00100691#application/xhtml+xml>
+      a       dcat:Distribution ;
+      dcat:accessURL <http://drugbank.bio2rdf.org/describe/?url=http%3A%2F%2Fbio2rdf.org%2Fdrugbank%3A$id> ;
+      dcat:mediaType "application/xhtml+xml"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:publisher <http://identifiers.org/miriam.resource/MIR:00100691> .
+
+<http://identifiers.org/miriam.resource/MIR:00100133>
+      idot:reliability "99"^^<http://www.w3.org/2001/XMLSchema#decimal> ;
+      idot:state "up"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcterms:title "DrugBank drug information"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      <http://www.w3.org/2001/vcard-rdf/3.0#Country>
+              "Canada"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      <http://www.w3.org/2001/vcard-rdf/3.0#Orgname>
+              "Departments of Computing Science & Biological Sciences,  University of Alberta"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:landingPage <http://www.drugbank.ca/> .
+
+<http://www.ebi.ac.uk/miriam/main/collections/MIR:00000102>
+      a       dcat:CatalogRecord ;
+      idot:idRegexPattern "^DB\\d{5}$"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      idot:namespace "drugbank"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      void:exampleResource
+              "DB00001"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      void:uriSpace <http://identifiers.org/drugbank/> ;
+      dcat:description "The DrugBank database is a bioinformatics and chemoinformatics resource that combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information. This collection references drug information."^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:distribution <http://identifiers.org/miriam.resource/MIR:00100133#application/xhtml+xml> , <http://identifiers.org/miriam.resource/MIR:00100691#application/xhtml+xml> ;
+      dcat:identifier "MIR:00000102"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:issued "2010-01-14T10:26:17+00:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+      dcat:keyword "protein"^^<http://www.w3.org/2001/XMLSchema#string> , "drug"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      dcat:modified "2015-06-24T11:14:05+01:00"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+      dcat:title "DrugBank"^^<http://www.w3.org/2001/XMLSchema#string> .
