@@ -2,6 +2,26 @@ http://docs.rdf4j.org/programming/#_accessing_a_sparql_endpoint_2
 
 http://docs.rdf4j.org/programming/#_evaluating_a_graph_query
 
+# insert-data2services
+
+## Build
+
+Uses https://github.com/vemonet/sparql-dataformer/
+
+```shell
+# Build sparql-dataformer using git and docker
+git clone https://github.com/vemonet/sparql-dataformer.git
+docker build -t sparql-dataformer sparql-dataformer/
+```
+
+## Run
+
+Transform datasets to BioLink (e.g.: Drugbank or HGNC)
+
+```shell
+./data2services-transform-biolink.sh graphdb_login graphdb_password
+```
+
 
 
 ## ShEx validation
