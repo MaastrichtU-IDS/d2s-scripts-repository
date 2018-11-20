@@ -8,7 +8,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX void: <http://rdfs.org/ns/void/>
 
-SELECT ?source ?graph #?classCount
+# Add ?classCount
+SELECT ?source ?graph 
 WHERE {
     GRAPH <http://data2services/metadata/datasets>
     {
