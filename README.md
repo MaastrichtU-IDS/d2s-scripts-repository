@@ -6,12 +6,12 @@ http://docs.rdf4j.org/programming/#_evaluating_a_graph_query
 
 ## Build
 
-Uses https://github.com/vemonet/sparql-dataformer/
+Uses https://github.com/vemonet/sparql-rdf4j-operations
 
 ```shell
 # Build sparql-dataformer using git and docker
-git clone https://github.com/vemonet/sparql-dataformer.git
-docker build -t sparql-dataformer sparql-dataformer/
+git clone https://github.com/vemonet/sparql-rdf4j-operations.git
+docker build -t sparql-dataformer sparql-rdf4j-operations/
 ```
 
 ## Run
