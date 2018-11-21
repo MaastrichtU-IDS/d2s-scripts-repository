@@ -1,0 +1,33 @@
+
+@prefix biolink: <http://bioentity.io/vocab/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix meta: <http://bioentity.io/meta/> .
+@prefix ns1: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] biolink:entities ( [ a ( "gene with gene product" "protein-coding gene" ) ;
+                rdfs:label "ribosomal protein S15" ;
+                biolink:filler <http://data2services/model/status/Approved>,
+                    <https://data2services/model/gene-family/RPS> ;
+                biolink:id HGNC:10388 ;
+                biolink:publications ( PUBMED:159154 ) ;
+                biolink:systematic_synonym "RPS15" ;
+                biolink:update_date "2014-11-19"^^xsd:date ;
+                ns1:RO_0001025 CCDS:CCDS12067 ;
+                ns1:RO_0002205 UniProtKB:P62841 ;
+                owl:equivalentClass ENSEMBL:ENSG00000115268,
+                    MIM:180535,
+                    NCBIGENE:6209 ] ) ;
+    biolink:id HGNC: ;
+    biolink:kg_source "Sample derived from biolink-hgnc.jsonld" ;
+    biolink:relationship_types ( [ biolink:id <file:///Users/hsolbri1/git/biolink/biolink-model/notebooks/N001b43ad7210481fb8222a83d040cd1d> ;
+                rdf:object MGI:1925179 ;
+                rdf:predicate biolink:homologous_to ;
+                rdf:subject HGNC:28304 ] [ biolink:id <file:///Users/hsolbri1/git/biolink/biolink-model/notebooks/Na6e2e15fdf4c48da9215197f5be4bb03> ;
+                rdf:object HGNC:10388 ;
+                rdf:predicate biolink:expresses ;
+                rdf:subject NUCC:NM_001018 ] ) .
