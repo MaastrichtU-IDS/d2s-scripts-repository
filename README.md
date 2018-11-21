@@ -28,7 +28,16 @@ docker run -it --rm -v "/path/to/insert-dataset_metadata/describe_statistics-dru
 
 
 
-## ShEx validation
+## RDF validation
+
+### Simple validation with rapper
+
+Quick validation of turtle RDF file using rapper on Unix 
+
+```shell
+sudo apt install raptor2-utils
+rapper -i turtle 181107-biolink-drugbank-reified-associations.ttl
+```
 
 ### PyShEx
 
@@ -76,16 +85,6 @@ kgx validate /home/vemonet/sandbox/data-constructor/resources/biogrid_test.ttl
 
 
 
-### OBO used in biogrid
-
-* predicates
-  * OBO:RO_0002558: hasEvidence
-
-* objects
-  * OBO:ECO_0000068: 
-
-
-
 ## Valid BioLink
 
 - Valid prefix for CURIE
@@ -100,27 +99,7 @@ Required for nodes: id, name, category
 
 
 
-# RML
-
-* Build
-
-```shell
-mvn clean package -DskipTests
-```
-
-* Run
-
-```shell
-# HGNC
-java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.1.0-r55-jar-with-dependencies.jar -c /data/drugbank/drugbank_config.properties
-
-# DrugBank. Java heap space outOfMemory error (for 900M)
-java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.0.0-r50-jar-with-dependencies.jar -c /home/vemonet/sandbox/rml_vs_sparql/rml/drugbank_config.properties
-```
-
-
-
-# SPARQL
+# Use SPARQL for conversion
 
 Generating 2 types of generic SPARQL:
 
@@ -174,6 +153,26 @@ The programs that do the generic RDF transformation should generate a file forma
 
 
 
+
+# Use RML for conversion
+
+Not used because of scalability issues. Everything is loaded in memory (at the root, they load all models in memory) https://github.com/RMLio/rmlmapper-java
+
+- Build
+
+```shell
+mvn clean package -DskipTests
+```
+
+- Run
+
+```shell
+# HGNC
+java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.1.0-r55-jar-with-dependencies.jar -c /data/drugbank/drugbank_config.properties
+
+# DrugBank. Java heap space outOfMemory error (for 900M)
+java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.0.0-r50-jar-with-dependencies.jar -c /home/vemonet/sandbox/rml_vs_sparql/rml/drugbank_config.properties
+```
 
 
 
