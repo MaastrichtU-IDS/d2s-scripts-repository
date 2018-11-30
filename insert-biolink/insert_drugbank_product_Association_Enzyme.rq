@@ -7,36 +7,36 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX bioentity: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT { 
     GRAPH <http://data2services/biolink/drugbank> {   
 
         ### Represent enzyme (Drug to protein or DNA) ChemicalToGeneAssociation
-        #Should we use: ?drugUri bioentity:interacts_with ?enzymeUri .
-        ?enzymeAssociationUri a bioentity:ChemicalToGeneAssociation ;
-            bioentity:relation ?enzymeActionPropertyUri ;
-            bioentity:subject ?drugUri ;
-            bioentity:object ?enzymeUri ;
-            bioentity:publications ?enzymeArticleUri ;
-            bioentity:qualifiers ?enzymeActionUri ;
-            bioentity:affects ?enzymeOrganism .
+        #Should we use: ?drugUri bl:interacts_with ?enzymeUri .
+        ?enzymeAssociationUri a bl:ChemicalToGeneAssociation ;
+            bl:relation ?enzymeActionPropertyUri ;
+            bl:subject ?drugUri ;
+            bl:object ?enzymeUri ;
+            bl:publications ?enzymeArticleUri ;
+            bl:qualifiers ?enzymeActionUri ;
+            bl:affects ?enzymeOrganism .
 
 
         # Direct link
         #?drugUri ?enzymeActionPropertyUri ?enzymeUri .
 
-        ?enzymeActionUri a bioentity:Attribute ;
-            bioentity:name ?enzymeAction .
+        ?enzymeActionUri a bl:Attribute ;
+            bl:name ?enzymeAction .
 
-        ?enzymeUri a bioentity:GeneOrGeneProduct ;
-            bioentity:name ?enzymeName ;
-            bioentity:id ?enzymeId .
+        ?enzymeUri a bl:GeneOrGeneProduct ;
+            bl:name ?enzymeName ;
+            bl:id ?enzymeId .
 
         # Publications
-        ?enzymeArticleUri a bioentity:Publication ;
-            bioentity:id ?enzymeArticlePubmedId ;
-            bioentity:name ?enzymeArticleCitation ;
-            bioentity:relates_to ?enzymeUri . 
+        ?enzymeArticleUri a bl:Publication ;
+            bl:id ?enzymeArticlePubmedId ;
+            bl:name ?enzymeArticleCitation ;
+            bl:relates_to ?enzymeUri . 
 
     }
 }
@@ -108,11 +108,11 @@ WHERE {
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?enzymeArticlePubmedId)) AS ?enzymeArticleUri ) .
 
             VALUES (?enzymeAction ?enzymeActionPropertyUri) {
-                ( "inhibitor" bioentity:decreases_activity_of )
-                ( "antagonist" bioentity:decreases_activity_of )
-                ( "agonist" bioentity:increases_activity_of )
-                ( "activator" bioentity:increases_activity_of )
-                (UNDEF bioentity:affects)
+                ( "inhibitor" bl:decreases_activity_of )
+                ( "antagonist" bl:decreases_activity_of )
+                ( "agonist" bl:increases_activity_of )
+                ( "activator" bl:increases_activity_of )
+                (UNDEF bl:affects)
             }
         }
     }

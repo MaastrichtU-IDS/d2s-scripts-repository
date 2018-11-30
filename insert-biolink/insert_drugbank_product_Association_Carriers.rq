@@ -7,35 +7,35 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX bioentity: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT { 
     GRAPH <http://data2services/biolink/drugbank> {   
 
         ### Represent carrier (Drug to protein or DNA) ChemicalToGeneAssociation
-        #Should we use: ?drugUri bioentity:interacts_with ?carrierUri .
-        ?carrierAssociationUri a bioentity:ChemicalToGeneAssociation ;
-            bioentity:relation ?carrierActionPropertyUri ;
-            bioentity:subject ?drugUri ;
-            bioentity:object ?carrierUri ;
-            bioentity:publications ?carrierArticleUri ;
-            bioentity:qualifiers ?carrierActionUri ;
-            bioentity:affects ?carrierOrganism .
+        #Should we use: ?drugUri bl:interacts_with ?carrierUri .
+        ?carrierAssociationUri a bl:ChemicalToGeneAssociation ;
+            bl:relation ?carrierActionPropertyUri ;
+            bl:subject ?drugUri ;
+            bl:object ?carrierUri ;
+            bl:publications ?carrierArticleUri ;
+            bl:qualifiers ?carrierActionUri ;
+            bl:affects ?carrierOrganism .
 
         # Direct link
         #?drugUri ?carrierActionPropertyUri ?carrierUri .
 
-        ?carrierActionUri a bioentity:Attribute ;
-            bioentity:name ?carrierAction .
+        ?carrierActionUri a bl:Attribute ;
+            bl:name ?carrierAction .
 
-        ?carrierUri a bioentity:GeneOrGeneProduct ;
-            bioentity:name ?carrierName ;
-            bioentity:id ?carrierId .
+        ?carrierUri a bl:GeneOrGeneProduct ;
+            bl:name ?carrierName ;
+            bl:id ?carrierId .
 
         # Publications
-        ?carrierArticleUri a bioentity:Publication ;
-            bioentity:id ?carrierArticlePubmedId ;
-            bioentity:name ?carrierArticleCitation ;
-            bioentity:relates_to ?carrierUri . 
+        ?carrierArticleUri a bl:Publication ;
+            bl:id ?carrierArticlePubmedId ;
+            bl:name ?carrierArticleCitation ;
+            bl:relates_to ?carrierUri . 
 
     }
 }
@@ -107,11 +107,11 @@ WHERE {
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?carrierArticlePubmedId)) AS ?carrierArticleUri ) .
 
             VALUES (?carrierAction ?carrierActionPropertyUri) {
-                ( "inhibitor" bioentity:decreases_transport_of )
-                ( "antagonist" bioentity:decreases_transport_of )
-                ( "agonist" bioentity:increases_transport_of )
-                ( "activator" bioentity:increases_transport_of )
-                (UNDEF bioentity:affects_transport_of)
+                ( "inhibitor" bl:decreases_transport_of )
+                ( "antagonist" bl:decreases_transport_of )
+                ( "agonist" bl:increases_transport_of )
+                ( "activator" bl:increases_transport_of )
+                (UNDEF bl:affects_transport_of)
             }
         }
     }

@@ -48,6 +48,11 @@ pip3 install PyShEx
 shexeval -h
 
 shexeval /home/vemonet/Desktop/181107_biolink-drugbank.jsonld /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
+
+# Turtle
+shexeval -f turtle /home/vemonet/Desktop/181121-biolink-drugbank.ttl /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
+# Json-ld
+shexeval -f json-ld /home/vemonet/Desktop/181121-biolink-drugbank.jsonld /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
 ```
 
 ### ShEx Java

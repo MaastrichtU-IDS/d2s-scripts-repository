@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/rdf2xml/model/>
 PREFIX d2s: <http://data2services/vocab/>
-PREFIX bl: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT 
 { 
     GRAPH <http://data2services/biolink/drugbank> {   
