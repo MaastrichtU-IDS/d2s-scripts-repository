@@ -7,28 +7,28 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX bioentity: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT { 
     GRAPH <http://data2services/biolink/drugbank/direct_link> {   
 
         ### Represent transporter (Drug to protein or DNA) ChemicalToGeneAssociation
-        #Should we use: ?drugUri bioentity:interacts_with ?transporterUri .
+        #Should we use: ?drugUri bl:interacts_with ?transporterUri .
 
         # Direct link
         ?drugUri ?transporterActionPropertyUri ?transporterUri .
 
-        ?transporterActionUri a bioentity:Attribute ;
-            bioentity:name ?transporterAction .
+        ?transporterActionUri a bl:Attribute ;
+            bl:name ?transporterAction .
 
-        ?transporterUri a bioentity:GeneOrGeneProduct ;
-            bioentity:name ?transporterName ;
-            bioentity:id ?transporterId .
+        ?transporterUri a bl:GeneOrGeneProduct ;
+            bl:name ?transporterName ;
+            bl:id ?transporterId .
 
         # Publications
-        ?transporterArticleUri a bioentity:Publication ;
-            bioentity:id ?transporterArticlePubmedId ;
-            bioentity:name ?transporterArticleCitation ;
-            bioentity:relates_to ?transporterUri . 
+        ?transporterArticleUri a bl:Publication ;
+            bl:id ?transporterArticlePubmedId ;
+            bl:name ?transporterArticleCitation ;
+            bl:relates_to ?transporterUri . 
 
     }
 }
@@ -100,11 +100,11 @@ WHERE {
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?transporterArticlePubmedId)) AS ?transporterArticleUri ) .
 
             VALUES (?transporterAction ?transporterActionPropertyUri) {
-                ( "inhibitor" bioentity:decreases_transport_of )
-                ( "antagonist" bioentity:decreases_transport_of )
-                ( "agonist" bioentity:increases_transport_of )
-                ( "activator" bioentity:increases_transport_of )
-                (UNDEF bioentity:affects_transport_of)
+                ( "inhibitor" bl:decreases_transport_of )
+                ( "antagonist" bl:decreases_transport_of )
+                ( "agonist" bl:increases_transport_of )
+                ( "activator" bl:increases_transport_of )
+                (UNDEF bl:affects_transport_of)
             }
 
         }

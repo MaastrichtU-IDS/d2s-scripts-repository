@@ -7,28 +7,28 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX bioentity: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT { 
     GRAPH <http://data2services/biolink/drugbank/direct_link> {   
 
         ### Represent target (Drug to protein or DNA) ChemicalToGeneAssociation
-        #Should we use: ?drugUri bioentity:interacts_with ?targetUri .
+        #Should we use: ?drugUri bl:interacts_with ?targetUri .
 
         # Direct link
         ?drugUri ?targetActionPropertyUri ?targetUri .
 
-        ?targetActionUri a bioentity:Attribute ;
-            bioentity:name ?targetAction .
+        ?targetActionUri a bl:Attribute ;
+            bl:name ?targetAction .
 
-        ?targetUri a bioentity:GeneOrGeneProduct ;
-            bioentity:name ?targetName ;
-            bioentity:id ?targetId .
+        ?targetUri a bl:GeneOrGeneProduct ;
+            bl:name ?targetName ;
+            bl:id ?targetId .
 
         # Publications
-        ?targetArticleUri a bioentity:Publication ;
-            bioentity:id ?targetArticlePubmedId ;
-            bioentity:name ?targetArticleCitation ;
-            bioentity:relates_to ?targetUri . 
+        ?targetArticleUri a bl:Publication ;
+            bl:id ?targetArticlePubmedId ;
+            bl:name ?targetArticleCitation ;
+            bl:relates_to ?targetUri . 
 
     }
 }
@@ -100,11 +100,11 @@ WHERE {
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?targetArticlePubmedId)) AS ?targetArticleUri ) .
 
             VALUES (?targetAction ?targetActionPropertyUri) {
-                ( "inhibitor" bioentity:decreases_activity_of )
-                ( "antagonist" bioentity:decreases_activity_of )
-                ( "agonist" bioentity:increases_activity_of )
-                ( "activator" bioentity:increases_activity_of )
-                (UNDEF bioentity:affects)
+                ( "inhibitor" bl:decreases_activity_of )
+                ( "antagonist" bl:decreases_activity_of )
+                ( "agonist" bl:increases_activity_of )
+                ( "activator" bl:increases_activity_of )
+                (UNDEF bl:affects)
             }
         }
     }
