@@ -1,4 +1,4 @@
-PREFIX kraken: <http://data2services/data/hgnc/hgnc_complete_set.tsv/>
+PREFIX d2shgnc: <http://data2services/data/hgnc/hgnc_complete_set.tsv/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -111,67 +111,67 @@ INSERT
 WHERE {
   SERVICE <http://localhost:7200/repositories/test>  {
     GRAPH <http://data2services/graph/autor2rml> {
-      ?s kraken:Hgnc_id ?Hgnc_id .
+      ?s d2shgnc:Hgnc_id ?Hgnc_id .
        OPTIONAL { 
-         ?s kraken:Name ?Name .
+         ?s d2shgnc:Name ?Name .
        
        } OPTIONAL {
-         ?s kraken:Symbol ?Symbol .
+         ?s d2shgnc:Symbol ?Symbol .
        
        } OPTIONAL { 
-         ?s kraken:Status ?Status .
+         ?s d2shgnc:Status ?Status .
          BIND ( iri(concat("http://data2services/model/status/", REPLACE(?Status, " ", "", "i")) ) AS ?StatusUri )
        
        } OPTIONAL { 
-         ?s kraken:Locus_type ?Locus_type .
+         ?s d2shgnc:Locus_type ?Locus_type .
        
        } OPTIONAL { 
-         ?s kraken:Locus_group ?Locus_group .
+         ?s d2shgnc:Locus_group ?Locus_group .
        
        } OPTIONAL {
-         ?s kraken:Alias_symbol ?Alias_symbol . # array
+         ?s d2shgnc:Alias_symbol ?Alias_symbol . # array
          BIND( if( contains(?Alias_symbol, "|"),
               strbefore(?Alias_symbol, "|") ,
               ?Alias_symbol )
          AS ?singleAlias_symbol )
        
        } OPTIONAL {
-         ?s kraken:Alias_name ?Alias_name . # array
+         ?s d2shgnc:Alias_name ?Alias_name . # array
          BIND( if( contains(?Alias_name, "|"),
               strbefore(?Alias_name, "|") ,
               ?Alias_name )
          AS ?singleAlias_name )
 
        } OPTIONAL {
-         ?s kraken:Prev_symbol ?Prev_symbol . # array
+         ?s d2shgnc:Prev_symbol ?Prev_symbol . # array
          BIND( if( contains(?Prev_symbol, "|"),
               strbefore(?Prev_symbol, "|") ,
               ?Prev_symbol )
          AS ?singlePrev_symbol )
        
        } OPTIONAL {
-         ?s kraken:Prev_name ?Prev_name . # array
+         ?s d2shgnc:Prev_name ?Prev_name . # array
 
        } OPTIONAL {
-         ?s kraken:Gene_family ?Gene_family . # array
+         ?s d2shgnc:Gene_family ?Gene_family . # array
          BIND( if( contains(?Gene_family, "|"),
               iri(concat("https://data2services/model/gene-family/", md5(strbefore(?Gene_family, "|")) ) ) ,
               iri(concat("https://data2services/model/gene-family/", md5(?Gene_family) ) ) ) 
          AS ?GeneFamilyUri ) # TODO: not good for URI
 
        } OPTIONAL {
-         ?s kraken:Gene_family_id ?Gene_family_id . # array
+         ?s d2shgnc:Gene_family_id ?Gene_family_id . # array
          # TODO: Generate URI fropm this one instead of using md5?!
        
        } OPTIONAL {
-         ?s kraken:Synonyms ?Synonyms .
+         ?s d2shgnc:Synonyms ?Synonyms .
        
        } OPTIONAL {
-         ?s kraken:NameSynonyms ?NameSynonyms .
+         ?s d2shgnc:NameSynonyms ?NameSynonyms .
        
        } OPTIONAL {
          # TODO: also do Location_sortable? WHY this if statement???
-         ?s kraken:Location ?Location .
+         ?s d2shgnc:Location ?Location .
          BIND( if( contains(?Location, " "),
               iri("") ,
               iri(concat("http://data2services/model/sequence-localization/", md5(concat(?Hgnc_id, ?Location))))
@@ -191,40 +191,40 @@ WHERE {
          #BIND( iri(concat("http://data2services/model/chromosome/", ?Location) ) AS ?LocationUri )
        
        } OPTIONAL {
-         ?s kraken:Date_approved_reserved ?Date_approved_reserved . # Format: 2009-07-20
+         ?s d2shgnc:Date_approved_reserved ?Date_approved_reserved . # Format: 2009-07-20
 
        } OPTIONAL {
-         ?s kraken:Date_symbol_changed ?Date_symbol_changed . # Format: 2009-07-20
+         ?s d2shgnc:Date_symbol_changed ?Date_symbol_changed . # Format: 2009-07-20
 
        } OPTIONAL {
-         ?s kraken:Date_name_changed ?Date_name_changed . # Format: 2009-07-20
+         ?s d2shgnc:Date_name_changed ?Date_name_changed . # Format: 2009-07-20
 
        } OPTIONAL {
-         ?s kraken:Date_modified ?Date_modified . # Format: 2009-07-20
+         ?s d2shgnc:Date_modified ?Date_modified . # Format: 2009-07-20
        
        } OPTIONAL {
-         ?s kraken:Entrez_id ?Entrez_id .
+         ?s d2shgnc:Entrez_id ?Entrez_id .
          BIND( iri(concat("https://www.ncbi.nlm.nih.gov/gene/", ?Entrez_id) ) AS ?EntrezIdUri )
 
        } OPTIONAL {
-         ?s kraken:Ensembl_gene_id ?Ensembl_gene_id .
+         ?s d2shgnc:Ensembl_gene_id ?Ensembl_gene_id .
          BIND( iri(concat("http://identifiers.org/ensembl/", ?Ensembl_gene_id) ) AS ?EnsemblGeneIdUri )
 
        } OPTIONAL {
-         ?s kraken:Vega_id ?Vega_id .
+         ?s d2shgnc:Vega_id ?Vega_id .
 
        } OPTIONAL {
-         ?s kraken:Ucsc_id ?Ucsc_id .
+         ?s d2shgnc:Ucsc_id ?Ucsc_id .
 
        } OPTIONAL { 
-         ?s kraken:Ena ?Ena .
+         ?s d2shgnc:Ena ?Ena .
          BIND( if( contains(?Ena, "|"),
               strbefore(?Ena, "|") ,
               ?Ena )
          AS ?singleEna )
 
        } OPTIONAL {
-         ?s kraken:Refseq_accession ?Refseq_accession .
+         ?s d2shgnc:Refseq_accession ?Refseq_accession .
          BIND( if( contains(?Refseq_accession, "|"),
               iri(concat("https://www.ncbi.nlm.nih.gov/nuccore/", strbefore(?Refseq_accession, "|") ) ) ,
               iri(concat("https://www.ncbi.nlm.nih.gov/nuccore/", ?Refseq_accession ) ) ) 
@@ -232,7 +232,7 @@ WHERE {
          BIND ( iri(concat("http://data2services/model/association/transcript/", md5(concat(?Hgnc_id, ?Refseq_accession)))) AS ?refseqAssociationUri )
 
        } OPTIONAL {
-         ?s kraken:Ccds_id ?Ccds_id .
+         ?s d2shgnc:Ccds_id ?Ccds_id .
 
          BIND( if( contains(?Ccds_id, "|"),
                 iri(concat("http://identifiers.org/ccds/", strbefore(?Ccds_id, "|") ) ) ,
@@ -240,7 +240,7 @@ WHERE {
          AS ?CcdsIdUri )
 
        } OPTIONAL {
-         ?s kraken:Uniprot_ids ?Uniprot_ids .
+         ?s d2shgnc:Uniprot_ids ?Uniprot_ids .
          # If there is a comma we take only the first iteration.
          # TODO: also take the STRAFTER?
          BIND( if( contains(?Uniprot_ids, "|"),
@@ -250,14 +250,14 @@ WHERE {
 
 
        } OPTIONAL {
-         ?s kraken:Pubmed_id ?Pubmed_id .
+         ?s d2shgnc:Pubmed_id ?Pubmed_id .
          BIND( if( contains(?Pubmed_id, "|"),
               iri(concat("http://identifiers.org/pubmed/", strbefore(?Pubmed_id, "|") ) ) ,
               iri(concat("http://identifiers.org/pubmed/", ?Pubmed_id ) ) ) 
          AS ?PubmedIdUri )
 
        } OPTIONAL {
-         ?s kraken:Mgd_id ?Mgd_id .
+         ?s d2shgnc:Mgd_id ?Mgd_id .
          BIND( if( contains(?Mgd_id, "|"),
               iri(concat("http://identifiers.org/", strbefore(?Mgd_id, "|") ) ) ,
               iri(concat("http://identifiers.org/", ?Mgd_id ) ) ) 
@@ -265,7 +265,7 @@ WHERE {
          BIND ( iri(concat("http://data2services/model/association/homology/", md5(concat(?Hgnc_id, ?Mgd_id)))) AS ?mgiAssociationUri )
 
        } OPTIONAL {
-         ?s kraken:Rgd_id ?Rgd_id .
+         ?s d2shgnc:Rgd_id ?Rgd_id .
          BIND( if( contains(?Rgd_id, "|"),
               iri(concat("http://identifiers.org/", strbefore(?Rgd_id, "|") ) ) ,
               iri(concat("http://identifiers.org/", ?Rgd_id ) ) ) 
@@ -273,7 +273,7 @@ WHERE {
          BIND ( iri(concat("http://data2services/model/association/homology/", md5(concat(?Hgnc_id, ?Rgd_id)))) AS ?rgdAssociationUri )
 
        } OPTIONAL {
-         ?s kraken:Lsdb ?Lsdb .
+         ?s d2shgnc:Lsdb ?Lsdb .
          BIND( if( contains(?Lsdb, "|"),
               iri(concat("http://identifiers.org/", strafter(?Lsdb, "|") ) ) ,
               iri(concat("http://identifiers.org/", ?Lsdb ) ) ) 
@@ -281,10 +281,10 @@ WHERE {
 
        
        } OPTIONAL {
-         ?s kraken:Cosmic ?Cosmic .
+         ?s d2shgnc:Cosmic ?Cosmic .
 
        } OPTIONAL {
-         ?s kraken:Omim_id ?Omim_id .
+         ?s d2shgnc:Omim_id ?Omim_id .
          # TODO: also take the STRAFTER?
          BIND( if( contains(?Omim_id, "|"),
               iri(concat("http://identifiers.org/mim/", strbefore(?Omim_id, "|") ) ) ,
@@ -292,65 +292,65 @@ WHERE {
          AS ?OmimIdUri )
 
        } OPTIONAL {
-         ?s kraken:Mirbase ?Mirbase .
+         ?s d2shgnc:Mirbase ?Mirbase .
          # TODO: identifiers.org/mirbase:MI0000651
          BIND( iri(concat("http://identifiers.org/mirbase/", ?Mirbase ) ) 
          AS ?MirbaseUri )
 
        } OPTIONAL {
-         ?s kraken:Homeodb ?Homeodb .
+         ?s d2shgnc:Homeodb ?Homeodb .
          # TODO: 8553
 
        } OPTIONAL {
-         ?s kraken:Snornabase ?Snornabase .
+         ?s d2shgnc:Snornabase ?Snornabase .
          # Not really interesting DB https://www-snorna.biotoul.fr/plus.php?id=U8 (SR0000002)
 
        } OPTIONAL {
-         ?s kraken:Bioparadigms_slc ?Bioparadigms_slc . # TODO: SLC49A1
+         ?s d2shgnc:Bioparadigms_slc ?Bioparadigms_slc . # TODO: SLC49A1
        
        } OPTIONAL {
-         ?s kraken:Orphanet ?Orphanet . # TODO: 246647
+         ?s d2shgnc:Orphanet ?Orphanet . # TODO: 246647
 
        } OPTIONAL {
-         ?s kraken:PseudogeneOrg ?PseudogeneOrg . # TODO: PGOHUM00000291221
+         ?s d2shgnc:PseudogeneOrg ?PseudogeneOrg . # TODO: PGOHUM00000291221
 
        } OPTIONAL {
-         ?s kraken:Horde_id ?Horde_id . # TODO: OR1A1
+         ?s d2shgnc:Horde_id ?Horde_id . # TODO: OR1A1
 
        } OPTIONAL {
-         ?s kraken:Merops ?Merops . # TODO: I43.950
+         ?s d2shgnc:Merops ?Merops . # TODO: I43.950
 
        } OPTIONAL {
-         ?s kraken:Imgt ?Imgt . # TODO: IGHA2
+         ?s d2shgnc:Imgt ?Imgt . # TODO: IGHA2
 
        } OPTIONAL {
-         ?s kraken:Iuphar ?Iuphar . # TODO: objectId:763
+         ?s d2shgnc:Iuphar ?Iuphar . # TODO: objectId:763
 
        } OPTIONAL {
-         ?s kraken:Kznf_gene_catalog ?Kznf_gene_catalog . # TODO: 1226
+         ?s d2shgnc:Kznf_gene_catalog ?Kznf_gene_catalog . # TODO: 1226
 
        } OPTIONAL {
-         ?s kraken:MamitTrnadb ?MamitTrnadb . # TODO: 13
+         ?s d2shgnc:MamitTrnadb ?MamitTrnadb . # TODO: 13
 
        } OPTIONAL {
-         ?s kraken:Cd ?Cd . # TODO: CD243
+         ?s d2shgnc:Cd ?Cd . # TODO: CD243
 
 
        } OPTIONAL {
-         ?s kraken:Lncrnadb ?Lncrnadb . # TODO: AFAP1AS
+         ?s d2shgnc:Lncrnadb ?Lncrnadb . # TODO: AFAP1AS
 
        } OPTIONAL {
-         ?s kraken:Enzyme_id ?Enzyme_id . # array TODO: 6.2.1.16
+         ?s d2shgnc:Enzyme_id ?Enzyme_id . # array TODO: 6.2.1.16
          BIND( if( contains(?Enzyme_id, "|"),
               iri(concat("http://identifiers.org/ec-code/", strbefore(?Enzyme_id, "|") ) ) ,
               iri(concat("http://identifiers.org/ec-code/", ?Enzyme_id ) ) ) 
          AS ?EnzymeIdsUri )
 
        } OPTIONAL {
-         ?s kraken:Intermediate_filament_db ?Intermediate_filament_db . # TODO: HGNC:1040
+         ?s d2shgnc:Intermediate_filament_db ?Intermediate_filament_db . # TODO: HGNC:1040
 
        } OPTIONAL {
-         ?s kraken:Rna_central_ids ?Rna_central_ids . # TODO: URS00007E4F6E
+         ?s d2shgnc:Rna_central_ids ?Rna_central_ids . # TODO: URS00007E4F6E
          BIND( iri(concat("https://rnacentral.org/rna/", ?Rna_central_ids) ) AS ?RnaCentralIdsUri )
        }
 
