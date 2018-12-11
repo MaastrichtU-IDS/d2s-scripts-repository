@@ -9,7 +9,7 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT { 
-    GRAPH <http://data2services/biolink/drugbank/direct_link> {   
+    GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link> {   
 
         ?carrierUri a bl:GeneOrGeneProduct ;
             bl:same_as ?polypeptideAttrUri ;
@@ -45,7 +45,7 @@ INSERT {
 }
 WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
-        GRAPH <http://kraken/graph/xml2rdf> {
+        GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
 
             # Iterate directly on carriers
             ?carrierObj a x2rm:drugbank\/drug\/carriers\/carrier ;

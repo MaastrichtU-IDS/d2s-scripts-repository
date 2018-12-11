@@ -10,7 +10,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT 
 { 
-    GRAPH <http://data2services/biolink/drugbank/direct_link> {  
+    GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link> {  
         ?drugUri a bl:Drug ;
             bl:name ?drugName ;
             bl:id ?drugId ;
@@ -39,7 +39,7 @@ INSERT
 }
 WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
-        GRAPH <http://kraken/graph/xml2rdf> {
+        GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
         
             # Get drug primary ID
             ?drugObj a x2rm:drugbank\/drug ;
