@@ -50,7 +50,7 @@ WHERE {
 
             BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/smpdb/", ?drugPathwaySmpdbId) ) AS ?drugPathwayUri )
-            BIND ( iri(concat("http://data2services/model/association/pathway/", md5(concat(?drugId, ?drugPathwaySmpdbId)))) AS ?drugPathwayAssociationUri )
+            BIND ( iri(concat("http://data2services/data/association/pathway/", md5(concat(?drugId, ?drugPathwaySmpdbId)))) AS ?drugPathwayAssociationUri )
         }
     }
 }

@@ -106,13 +106,13 @@ WHERE {
                     ]
                 ]
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?targetId)) AS ?targetUri )
+            BIND ( iri(concat("http://data2services/data/drugbank/", ?targetId)) AS ?targetUri )
             BIND ( iri(concat("http://identifiers.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUri )
             #BIND ( iri(concat("https://purl.uniprot.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUniprotUri )
 
-            BIND ( iri(concat("http://data2services/model/association/go-term/", md5(concat(?targetId, ?polyGoTermDescription)))) AS ?goTermAssociationUri )
-            BIND ( iri(concat("http://data2services/model/go-classifier/", md5(?polyGoTermDescription))) AS ?goTermUri )
-            BIND ( iri(concat("http://data2services/model/go-category/", ?polyGoTermCategory)) AS ?goTermCategoryUri )
+            BIND ( iri(concat("http://data2services/data/association/go-term/", md5(concat(?targetId, ?polyGoTermDescription)))) AS ?goTermAssociationUri )
+            BIND ( iri(concat("http://data2services/data/go-classifier/", md5(?polyGoTermDescription))) AS ?goTermUri )
+            BIND ( iri(concat("http://data2services/data/go-category/", ?polyGoTermCategory)) AS ?goTermCategoryUri )
             BIND ( iri(concat("http://identifiers.org/pfam/", ?polyPfamId)) AS ?polypeptidePfamUri )
 
             BIND ( iri(concat("http://identifiers.org/taxonomy/", ?ncbiTaxonId)) AS ?ncbiTaxonIdentifierUri )

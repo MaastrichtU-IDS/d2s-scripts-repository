@@ -100,8 +100,8 @@ WHERE {
 
 
             BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?transporterId)) AS ?transporterUri )
-            BIND ( iri(concat("http://data2services/model/association/transporter/", md5(concat(?drugId, ?transporterId)))) AS ?transporterAssociationUri )
+            BIND ( iri(concat("http://data2services/data/drugbank/", ?transporterId)) AS ?transporterUri )
+            BIND ( iri(concat("http://data2services/data/association/transporter/", md5(concat(?drugId, ?transporterId)))) AS ?transporterAssociationUri )
             BIND ( iri(concat("http://data2services/vocab/action/", ?transporterAction)) AS ?transporterActionUri )
 
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?transporterArticlePubmedId)) AS ?transporterArticleUri ) .
