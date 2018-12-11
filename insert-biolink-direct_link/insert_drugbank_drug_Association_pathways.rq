@@ -1,4 +1,4 @@
-PREFIX x2rm: <http://ids.unimaas.nl/rdf2xml/model/>
+PREFIX x2rm: <http://data2services/model/>
 PREFIX d2s: <http://data2services/vocab/>
 PREFIX bl: <http://w3id.org/biolink/vocab>
 INSERT 

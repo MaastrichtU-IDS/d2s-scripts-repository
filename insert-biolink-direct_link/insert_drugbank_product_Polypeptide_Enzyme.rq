@@ -1,4 +1,4 @@
-PREFIX x2rm: <http://ids.unimaas.nl/rdf2xml/model/>
+PREFIX x2rm: <http://data2services/model/>
 PREFIX d2s: <http://data2services/vocab/>
 PREFIX ido: <http://identifiers.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
