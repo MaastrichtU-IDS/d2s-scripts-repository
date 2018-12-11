@@ -10,7 +10,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
 
 INSERT { 
-    GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link>
+    GRAPH <http://data2services/biolink/drugbank/5.1.1/direct_link>
     {
 
         ### Represent Drug drug interaction.
