@@ -3,7 +3,7 @@ PREFIX d2s: <http://data2services/vocab/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
 INSERT 
 { 
-    GRAPH <http://data2services/biolink/drugbank/5.1.1/direct_link> {   
+    GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link> {   
 
          # Direct link
          ?drugUri bl:affects_activity_of ?drugPathwayUri .
