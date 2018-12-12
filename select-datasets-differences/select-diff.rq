@@ -1,0 +1,41 @@
+PREFIX x2rm: <http://data2services/model/>
+PREFIX d2s: <http://data2services/vocab/>
+PREFIX ido: <http://identifiers.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+# To get only the new one
+SELECT DISTINCT ?s ?o
+WHERE {
+ GRAPH <http://data2services/biolink/drugbank/5.1.1/direct_link>
+ {
+   ?s bl:affects ?o .
+ }
+ FILTER NOT EXISTS { 
+     GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link>
+     {   
+       ?s bl:affects ?o .
+     }
+  }
+}
+
+
+# To get kind of a diff
+SELECT *
+WHERE {
+  {
+    GRAPH <http://data2services/biolink/drugbank/4.5.0/direct_link> {
+      ?s1 bl:affects ?o1 .
+      BIND( "true" as ?in450 )
+    }
+  } UNION {
+    GRAPH <http://data2services/biolink/drugbank/5.1.1/direct_link> {
+      ?s1 bl:affects ?o1 .
+      BIND( "true" AS ?in511 )
+    }
+  }
+}
