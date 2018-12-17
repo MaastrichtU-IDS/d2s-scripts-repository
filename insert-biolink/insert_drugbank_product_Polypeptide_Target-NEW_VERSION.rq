@@ -1,0 +1,112 @@
+PREFIX x2rm: <http://data2services/model/>
+PREFIX d2s: <http://data2services/vocab/>
+PREFIX ido: <http://identifiers.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+INSERT { 
+    GRAPH <http://data2services/biolink/drugbank> {   
+
+        ?targetUri a bl:GeneOrGeneProduct ;
+            bl:same_as ?polypeptideAttrUri ;
+            bl:in_taxon ?ncbiTaxonIdentifierUri ;
+            bl:category ?polypeptidePfamUri .
+
+        # Get GO TERM
+        ?goTermAssociationUri a bl:GeneToGoTermAssociation ;
+            bl:relation bl:category ;
+            bl:gene_to_go_term_association_object ?targetUri ;
+            bl:gene_to_go_term_association_subject ?goTermUri .
+
+        # Direct link
+        #?targetUri bl:category ?goTermUri .
+
+        ?goTermUri a bl:GeneOntologyClass ;
+            bl:description ?polyGoTermDescription ;
+            bl:category ?goTermCategoryUri .
+
+        ?goTermCategoryUri a bl:OntologyClass ;
+            bl:name ?polyGoTermCategory .
+
+
+        # Get Pfam
+        ?polypeptidePfamUri bl:id ?polyPfamId ;
+            bl:name ?polyPfamName . 
+
+        # Get TAXON
+        ?ncbiTaxonIdentifierUri a bl:OrganismTaxon ;
+            bl:id ?ncbiTaxonId ;
+            bl:name ?ncbiTaxonName .
+
+        #?polypeptideAttrUri a bl:GeneOrGeneProduct ;
+        #    bl:same_as ?polypeptideAttrUniprotUri .
+
+    }
+}
+WHERE {
+    SERVICE <http://localhost:7200/repositories/test>  {
+        GRAPH <http://data2services/graph/xml2rdf> {
+
+            # Iterate directly on targets
+            ?targetObj a x2rm:drugbank\/drug\/targets\/target ;
+                # Get target ID
+                 d2s:id [
+                    x2rm:hasValue ?targetId
+                ] ;
+                d2s:polypeptide [
+                    x2rm:hasAttribute [
+                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/\@id ;
+                        x2rm:hasValue ?polypeptideAttrId
+                    ] ;
+                    x2rm:hasAttribute [
+                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/\@source ;
+                        x2rm:hasValue "Swiss-Prot"
+                    ] ;
+                    d2s:pfams [ 
+                        d2s:pfam [ 
+                            d2s:identifier [ 
+                                x2rm:hasValue ?polyPfamId
+                            ] ;
+                            d2s:name [ 
+                                x2rm:hasValue ?polyPfamName
+                            ]
+                        ]
+                    ] ;
+                    d2s:go-classifiers [ 
+                        d2s:go-classifier [ 
+                            d2s:category [ 
+                                x2rm:hasValue ?polyGoTermCategory
+                            ] ;
+                            d2s:description [ 
+                                x2rm:hasValue ?polyGoTermDescription
+                            ]
+                        ]
+                    ] ;
+                    d2s:organism [ 
+                        x2rm:hasAttribute [ 
+                            a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/organism\/\@ncbi-taxonomy-id ;
+                            x2rm:hasValue ?ncbiTaxonId
+                        ] ;
+                        x2rm:hasValue ?ncbiTaxonName
+                    ]
+                ]
+                    
+
+            BIND ( iri(concat("http://data2services/data/drugbank/", ?targetId)) AS ?targetUri )
+            BIND ( iri(concat("http://identifiers.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUri )
+            #BIND ( iri(concat("https://purl.uniprot.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUniprotUri )
+
+            BIND ( iri(concat("http://data2services/data/association/go-term/", md5(concat(?targetId, ?polyGoTermDescription)))) AS ?goTermAssociationUri )
+            BIND ( iri(concat("http://data2services/data/go-classifier/", md5(?polyGoTermDescription))) AS ?goTermUri )
+            BIND ( iri(concat("http://data2services/data/go-category/", ?polyGoTermCategory)) AS ?goTermCategoryUri )
+            BIND ( iri(concat("http://identifiers.org/pfam/", ?polyPfamId)) AS ?polypeptidePfamUri )
+
+            BIND ( iri(concat("http://identifiers.org/taxonomy/", ?ncbiTaxonId)) AS ?ncbiTaxonIdentifierUri )
+
+        }
+    }
+}
