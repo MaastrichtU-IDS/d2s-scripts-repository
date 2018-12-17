@@ -9,7 +9,7 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
 INSERT { 
-    GRAPH <http://data2services/biolink/drugbank> {   
+    GRAPH <?_outputGraph> {   
 
         ### Represent carrier (Drug to protein or DNA) ChemicalToGeneAssociation
         #Should we use: ?drugUri bl:interacts_with ?carrierUri .
@@ -41,7 +41,7 @@ INSERT {
 }
 WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
-        GRAPH <http://data2services/graph/xml2rdf> {
+        GRAPH <?_inputGraph> {
 
             # Get drug primary ID
             ?drugObj a x2rm:drugbank\/drug ;

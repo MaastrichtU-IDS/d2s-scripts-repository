@@ -10,7 +10,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
 
 INSERT { 
-    GRAPH <http://data2services/biolink/drugbank>
+    GRAPH <?_outputGraph>
     {
 
         ### Represent Drug drug interaction. https://biolink.github.io/biolink-model/docs/ChemicalToThingAssociation.html
@@ -38,7 +38,7 @@ INSERT {
 
 } WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
-        GRAPH  <http://data2services/graph/xml2rdf> { 
+        GRAPH  <?_inputGraph> { 
         
             ?drugObj a x2rm:drugbank\/drug ;
                 # Get drug primary ID
