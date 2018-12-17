@@ -24,13 +24,14 @@ docker run -it --rm --link graphdb:graphdb \
 
 
 
-## Convenience scripts
-
-* To load BioLink DrugBank and HGNC
+## Execute on specific datasets
 
 ```shell
-# Script to load Drugbank and HGNC BioLinks (with metadata) in graphdb.dumontierlab.com
-./data2services-transform-biolink.sh graphdb_login graphdb_password
+# DrugBank
+docker run -it --rm -v "$PWD/insert-biolink/drugbank":/data rdf4j-sparql-operations -rq "/data" -url "http://graphdb.dumontierlab.com/repositories/ncats-red-kg/statements" -un $LOGIN -pw $PASSWORD -var inputGraph:http://data2services/graph/xml2rdf outputGraph:http://data2services/biolink/drugbank
+
+# HGNC
+docker run -it --rm -v "$PWD/insert-biolink/hgnc":/data rdf4j-sparql-operations -rq "/data" -url "http://graphdb.dumontierlab.com/repositories/ncats-red-kg/statements" -un $LOGIN -pw $PASSWORD -var inputGraph:http://data2services/graph/autor2rml outputGraph:http://data2services/biolink/hgnc
 ```
 
 
