@@ -7,7 +7,7 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX d2svocab: <http://data2services/vocab/>
 INSERT
 {
-  GRAPH <http://data2services/biolink/hgnc> {  
+  GRAPH <?_outputGraph> {  
    ?hgncUri a bl:Gene. 
    ?hgncUri bl:iri ?hgncUri .
    ?hgncUri bl:id ?Hgnc_id .
@@ -110,7 +110,7 @@ INSERT
 }
 WHERE {
   SERVICE <http://localhost:7200/repositories/test>  {
-    GRAPH <http://data2services/graph/autor2rml> {
+    GRAPH <?_inputGraph> {
       ?s d2shgnc:Hgnc_id ?Hgnc_id .
        OPTIONAL { 
          ?s d2shgnc:Name ?Name .
