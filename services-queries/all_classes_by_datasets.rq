@@ -12,8 +12,8 @@ where{
         group by ?g ?class
         order by desc(?count)
     }
-    filter( strstarts(str(?class), "http://bioentity.io/vocab/") ) .
-    bind ( strafter(str(?class), "http://bioentity.io/vocab/") as ?className ).
+    filter( strstarts(str(?class), "http://w3id.org/biolink/") ) .
+    bind ( strafter(str(?class), "http://w3id.org/biolink/") as ?className ).
     
     optional {
         ?class rdfs:label ?label .
