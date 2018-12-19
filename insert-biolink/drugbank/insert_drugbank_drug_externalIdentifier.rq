@@ -22,24 +22,24 @@ WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
         GRAPH <?_inputGraph> {
 
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get EXTERNAL IDENTIFIERS
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/external-identifiers; 
+                    a x2rm:drugbank.drug.external-identifiers; 
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/external-identifiers\/external-identifier;
+                        a x2rm:drugbank.drug.external-identifiers.external-identifier;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/external-identifiers\/external-identifier\/resource; 
+                            a x2rm:drugbank.drug.external-identifiers.external-identifier.resource; 
                             x2rm:hasValue ?drugIdentifierResource 
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/external-identifiers\/external-identifier\/identifier; 
+                            a x2rm:drugbank.drug.external-identifiers.external-identifier.identifier; 
                             x2rm:hasValue ?drugIdentifierId 
                         ]
                     ]

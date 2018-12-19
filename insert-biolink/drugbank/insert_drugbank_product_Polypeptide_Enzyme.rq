@@ -54,54 +54,54 @@ WHERE {
         GRAPH <?_inputGraph> {
 
             # Iterate directly on enzymes
-            ?enzymeObj a x2rm:drugbank\/drug\/enzymes\/enzyme ;
+            ?enzymeObj a x2rm:drugbank.drug.enzymes.enzyme ;
                 # Get enzyme ID
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/enzymes\/enzyme\/id ; 
+                    a x2rm:drugbank.drug.enzymes.enzyme.id ; 
                     x2rm:hasValue ?enzymeId
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide ;
+                    a x2rm:drugbank.drug.enzymes.enzyme.polypeptide ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide.-id ;
+                        a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.-id ;
                         x2rm:hasValue ?polypeptideAttrId
                     ] ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide.-source ;
+                        a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.-source ;
                         x2rm:hasValue "Swiss-Prot"
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/pfams ;
+                        a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.pfams ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/pfams\/pfam ;
+                            a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.pfams.pfam ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/pfams\/pfam\/identifier ;
+                                a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.pfams.pfam.identifier ;
                                 x2rm:hasValue ?polyPfamId
                             ] ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/pfams\/pfam\/name ;
+                                a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.pfams.pfam.name ;
                                 x2rm:hasValue ?polyPfamName
                             ]
                         ]
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/go-classifiers ;
+                        a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.go-classifiers ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/go-classifiers\/go-classifier ;
+                            a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.go-classifiers.go-classifier ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/go-classifiers\/go-classifier\/category ;
+                                a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.go-classifiers.go-classifier.category ;
                                 x2rm:hasValue ?polyGoTermCategory
                             ] ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/go-classifiers\/go-classifier\/description ;
+                                a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.go-classifiers.go-classifier.description ;
                                 x2rm:hasValue ?polyGoTermDescription
                             ]
                         ]
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/organism ;
+                        a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.organism ;
                         x2rm:hasAttribute [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/polypeptide\/organism.-ncbi-taxonomy-id ;
+                            a x2rm:drugbank.drug.enzymes.enzyme.polypeptide.organism.-ncbi-taxonomy-id ;
                             x2rm:hasValue ?ncbiTaxonId
                         ] ;
                         x2rm:hasValue ?ncbiTaxonName

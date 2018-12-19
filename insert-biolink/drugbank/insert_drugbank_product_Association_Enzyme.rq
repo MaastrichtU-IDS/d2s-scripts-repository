@@ -46,52 +46,52 @@ WHERE {
         GRAPH <?_inputGraph> {
 
             # Get drug primary ID
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get drug-enzymeS associations
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/enzymes; 
+                    a x2rm:drugbank.drug.enzymes; 
                     x2rm:hasChild [
-                        a x2rm:drugbank\/drug\/enzymes\/enzyme ;
+                        a x2rm:drugbank.drug.enzymes.enzyme ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/id ; 
+                            a x2rm:drugbank.drug.enzymes.enzyme.id ; 
                             x2rm:hasValue ?enzymeId
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/name; 
+                            a x2rm:drugbank.drug.enzymes.enzyme.name; 
                             x2rm:hasValue ?enzymeName 
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/organism;
+                            a x2rm:drugbank.drug.enzymes.enzyme.organism;
                             x2rm:hasValue ?enzymeOrganism 
                         ] ;
                         # Possible ACTIONS:
                         # inhibitor, activator, agonist, antagonist, binder, antibody
                         x2rm:hasChild [
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/actions; 
+                            a x2rm:drugbank.drug.enzymes.enzyme.actions; 
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/actions\/action; 
+                                a x2rm:drugbank.drug.enzymes.enzyme.actions.action; 
                                 x2rm:hasValue ?enzymeAction
                             ] 
                         ] ;
                         # Get drug-enzymes PUBLICATIONS.
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/enzymes\/enzyme\/references;
+                            a x2rm:drugbank.drug.enzymes.enzyme.references;
                             x2rm:hasChild [
-                                a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles; 
+                                a x2rm:drugbank.drug.enzymes.enzyme.references.articles; 
                                 x2rm:hasChild [ 
-                                    a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article;
+                                    a x2rm:drugbank.drug.enzymes.enzyme.references.articles.article;
                                     x2rm:hasChild [ 
-                                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article\/pubmed-id; 
+                                        a x2rm:drugbank.drug.enzymes.enzyme.references.articles.article.pubmed-id; 
                                         x2rm:hasValue ?enzymeArticlePubmedId 
                                     ];
                                     x2rm:hasChild [
-                                        a x2rm:drugbank\/drug\/enzymes\/enzyme\/references\/articles\/article\/citation; 
+                                        a x2rm:drugbank.drug.enzymes.enzyme.references.articles.article.citation; 
                                         x2rm:hasValue ?enzymeArticleCitation
                                     ]
                                 ] 

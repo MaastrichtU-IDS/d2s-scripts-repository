@@ -41,37 +41,37 @@ INSERT {
     SERVICE <http://localhost:7200/repositories/test>  {
         GRAPH  <?_inputGraph> { 
         
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                        x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                        x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                         x2rm:hasValue ?drugId
                 ] ;
                 # Get drug-drug interactions
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drug-interactions ;
+                    a x2rm:drugbank.drug.drug-interactions ;
                     x2rm:hasChild [
-                        a x2rm:drugbank\/drug\/drug-interactions\/drug-interaction ;
+                        a x2rm:drugbank.drug.drug-interactions.drug-interaction ;
                         x2rm:hasChild [
-                            a x2rm:drugbank\/drug\/drug-interactions\/drug-interaction\/drugbank-id ;
+                            a x2rm:drugbank.drug.drug-interactions.drug-interaction.drugbank-id ;
                             x2rm:hasValue ?drugInteractionId
                         ] ;
                         x2rm:hasChild [
-                            a x2rm:drugbank\/drug\/drug-interactions\/drug-interaction\/name ;
+                            a x2rm:drugbank.drug.drug-interactions.drug-interaction.name ;
                             x2rm:hasValue ?drugInteractionName
                         ] ;
                         x2rm:hasChild [
-                            a x2rm:drugbank\/drug\/drug-interactions\/drug-interaction\/description ;
+                            a x2rm:drugbank.drug.drug-interactions.drug-interaction.description ;
                             x2rm:hasValue ?drugInteractionDescription
                         ]
                     ]
                 ] ;
                 # Get food interactions
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/food-interactions ;
+                    a x2rm:drugbank.drug.food-interactions ;
                     x2rm:hasChild [
-                        a x2rm:drugbank\/drug\/food-interactions\/food-interaction ;
+                        a x2rm:drugbank.drug.food-interactions.food-interaction ;
                         x2rm:hasValue ?foodInteraction
                     ]
                 ] .
