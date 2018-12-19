@@ -48,7 +48,7 @@ INSERT
     }
 }
 WHERE {
-    SERVICE <http://localhost:7200/repositories/test>  {
+    SERVICE <?_serviceUrl>  {
         GRAPH <?_drugbankInputGraph> {
         
             # Get drug primary ID

@@ -30,7 +30,7 @@ INSERT {
     }
 
 } WHERE {
-    SERVICE <http://localhost:7200/repositories/test>  {
+    SERVICE <?_serviceUrl>  {
         GRAPH  <http://kraken/graph/xml2rdf> { 
         
             ?drugObj a x2rm:drugbank.drug ;

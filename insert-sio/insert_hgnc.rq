@@ -85,7 +85,7 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <http://localhost:7200/repositories/test>  {
+  SERVICE <?_serviceUrl>  {
     GRAPH <?_hgncInputGraph> {
       ?s kraken:HgncId ?hgncid .
        OPTIONAL { 

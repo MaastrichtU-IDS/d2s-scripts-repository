@@ -45,7 +45,7 @@ INSERT {
     }
 }
 WHERE {
-    SERVICE <http://localhost:7200/repositories/test>  {
+    SERVICE <?_serviceUrl>  {
         GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
 
             # Iterate directly on transporters

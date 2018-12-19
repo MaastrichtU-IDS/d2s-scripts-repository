@@ -24,7 +24,7 @@ INSERT
     }
 }
 WHERE {
-    SERVICE <http://localhost:7200/repositories/test>  {
+    SERVICE <?_serviceUrl>  {
         GRAPH <?_inputGraph> {
 
             ?drugObj a x2rm:drugbank.drug ;
