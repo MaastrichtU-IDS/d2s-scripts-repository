@@ -49,7 +49,7 @@ INSERT
 }
 WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
-        GRAPH <http://kraken/graph/xml2rdf> {
+        GRAPH <?_drugbankInputGraph> {
         
             # Get drug primary ID
             ?drugObj a x2rm:drugbank.drug ;
