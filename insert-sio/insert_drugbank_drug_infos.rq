@@ -11,7 +11,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bioentity: <http://bioentity.io/vocab/>
 INSERT 
 { 
-    GRAPH <?_graphDrugbank> {  
+    GRAPH <?_drugbankOutputGraph> {  
 
 
         

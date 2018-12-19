@@ -20,7 +20,7 @@ INSERT
 
 
 
-    GRAPH <?_graphDrugbank> {  
+    GRAPH <?_drugbankOutputGraph> {  
         ?drugUri a bioentity:Drug ;
             bioentity:name ?drugName ;
             bioentity:id ?drugId ;
