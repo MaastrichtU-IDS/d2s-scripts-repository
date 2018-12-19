@@ -25,19 +25,19 @@ INSERT
 WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
         GRAPH <http://kraken/graph/xml2rdf> {
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                        x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                        x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                         x2rm:hasValue ?drugId
                 ] ;
                 ### Get EXPERIMENTAL PROPERTIES
-                x2rm:hasChild [ a x2rm:drugbank\/drug\/experimental-properties; 
-                    x2rm:hasChild [ a x2rm:drugbank\/drug\/experimental-properties\/property;
-                        x2rm:hasChild [ a x2rm:drugbank\/drug\/experimental-properties\/property\/kind; x2rm:hasValue ?drugExpePropertiesKind ] ;
-                        x2rm:hasChild [ a x2rm:drugbank\/drug\/experimental-properties\/property\/value; x2rm:hasValue ?drugExpePropertiesValue ] ;
-                        x2rm:hasChild [ a x2rm:drugbank\/drug\/experimental-properties\/property\/source; x2rm:hasValue ?drugExpePropertiesSource ]
+                x2rm:hasChild [ a x2rm:drugbank.drug.experimental-properties; 
+                    x2rm:hasChild [ a x2rm:drugbank.drug.experimental-properties.property;
+                        x2rm:hasChild [ a x2rm:drugbank.drug.experimental-properties.property.kind; x2rm:hasValue ?drugExpePropertiesKind ] ;
+                        x2rm:hasChild [ a x2rm:drugbank.drug.experimental-properties.property.value; x2rm:hasValue ?drugExpePropertiesValue ] ;
+                        x2rm:hasChild [ a x2rm:drugbank.drug.experimental-properties.property.source; x2rm:hasValue ?drugExpePropertiesSource ]
                 ] ] .
 
              BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )

@@ -22,23 +22,23 @@ WHERE {
     SERVICE <http://localhost:7200/repositories/test>  {
         GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
 
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get PATHWAYS
-                x2rm:hasChild [ a x2rm:drugbank\/drug\/pathways; 
+                x2rm:hasChild [ a x2rm:drugbank.drug.pathways; 
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/pathways\/pathway;
+                        a x2rm:drugbank.drug.pathways.pathway;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/pathways\/pathway\/smpdb-id; 
+                            a x2rm:drugbank.drug.pathways.pathway.smpdb-id; 
                             x2rm:hasValue ?drugPathwaySmpdbId 
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/pathways\/pathway\/name; 
+                            a x2rm:drugbank.drug.pathways.pathway.name; 
                             x2rm:hasValue ?drugPathwayName 
                         ] 
                     ]

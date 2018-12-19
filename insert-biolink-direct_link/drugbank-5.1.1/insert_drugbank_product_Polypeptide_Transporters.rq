@@ -48,54 +48,54 @@ WHERE {
         GRAPH <http://kraken/graph/xml2rdf> {
 
             # Iterate directly on transporters
-            ?transporterObj a x2rm:drugbank\/drug\/transporters\/transporter ;
+            ?transporterObj a x2rm:drugbank.drug.transporters.transporter ;
                 # Get transporter ID
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/transporters\/transporter\/id ; 
+                    a x2rm:drugbank.drug.transporters.transporter.id ; 
                     x2rm:hasValue ?transporterId
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide ;
+                    a x2rm:drugbank.drug.transporters.transporter.polypeptide ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide.-id ;
+                        a x2rm:drugbank.drug.transporters.transporter.polypeptide.-id ;
                         x2rm:hasValue ?polypeptideAttrId
                     ] ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide.-source ;
+                        a x2rm:drugbank.drug.transporters.transporter.polypeptide.-source ;
                         x2rm:hasValue "Swiss-Prot"
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/pfams ;
+                        a x2rm:drugbank.drug.transporters.transporter.polypeptide.pfams ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/pfams\/pfam ;
+                            a x2rm:drugbank.drug.transporters.transporter.polypeptide.pfams.pfam ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/pfams\/pfam\/identifier ;
+                                a x2rm:drugbank.drug.transporters.transporter.polypeptide.pfams.pfam.identifier ;
                                 x2rm:hasValue ?polyPfamId
                             ] ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/pfams\/pfam\/name ;
+                                a x2rm:drugbank.drug.transporters.transporter.polypeptide.pfams.pfam.name ;
                                 x2rm:hasValue ?polyPfamName
                             ]
                         ]
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/go-classifiers ;
+                        a x2rm:drugbank.drug.transporters.transporter.polypeptide.go-classifiers ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/go-classifiers\/go-classifier ;
+                            a x2rm:drugbank.drug.transporters.transporter.polypeptide.go-classifiers.go-classifier ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/go-classifiers\/go-classifier\/category ;
+                                a x2rm:drugbank.drug.transporters.transporter.polypeptide.go-classifiers.go-classifier.category ;
                                 x2rm:hasValue ?polyGoTermCategory
                             ] ;
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/go-classifiers\/go-classifier\/description ;
+                                a x2rm:drugbank.drug.transporters.transporter.polypeptide.go-classifiers.go-classifier.description ;
                                 x2rm:hasValue ?polyGoTermDescription
                             ]
                         ]
                     ] ;
                     x2rm:hasChild [ 
-                        a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/organism ;
+                        a x2rm:drugbank.drug.transporters.transporter.polypeptide.organism ;
                         x2rm:hasAttribute [ 
-                            a x2rm:drugbank\/drug\/transporters\/transporter\/polypeptide\/organism.-ncbi-taxonomy-id ;
+                            a x2rm:drugbank.drug.transporters.transporter.polypeptide.organism.-ncbi-taxonomy-id ;
                             x2rm:hasValue ?ncbiTaxonId
                         ] ;
                         x2rm:hasValue ?ncbiTaxonName

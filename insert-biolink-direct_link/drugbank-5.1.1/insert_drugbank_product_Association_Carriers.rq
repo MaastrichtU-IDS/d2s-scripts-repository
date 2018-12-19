@@ -37,52 +37,52 @@ WHERE {
         GRAPH <http://kraken/graph/xml2rdf> {
 
             # Get drug primary ID
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get drug-carrierS associations
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/carriers; 
+                    a x2rm:drugbank.drug.carriers; 
                     x2rm:hasChild [
-                        a x2rm:drugbank\/drug\/carriers\/carrier ;
+                        a x2rm:drugbank.drug.carriers.carrier ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/carriers\/carrier\/id ; 
+                            a x2rm:drugbank.drug.carriers.carrier.id ; 
                             x2rm:hasValue ?carrierId
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/carriers\/carrier\/name; 
+                            a x2rm:drugbank.drug.carriers.carrier.name; 
                             x2rm:hasValue ?carrierName 
                         ] ;
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/carriers\/carrier\/organism;
+                            a x2rm:drugbank.drug.carriers.carrier.organism;
                             x2rm:hasValue ?carrierOrganism 
                         ] ;
                         # Possible ACTIONS:
                         # inhibitor, activator, agonist, antagonist, binder, antibody
                         x2rm:hasChild [
-                            a x2rm:drugbank\/drug\/carriers\/carrier\/actions; 
+                            a x2rm:drugbank.drug.carriers.carrier.actions; 
                             x2rm:hasChild [ 
-                                a x2rm:drugbank\/drug\/carriers\/carrier\/actions\/action; 
+                                a x2rm:drugbank.drug.carriers.carrier.actions.action; 
                                 x2rm:hasValue ?carrierAction
                             ] 
                         ] ;
                         # Get drug-carriers PUBLICATIONS.
                         x2rm:hasChild [ 
-                            a x2rm:drugbank\/drug\/carriers\/carrier\/references;
+                            a x2rm:drugbank.drug.carriers.carrier.references;
                             x2rm:hasChild [
-                                a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles; 
+                                a x2rm:drugbank.drug.carriers.carrier.references.articles; 
                                 x2rm:hasChild [ 
-                                    a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article;
+                                    a x2rm:drugbank.drug.carriers.carrier.references.articles.article;
                                     x2rm:hasChild [ 
-                                        a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article\/pubmed-id; 
+                                        a x2rm:drugbank.drug.carriers.carrier.references.articles.article.pubmed-id; 
                                         x2rm:hasValue ?carrierArticlePubmedId 
                                     ];
                                     x2rm:hasChild [
-                                        a x2rm:drugbank\/drug\/carriers\/carrier\/references\/articles\/article\/citation; 
+                                        a x2rm:drugbank.drug.carriers.carrier.references.articles.article.citation; 
                                         x2rm:hasValue ?carrierArticleCitation
                                     ]
                                 ] 
