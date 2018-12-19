@@ -7,7 +7,7 @@ PREFIX bioentity: <http://bioentity.io/vocab/>
 PREFIX d2svocab: <http://data2services/vocab/>
 INSERT
 {
-  GRAPH <http://data2services/biolink/hgnc> {  
+  GRAPH <?_hgncOutputGraph> {  
    ?hgncUri a bioentity:Gene. 
    ?hgncUri bioentity:iri ?hgncUri .
    ?hgncUri bioentity:id ?hgncid .
@@ -86,7 +86,7 @@ INSERT
 }
 WHERE {
   SERVICE <http://localhost:7200/repositories/test>  {
-    GRAPH <http://ncats.org> {
+    GRAPH <?_hgncInputGraph> {
       ?s kraken:HgncId ?hgncid .
        OPTIONAL { 
          ?s kraken:ApprovedName ?ApprovedName .
