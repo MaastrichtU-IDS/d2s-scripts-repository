@@ -46,42 +46,42 @@ WHERE {
         GRAPH <http://kraken/graph/xml2rdf> {
         
             # Get drug primary ID
-            ?drugObj a x2rm:drugbank\/drug ;
+            ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID
                 x2rm:hasChild [
-                    a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
+                    a x2rm:drugbank.drug.drugbank-id ;
+                    x2rm:hasAttribute [ a x2rm:drugbank.drug.drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get Drug single informations (id, name, description...)
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/drugbank-id ; 
+                    a x2rm:drugbank.drug.drugbank-id ; 
                     x2rm:hasValue ?drugAltId 
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/cas-number; 
+                    a x2rm:drugbank.drug.cas-number; 
                     x2rm:hasValue ?casNumber 
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/unii; 
+                    a x2rm:drugbank.drug.unii; 
                     x2rm:hasValue ?unii 
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/name; 
+                    a x2rm:drugbank.drug.name; 
                     x2rm:hasValue ?drugName
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/description; 
+                    a x2rm:drugbank.drug.description; 
                     x2rm:hasValue ?drugDescription 
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/state; 
+                    a x2rm:drugbank.drug.state; 
                     x2rm:hasValue ?drugState 
                 ] ;
                 x2rm:hasChild [ 
-                    a x2rm:drugbank\/drug\/groups; 
+                    a x2rm:drugbank.drug.groups; 
                     x2rm:hasChild [
-                        a x2rm:drugbank\/drug\/groups\/group; 
+                        a x2rm:drugbank.drug.groups.group; 
                         x2rm:hasValue ?drugGroup
                     ]
                 ] .
