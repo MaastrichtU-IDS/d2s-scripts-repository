@@ -57,11 +57,11 @@ WHERE {
                 x2rm:hasChild [ 
                     a x2rm:drugbank\/drug\/targets\/target\/polypeptide ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/\@id ;
+                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide.-id ;
                         x2rm:hasValue ?polypeptideAttrId
                     ] ;
                     x2rm:hasAttribute [
-                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/\@source ;
+                        a x2rm:drugbank\/drug\/targets\/target\/polypeptide.-source ;
                         x2rm:hasValue "Swiss-Prot"
                     ] ;
                     x2rm:hasChild [ 
@@ -95,7 +95,7 @@ WHERE {
                     x2rm:hasChild [ 
                         a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/organism ;
                         x2rm:hasAttribute [ 
-                            a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/organism\/\@ncbi-taxonomy-id ;
+                            a x2rm:drugbank\/drug\/targets\/target\/polypeptide\/organism.-ncbi-taxonomy-id ;
                             x2rm:hasValue ?ncbiTaxonId
                         ] ;
                         x2rm:hasValue ?ncbiTaxonName

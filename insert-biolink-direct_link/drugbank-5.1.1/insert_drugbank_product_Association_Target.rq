@@ -41,7 +41,7 @@ WHERE {
                 # Get drug primary ID
                 x2rm:hasChild [
                     a x2rm:drugbank\/drug\/drugbank-id ;
-                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id\/\@primary ] ;
+                    x2rm:hasAttribute [ a x2rm:drugbank\/drug\/drugbank-id.-primary ] ;
                     x2rm:hasValue ?drugId
                 ] ;
                 # Get drug-TARGETS associations
