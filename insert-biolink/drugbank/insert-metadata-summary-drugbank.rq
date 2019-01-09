@@ -117,10 +117,4 @@ WHERE
     #BIND(iri("https://w3id.org/data2services/dataset/drugbank/version#1") AS ?pavHasCurrentVersion)  # We will automatically generate it, atm only using isVersionOf in the version item
 
 
-
-
-    ##### Automatically generated
-
-    BIND(iri(concat("https://w3id.org/data2services/biolink/", ?idotPreferredPrefix)) AS ?dcatAccessURL) # May. uri
-
 }
