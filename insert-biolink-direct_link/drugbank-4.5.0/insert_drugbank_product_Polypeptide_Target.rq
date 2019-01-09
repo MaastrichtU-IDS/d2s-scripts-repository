@@ -102,7 +102,7 @@ WHERE {
                     ]
                 ]
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?targetId)) AS ?targetUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?targetId)) AS ?targetUri )
             BIND ( iri(concat("http://identifiers.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUri )
             #BIND ( iri(concat("https://purl.uniprot.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUniprotUri )
 

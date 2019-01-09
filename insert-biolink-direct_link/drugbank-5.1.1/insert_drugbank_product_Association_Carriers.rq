@@ -92,8 +92,8 @@ WHERE {
                 ] .
 
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?carrierId)) AS ?carrierUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?carrierId)) AS ?carrierUri )
             BIND ( iri(concat("http://data2services/model/association/carrier/", md5(concat(?drugId, ?carrierId)))) AS ?carrierAssociationUri )
             BIND ( iri(concat("http://data2services/vocab/action/", ?carrierAction)) AS ?carrierActionUri )
 

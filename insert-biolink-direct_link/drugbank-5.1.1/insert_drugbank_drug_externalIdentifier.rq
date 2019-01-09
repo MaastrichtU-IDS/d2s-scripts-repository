@@ -106,7 +106,7 @@ WHERE {
 
             # "UniProt Accession" = ide or FCG3B_HUMAN
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/", ?drugIdentifierNamespace, "/", ?drugIdentifierId) ) AS ?drugIdentifierUri )
         }
     }

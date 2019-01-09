@@ -93,8 +93,8 @@ WHERE {
                 ] .
 
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?enzymeId)) AS ?enzymeUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?enzymeId)) AS ?enzymeUri )
             BIND ( iri(concat("http://data2services/model/association/enzyme/", md5(concat(?drugId, ?enzymeId)))) AS ?enzymeAssociationUri )
             BIND ( iri(concat("http://data2services/vocab/action/", ?enzymeAction)) AS ?enzymeActionUri )
 
