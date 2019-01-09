@@ -41,7 +41,7 @@ WHERE {
                         x2rm:hasChild [ a x2rm:drugbank.drug.categories.category.category; x2rm:hasValue ?categoryName ] 
                 ] ] .
             
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/mesh/", ?categoryMeshId)) AS ?categoryMeshUri )
             # Get AFFECTED ORGANISM
             ?drugObj x2rm:hasChild [ a x2rm:drugbank.drug.affected-organisms; 

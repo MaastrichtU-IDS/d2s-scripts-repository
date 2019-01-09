@@ -76,8 +76,8 @@ INSERT {
                     ]
                 ] .
 
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugId)) AS ?drugUri )
-            BIND ( iri(concat("http://identifiers.org/drugbank/", ?drugInteractionId)) AS ?drugInteractionUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugInteractionId)) AS ?drugInteractionUri )
             BIND ( iri(concat("http://data2services/data/association/drug-interaction/", md5(concat(?drugId, ?drugInteractionId)))) AS ?drugInteractionAssociationUri )
         }
     }
