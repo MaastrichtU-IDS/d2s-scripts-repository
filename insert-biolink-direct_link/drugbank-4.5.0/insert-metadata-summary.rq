@@ -80,7 +80,7 @@ WHERE
     ##### User input
 
     ### MUST
-    BIND(<http://identifiers.org/drugbank/> AS ?summaryUri)  # user input. Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND(<http://identifiers.org/drugbank:> AS ?summaryUri)  # user input. Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
 
     BIND(iri("http://data2services/biolink/drugbank/4.5.0/direct_link") AS ?dcatAccessURL) # GRAPH URI. May. uri
     

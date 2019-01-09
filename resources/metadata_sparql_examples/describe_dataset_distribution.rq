@@ -219,7 +219,7 @@ INSERT {
 WHERE 
 { 
     GRAPH <http://data2services/metadata/datasets> {
-        BIND(<http://identifiers.org/drugbank/> AS ?summaryUri) # user input
+        BIND(<http://identifiers.org/drugbank:> AS ?summaryUri) # user input
         # Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
         
         BIND("1"^^xsd:string AS ?version) # Increment it from the latest version? Or user input

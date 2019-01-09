@@ -79,7 +79,7 @@ INSERT {
 }
 WHERE 
 {
-    BIND(<http://identifiers.org/drugbank/> AS ?summaryUri)  # user input
+    BIND(<http://identifiers.org/drugbank:> AS ?summaryUri)  # user input
     # Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
     BIND("DrugBank"@en AS ?title) # user input

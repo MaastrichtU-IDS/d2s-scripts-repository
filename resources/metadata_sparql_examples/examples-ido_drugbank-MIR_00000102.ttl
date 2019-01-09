@@ -40,7 +40,7 @@
       idot:namespace "drugbank"^^<http://www.w3.org/2001/XMLSchema#string> ;
       void:exampleResource
               "DB00001"^^<http://www.w3.org/2001/XMLSchema#string> ;
-      void:uriSpace <http://identifiers.org/drugbank/> ;
+      void:uriSpace <http://identifiers.org/drugbank:> ;
       dcat:description "The DrugBank database is a bioinformatics and chemoinformatics resource that combines detailed drug (i.e. chemical, pharmacological and pharmaceutical) data with comprehensive drug target (i.e. sequence, structure, and pathway) information. This collection references drug information."^^<http://www.w3.org/2001/XMLSchema#string> ;
       dcat:distribution <http://identifiers.org/miriam.resource/MIR:00100133#application/xhtml+xml> , <http://identifiers.org/miriam.resource/MIR:00100691#application/xhtml+xml> ;
       dcat:identifier "MIR:00000102"^^<http://www.w3.org/2001/XMLSchema#string> ;
