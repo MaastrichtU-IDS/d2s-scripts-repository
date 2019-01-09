@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
-PREFIX d2s: <http://data2services/vocab/>
+PREFIX d2s: <https://w3id.org/data2services/vocab/>
 PREFIX ido: <http://identifiers.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -108,13 +108,13 @@ WHERE {
                     ]
                 ]
 
-            BIND ( iri(concat("http://data2services/data/drugbank/", ?enzymeId)) AS ?enzymeUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/drugbank/", ?enzymeId)) AS ?enzymeUri )
             BIND ( iri(concat("http://identifiers.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUri )
             #BIND ( iri(concat("https://purl.uniprot.org/uniprot/", ?polypeptideAttrId)) AS ?polypeptideAttrUniprotUri )
 
-            BIND ( iri(concat("http://data2services/data/association/go-term/", md5(concat(?enzymeId, ?polyGoTermDescription)))) AS ?goTermAssociationUri )
-            BIND ( iri(concat("http://data2services/data/go-classifier/", md5(?polyGoTermDescription))) AS ?goTermUri )
-            BIND ( iri(concat("http://data2services/data/go-category/", ?polyGoTermCategory)) AS ?goTermCategoryUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/association/go-term/", md5(concat(?enzymeId, ?polyGoTermDescription)))) AS ?goTermAssociationUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/go-classifier/", md5(?polyGoTermDescription))) AS ?goTermUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/go-category/", ?polyGoTermCategory)) AS ?goTermCategoryUri )
             BIND ( iri(concat("http://identifiers.org/pfam/", ?polyPfamId)) AS ?polypeptidePfamUri )
 
             BIND ( iri(concat("http://identifiers.org/taxonomy/", ?ncbiTaxonId)) AS ?ncbiTaxonIdentifierUri )

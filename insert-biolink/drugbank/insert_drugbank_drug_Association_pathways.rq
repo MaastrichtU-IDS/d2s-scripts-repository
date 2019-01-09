@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
-PREFIX d2s: <http://data2services/vocab/>
+PREFIX d2s: <https://w3id.org/data2services/vocab/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
 INSERT 
 { 
@@ -51,7 +51,7 @@ WHERE {
 
             BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/smpdb/", ?drugPathwaySmpdbId) ) AS ?drugPathwayUri )
-            BIND ( iri(concat("http://data2services/data/association/pathway/", md5(concat(?drugId, ?drugPathwaySmpdbId)))) AS ?drugPathwayAssociationUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/association/pathway/", md5(concat(?drugId, ?drugPathwaySmpdbId)))) AS ?drugPathwayAssociationUri )
         }
     }
 }

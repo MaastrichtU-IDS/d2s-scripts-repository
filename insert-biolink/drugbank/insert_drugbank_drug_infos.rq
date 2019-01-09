@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
-PREFIX d2s: <http://data2services/vocab/>
+PREFIX d2s: <https://w3id.org/data2services/vocab/>
 PREFIX ido: <http://identifiers.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -28,11 +28,11 @@ INSERT
         ?uniiUri bl:id ?unii .
 
         # TODO: Make only the model/State type a subClassOf?
-        ?drugStateUri a <http://data2services/model/State> ;
+        ?drugStateUri a <https://w3id.org/data2services/model/State> ;
             rdfs:subClassOf bl:Attribute ;
             bl:id ?drugState .
 
-        ?drugGroupUri a <http://data2services/model/Group> ;
+        ?drugGroupUri a <https://w3id.org/data2services/model/Group> ;
             rdfs:subClassOf bl:Attribute ;
             bl:id ?drugGroup .
 
@@ -95,8 +95,8 @@ WHERE {
             BIND ( iri(concat("http://identifiers.org/cas/", ?casNumber)) AS ?casNumberUri )
             BIND ( iri(concat("http://identifiers.org/unii/", ?unii)) AS ?uniiUri )
 
-            BIND ( iri(concat("http://data2services/model/state/", ?drugState)) AS ?drugStateUri )
-            BIND ( iri(concat("http://data2services/model/group/", ?drugGroup)) AS ?drugGroupUri )
+            BIND ( iri(concat("https://w3id.org/data2services/model/state/", ?drugState)) AS ?drugStateUri )
+            BIND ( iri(concat("https://w3id.org/data2services/model/group/", ?drugGroup)) AS ?drugGroupUri )
         }
     }
 }

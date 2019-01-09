@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
-PREFIX d2s: <http://data2services/vocab/>
+PREFIX d2s: <https://w3id.org/data2services/vocab/>
 PREFIX ido: <http://identifiers.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -42,9 +42,9 @@ WHERE {
                 ] ] .
 
              BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
-             BIND ( iri(concat("http://data2services/model/experimental-properties/", md5(concat(?drugUri, ?drugExpePropertiesKind))) ) AS ?drugExpePropertiesIdUri )
-             BIND ( iri(concat("http://data2services/model/experimental-properties/", REPLACE(?drugExpePropertiesKind, " ", "", "i")) ) AS ?drugExpePropertiesType )
-             # Generate type like: http://data2services/model/experimental-properties/MeltingPoint
+             BIND ( iri(concat("https://w3id.org/data2services/model/experimental-properties/", md5(concat(?drugUri, ?drugExpePropertiesKind))) ) AS ?drugExpePropertiesIdUri )
+             BIND ( iri(concat("https://w3id.org/data2services/model/experimental-properties/", REPLACE(?drugExpePropertiesKind, " ", "", "i")) ) AS ?drugExpePropertiesType )
+             # Generate type like: https://w3id.org/data2services/model/experimental-properties/MeltingPoint
 
         }
     }

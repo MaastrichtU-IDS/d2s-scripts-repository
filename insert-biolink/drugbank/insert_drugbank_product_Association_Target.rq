@@ -1,6 +1,6 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
-PREFIX d2s: <http://data2services/vocab/>
+PREFIX d2s: <https://w3id.org/data2services/vocab/>
 PREFIX ido: <http://identifiers.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -102,9 +102,9 @@ WHERE {
 
 
             BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
-            BIND ( iri(concat("http://data2services/data/drugbank/", ?targetId)) AS ?targetUri )
-            BIND ( iri(concat("http://data2services/data/association/target/", md5(concat(?drugId, ?targetId)))) AS ?targetAssociationUri )
-            BIND ( iri(concat("http://data2services/vocab/action/", ?targetAction)) AS ?targetActionUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/drugbank/", ?targetId)) AS ?targetUri )
+            BIND ( iri(concat("https://w3id.org/data2services/data/association/target/", md5(concat(?drugId, ?targetId)))) AS ?targetAssociationUri )
+            BIND ( iri(concat("https://w3id.org/data2services/vocab/action/", ?targetAction)) AS ?targetActionUri )
 
             BIND ( iri(concat("http://identifiers.org/pubmed/", ?targetArticlePubmedId)) AS ?targetArticleUri ) .
 
