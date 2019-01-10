@@ -54,7 +54,7 @@ WHERE {
                 ( "PubChem Compound" "pubchem.compound" )
                 ( "PubChem Substance" "pubchem.substance" )
                 ( "HUGO Gene Nomenclature Committee (HGNC)" "hgnc" )
-                ( "PharmGKB" "pharmgkb" )
+                ( "PharmGKB" "pharmgkb.drug" )
                 ( "GenAtlas" "genatlas" )
                 ( "Wikipedia" "wikipedia.en" )
                 ( "Guide to Pharmacology" "iuphar.ligand" ) # Not sure
@@ -107,7 +107,7 @@ WHERE {
 
             # "UniProt Accession" = ide or FCG3B_HUMAN
 
-            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:", ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/", ?drugIdentifierNamespace, "/", ?drugIdentifierId) ) AS ?drugIdentifierUri )
         }
     }

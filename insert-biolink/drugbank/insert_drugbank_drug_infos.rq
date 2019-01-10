@@ -90,7 +90,7 @@ WHERE {
 
             # TODO: atc-codes, dosages, patents, sequences
 
-            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:", ?drugId)) AS ?drugUri )
             # Not really drugbank ID: BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugAltId)) AS ?drugAltIdUri )
             BIND ( iri(concat("http://identifiers.org/cas/", ?casNumber)) AS ?casNumberUri )
             BIND ( iri(concat("http://identifiers.org/unii/", ?unii)) AS ?uniiUri )

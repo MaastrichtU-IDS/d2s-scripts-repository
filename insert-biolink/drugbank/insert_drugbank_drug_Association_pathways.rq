@@ -49,7 +49,7 @@ WHERE {
                     ]
                 ] .
 
-            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:", ?drugId)) AS ?drugUri )
             BIND ( iri(concat("http://identifiers.org/smpdb/", ?drugPathwaySmpdbId) ) AS ?drugPathwayUri )
             BIND ( iri(concat("https://w3id.org/data2services/data/association/pathway/", md5(concat(?drugId, ?drugPathwaySmpdbId)))) AS ?drugPathwayAssociationUri )
         }

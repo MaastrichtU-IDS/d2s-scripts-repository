@@ -100,7 +100,7 @@ WHERE {
                 ] .
 
 
-            BIND ( iri(concat("http://identifiers.org/drugbank:">, ?drugId)) AS ?drugUri )
+            BIND ( iri(concat("http://identifiers.org/drugbank:", ?drugId)) AS ?drugUri )
             BIND ( iri(concat("https://w3id.org/data2services/data/drugbank/", ?carrierId)) AS ?carrierUri )
             BIND ( iri(concat("https://w3id.org/data2services/data/association/carrier/", md5(concat(?drugId, ?carrierId)))) AS ?carrierAssociationUri )
             BIND ( iri(concat("https://w3id.org/data2services/vocab/action/", ?carrierAction)) AS ?carrierActionUri )
