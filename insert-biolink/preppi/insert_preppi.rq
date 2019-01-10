@@ -1,0 +1,164 @@
+PREFIX d2sgeneric: <http://data2services/data/emonet/ncats/preppi/preppi_final600.tsv/>
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+INSERT
+{
+  GRAPH <?_outputGraph> {  
+   ?hgncUri a bl:Gene. 
+   ?hgncUri bl:iri ?hgncUri .
+   ?hgncUri bl:id ?Hgnc_id .
+   ?hgncUri bl:Name ?Name .
+   ?hgncUri rdfs:label ?Name .
+   ?hgncUri bl:systematic_synonym ?Symbol .
+   ?hgncUri bl:systematic_synonym ?singleAlias_symbol .
+
+   ?hgncUri w3idvocab:Status ?Status .
+   # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
+
+   ?hgncUri bl:category ?Locus_type .
+   # Could it be bl:category? Values: "RNA, long non-coding", "gene with protein product", "pseudogene", "virus integration site"
+   ?hgncUri bl:category ?Locus_group .
+   # Almost same as Locus_type. Values: "non-coding RNA", "protein-coding gene", "pseudogene", "other"
+
+   #?hgncUri bl:GenomicSequenceLocalization ?
+   # Should we use https://biolink.github.io/biolink-model/docs/located_in.html ?
+
+   ?hgncUri bl:update_date ?DateModified .
+
+
+   # https://www.ncbi.nlm.nih.gov/gene/1047
+   ?hgncUri bl:same_as ?EntrezIdUri .
+
+   # http://identifiers.org/ensembl/ENSG00000153132
+   ?hgncUri bl:same_as ?EnsemblGeneUri .
+
+   # http://identifiers.org/mim/601858
+   ?hgncUri bl:same_as ?OmimIdUri .
+
+   # https://www.ncbi.nlm.nih.gov/nuccore/D86322
+   ?hgncUri bl:same_as ?AccessionNumbersUri .
+
+   # https://biolink.github.io/biolink-model/docs/TranscriptToGeneRelationship.html
+   ?refseqAssociationUri a bl:TranscriptToGeneRelationship ;
+            bl:transcript_to_gene_relationship_subject ?RefseqAccessionUri ;
+            bl:transcript_to_gene_relationship_object ?hgncUri ;
+            bl:relation bl:expresses .
+
+   ?RefseqAccessionUri a bl:Transcript . # https://www.ncbi.nlm.nih.gov/nuccore/NM_004362
+
+   # https://biolink.github.io/biolink-model/docs/has_gene_product.html
+   ?hgncUri bl:has_gene_product ?UniprotIdsUri .
+
+   ?hgncUri bl:same_as ?EnsemblIdSuppliedByEnsemblUri .
+
+   # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
+   ?mgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:relation bl:homologous_to ;
+            bl:gene_to_gene_association_subject ?hgncUri ;
+            bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdUri .
+
+   ?suppliedMgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:relation bl:homologous_to ;
+            bl:gene_to_gene_association_subject ?hgncUri ;
+            bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdSuppliedByMgiUri .
+
+   ?rgdAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:relation bl:homologous_to ;
+            bl:gene_to_gene_association_subject ?hgncUri ;
+            bl:gene_to_gene_association_object ?RgdIdUri .
+
+
+
+   ?hgncUri bl:located_in ?GenomicSequenceLocalizationUri .
+   ?hgncUri bl:located_in ?CcdsIdUri . # TODO: atm it generates http://identifiers.org/ccds/CCDS7241 but this does not resolve. It would need to be http://identifiers.org/ccds/CCDS7241.1
+
+   ?GenomicSequenceLocalizationUri a bl:GenomicSequenceLocalization ;
+      bl:genomic_sequence_localization_subject ?hgncUri ;
+      bl:genomic_sequence_localization_object ?LocationUri .
+
+    ?LocationUri a bl:GenomicEntity ;
+      bl:id ?Location ;
+      bl:Name ?Location ;
+      bl:category "chromosome" .
+
+
+
+   # Publication
+   ?hgncUri bl:publications ?PubmedIdUri .
+   ?PubmedIdUri a bl:Publication ;
+      bl:id ?Pubmed_id ;
+      bl:iri ?PubmedIdUri ;
+      bl:relates_to ?hgncUri .
+
+    ?hgncUri bl:filler ?GeneFamilyUri .
+    ?GeneFamilyUri a <https://w3id.org/data2services/model/GeneFamily> ;
+      bl:subClassOf bl:Attribute ;
+      bl:name ?Gene_family .
+
+    # Use bl:ConfidenceLevel? (Level of confidence in a statement) Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
+    ?hgncUri bl:filler ?StatusUri .
+    ?StatusUri a <https://w3id.org/data2services/model/Status> ;
+          rdfs:subClassOf bl:Attribute ;
+          bl:Name ?Status .
+
+
+ }
+}
+WHERE {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+      ?s d2smodel:Prot1 ?prot1 .
+      ?s d2smodel:Prot2 ?prot2 .
+
+      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot1 ) ) AS ?UniprotUri1 )
+      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot2 ) ) AS ?UniprotUri2 )
+      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", concat(?prot1, ?prot2) ) ) AS ?interactionUri )
+
+       OPTIONAL { 
+         ?s d2smodel:str_score ?str_score .
+       } OPTIONAL {
+         ?s d2smodel:protpep_score ?protpep_score .
+       } OPTIONAL { 
+         ?s d2smodel:str_max_score ?str_max_score .
+       } OPTIONAL { 
+         ?s d2smodel:red_score ?red_score .       
+       } OPTIONAL { 
+         ?s d2smodel:ort_score ?ort_score .
+       } OPTIONAL {
+         ?s d2smodel:phy_score ?phy_score .
+       } OPTIONAL {
+         ?s d2smodel:coexp_score ?coexp_score .
+       } OPTIONAL {
+         ?s d2smodel:go_score ?go_score .
+       } OPTIONAL {
+         ?s d2smodel:total_score ?total_score .
+
+       } OPTIONAL {
+         ?s d2smodel:dbs ?dbs . # array separated by ,
+
+       } OPTIONAL {
+         ?s d2smodel:pubs ?pubs . # array
+         BIND( if( contains(?pubs, "|"),
+              iri(concat("http://identifiers.org/", strbefore(?pubs, "|") ) ) ,
+              iri(concat("http://identifiers.org/", ?pubs) ) ) 
+         AS ?pubsUri )
+       
+       } OPTIONAL {
+         ?s d2smodel:exp_score ?exp_score .
+       
+       } OPTIONAL {
+         ?s d2smodel:final_score ?final_score .
+
+  }
+
+  # Avoid taking the first row with columns labels
+  #FILTER( !contains(?Hgnc_id, "hgnc_id") )
+  FILTER( ?Hgnc_id != "hgnc_id") 
+}
+}
+}
