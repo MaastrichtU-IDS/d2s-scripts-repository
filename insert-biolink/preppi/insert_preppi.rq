@@ -9,7 +9,12 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-   ?hgncUri a bl:Gene. 
+   ?uniprotUri1 a bl:Protein . 
+   ?uniprotUri2 a bl:Protein . 
+
+   ?interactionUri a bl:PairwiseGeneToGeneInteraction .
+
+
    ?hgncUri bl:iri ?hgncUri .
    ?hgncUri bl:id ?Hgnc_id .
    ?hgncUri bl:Name ?Name .
@@ -115,8 +120,8 @@ WHERE {
       ?s d2smodel:Prot1 ?prot1 .
       ?s d2smodel:Prot2 ?prot2 .
 
-      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot1 ) ) AS ?UniprotUri1 )
-      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot2 ) ) AS ?UniprotUri2 )
+      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot1 ) ) AS ?uniprotUri1 )
+      BIND( iri(concat("http://identifiers.org/uniprot/", ?prot2 ) ) AS ?uniprotUri2 )
       BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", concat(?prot1, ?prot2) ) ) AS ?interactionUri )
 
        OPTIONAL { 
@@ -157,7 +162,6 @@ WHERE {
   }
 
   # Avoid taking the first row with columns labels
-  #FILTER( !contains(?Hgnc_id, "hgnc_id") )
   FILTER( ?Hgnc_id != "hgnc_id") 
 }
 }
