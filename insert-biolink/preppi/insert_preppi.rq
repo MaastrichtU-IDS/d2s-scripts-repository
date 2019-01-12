@@ -16,7 +16,66 @@ INSERT
             bl:relation bl:interacts_with ;
             bl:gene_to_gene_association_subject ?uniprotUri1 ;
             bl:gene_to_gene_association_object ?uniprotUri2 ;
+            bl:has_confidence_level ?ConfidenceLevelStrScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelProtpepScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelStrMaxScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelRedScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelOrtScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelPhyScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelCoexpScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelGoScoreUri ;
+            bl:has_confidence_level ?ConfidenceLevelExpScoreUri ;
             bl:has_confidence_level ?ConfidenceLevelFinalScoreUri .
+
+    ?ConfidenceLevelStrScoreUri a bl:ConfidenceLevel ;
+            bl:id "str_score" ;
+            bl:name "Str score" ;
+            bl:node_property ?str_score .
+
+    ?ConfidenceLevelProtpepScoreUri a bl:ConfidenceLevel ;
+            bl:id "protpep_score" ;
+            bl:name "Protpep score" ;
+            bl:node_property ?protpep_score .
+
+    ?ConfidenceLevelStrMaxScoreUri a bl:ConfidenceLevel ;
+            bl:id "str_max_score" ;
+            bl:name "Str Max score" ;
+            bl:node_property ?str_max_score .
+
+    ?ConfidenceLevelRedScoreUri a bl:ConfidenceLevel ;
+            bl:id "red_score" ;
+            bl:name "Red score" ;
+            bl:node_property ?red_score .
+
+    ?ConfidenceLevelOrtScoreUri a bl:ConfidenceLevel ;
+            bl:id "ort_score" ;
+            bl:name "Ort score" ;
+            bl:node_property ?ort_score .
+
+    ?ConfidenceLevelPhyScoreUri a bl:ConfidenceLevel ;
+            bl:id "phy_score" ;
+            bl:name "Phy score" ;
+            bl:node_property ?phy_score .
+
+    ?ConfidenceLevelCoexpScoreUri a bl:ConfidenceLevel ;
+            bl:id "coexp_score" ;
+            bl:name "Coexp score" ;
+            bl:node_property ?coexp_score .
+
+    ?ConfidenceLevelGoScoreUri a bl:ConfidenceLevel ;
+            bl:id "go_score" ;
+            bl:name "Go score" ;
+            bl:node_property ?go_score .
+
+    ?ConfidenceLevelTotalScoreUri a bl:ConfidenceLevel ;
+            bl:id "total_score" ;
+            bl:name "Total score" ;
+            bl:node_property ?total_score .
+
+    ?ConfidenceLevelExpScoreUri a bl:ConfidenceLevel ;
+            bl:id "exp_score" ;
+            bl:name "Exp score" ;
+            bl:node_property ?exp_score .
 
     ?ConfidenceLevelFinalScoreUri a bl:ConfidenceLevel ;
             bl:id "final_score" ;
@@ -37,22 +96,31 @@ WHERE {
 
        OPTIONAL { 
          ?s d2smodel:Str_score ?str_score .
+         BIND( iri(concat(str(?interactionUri), "/str_score")) AS ?ConfidenceLevelStrScoreUri)
        } OPTIONAL {
          ?s d2smodel:Protpep_score ?protpep_score .
+         BIND( iri(concat(str(?interactionUri), "/protpep_score")) AS ?ConfidenceLevelProtpepScoreUri)
        } OPTIONAL { 
          ?s d2smodel:Str_max_score ?str_max_score .
+         BIND( iri(concat(str(?interactionUri), "/str_max_score")) AS ?ConfidenceLevelStrMaxScoreUri)
        } OPTIONAL { 
-         ?s d2smodel:Red_score ?red_score .       
+         ?s d2smodel:Red_score ?red_score .
+         BIND( iri(concat(str(?interactionUri), "/red_score")) AS ?ConfidenceLevelRedScoreUri)
        } OPTIONAL { 
          ?s d2smodel:Ort_score ?ort_score .
+         BIND( iri(concat(str(?interactionUri), "/ort_score")) AS ?ConfidenceLevelOrtScoreUri)
        } OPTIONAL {
          ?s d2smodel:Phy_score ?phy_score .
+         BIND( iri(concat(str(?interactionUri), "/phy_score")) AS ?ConfidenceLevelPhyScoreUri)
        } OPTIONAL {
          ?s d2smodel:Coexp_score ?coexp_score .
+         BIND( iri(concat(str(?interactionUri), "/coexp_score")) AS ?ConfidenceLevelCoexpScoreUri)
        } OPTIONAL {
          ?s d2smodel:Go_score ?go_score .
+         BIND( iri(concat(str(?interactionUri), "/go_score")) AS ?ConfidenceLevelGoScoreUri)
        } OPTIONAL {
          ?s d2smodel:Total_score ?total_score .
+         BIND( iri(concat(str(?interactionUri), "/total_score")) AS ?ConfidenceLevelTotalScoreUri)
 
        } OPTIONAL {
          ?s d2smodel:Dbs ?dbs . # array separated by ,
@@ -66,7 +134,7 @@ WHERE {
        
        } OPTIONAL {
          ?s d2smodel:Exp_score ?exp_score .
-       
+         BIND( iri(concat(str(?interactionUri), "/exp_score")) AS ?ConfidenceLevelExpScoreUri)
        } OPTIONAL {
          ?s d2smodel:Final_score ?final_score .
          BIND( iri(concat(str(?interactionUri), "/final_score")) AS ?ConfidenceLevelFinalScoreUri)
