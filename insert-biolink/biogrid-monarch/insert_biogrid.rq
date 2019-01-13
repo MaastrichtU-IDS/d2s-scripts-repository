@@ -1,0 +1,42 @@
+PREFIX d2sgeneric: <http://data2services/data/hgnc/hgnc_complete_set.tsv/>
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+PREFIX oban: <http://purl.org/oban/>
+INSERT
+{
+  GRAPH <?_outputGraph> {  
+    # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
+
+    ?association a bl:PairwiseGeneToGeneInteraction ;
+          bl:gene_to_gene_association_subject ?associationSubject ;
+          bl:pairwise_gene_to_gene_interaction_relation ?associationPredicate ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434, colocalize with http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002325, genetically interacts with genetically interacts with
+          #bl:genetically_interacts_with or bl:interacts_with and bl:FunctionalAssociation ?
+          bl:gene_to_gene_association_object ?associationObject ;
+          bl:has_evidence ?evidenceUri .
+
+    ?evidenceUri a bl:Publication ;
+          bl:category ?associationEvidence ;
+          bl:node_property ?associationSource .
+ }
+}
+WHERE {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+      ?association a oban:association ;
+          oban:association_has_subject ?associationSubject ;
+          oban:association_has_predicate ?associationPredicate ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434
+          oban:association_has_object ?associationObject ;
+          dc:source ?associationSource ;
+          <http://purl.obolibrary.org/obo/RO_0002558> ?associationEvidence .
+
+
+      BIND ( iri(concat("https://w3id.org/data2services/data/evidence/", md5(concat(str(?associationSource), str(?associationEvidence))) )) AS ?evidenceUri )
+
+}
+}
+}
