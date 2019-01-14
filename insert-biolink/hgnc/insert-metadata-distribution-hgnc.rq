@@ -254,8 +254,7 @@ WHERE
         dct:license ?dctLicense ;
         dct:publisher ?dctPublisher ;
         idot:preferredPrefix ?idotPreferredPrefix ;
-        idot:alternatePrefix ?idotAlternatePrefix ;
-        dcat:accessURL ?dcatAccessURL .
+        idot:alternatePrefix ?idotAlternatePrefix .
     }
 
     # Needs to be at the beginning

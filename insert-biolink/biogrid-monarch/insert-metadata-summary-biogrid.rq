@@ -80,24 +80,24 @@ WHERE
     ##### User input
 
     ### MUST
-    BIND(<http://identifiers.org/hgnc/> AS ?summaryUri)  # user input
+    BIND(<https://w3id.org/data2services/dataset/biogrid/> AS ?summaryUri)  # user input
     # Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
-    BIND("HUGO Gene Nomenclature Committee"@en AS ?dctTitle) # user input
-    BIND("HGNC is responsible for approving unique symbols and names for human loci, including protein coding genes, ncRNA genes and pseudogenes, to allow unambiguous scientific communication."@en AS ?dctDescription) # user input
+    BIND("Biological General Repository for Interaction Datasets"@en AS ?dctTitle) # user input
+    BIND("BioGRID is an interaction repository with data compiled through comprehensive curation efforts. Our current index is version 3.5.168 and searches 68,215 publications for 1,658,808 protein and genetic interactions, 28,093 chemical associations and 726,378 post translational modifications from major model organism species."@en AS ?dctDescription) # user input
 
     # Use https://orcid.org/ for researchers when possible or generate a new agent URI (like here)
-    BIND("HUGO Gene Nomenclature Committee at the European Bioinformatics Institute" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
-    BIND(<https://www.genenames.org/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
+    BIND("NIH National Institutes of Health" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
+    BIND(<http://www.nih.gov/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
     BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctPublisherName))) AS ?dctPublisher)
 
-    BIND("hgnc" AS ?idotPreferredPrefix) # Usually a May but required for data2services since it used as source ID to generate the graph URI.
+    BIND("biogrid" AS ?idotPreferredPrefix) # Usually a May but required for data2services since it used as source ID to generate the graph URI.
 
     BIND(<http://graphdb.dumontierlab.com/repositories/ncats-red-graph> AS ?voidSparqlEndpoint) # Usually a Should but required for data2services.
 
 
     ### SHOULD
-    BIND(<https://www.genenames.org/> AS ?foafPage)
+    BIND(<https://thebiogrid.org/> AS ?foafPage)
     #BIND(iri("http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif") AS ?schemaorgLogo)
     #BIND(freq:quarterly AS ?dctAccrualPeriodicity) # Use freq: <http://purl.org/cld/freq/>
 
