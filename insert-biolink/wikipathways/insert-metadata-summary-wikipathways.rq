@@ -88,8 +88,8 @@ WHERE
     BIND("Curated and Reactome pathways Model for pathway databases that enhances and complements ongoing efforts, such as KEGG, Reactome and Pathway Commons. Building on the same MediaWiki software that powers Wikipedia, we added a custom graphical pathway editing tool and integrated databases covering major gene, protein, and small-molecule systems."@en AS ?dctDescription) # user input
 
     # Use https://orcid.org/ for researchers when possible or generate a new agent URI (like here)
-    BIND("NIH National Institutes of Health" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
-    BIND(<http://www.nih.gov/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
+    BIND("WikiPathways" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
+    BIND(<https://wikipathways.org/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
     BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctPublisherName))) AS ?dctPublisher)
 
     BIND("wikipathways" AS ?idotPreferredPrefix) # Usually a May but required for data2services since it used as source ID to generate the graph URI.

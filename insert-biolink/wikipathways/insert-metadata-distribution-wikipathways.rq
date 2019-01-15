@@ -254,12 +254,12 @@ WHERE
     }
 
 
-    BIND(<https://w3id.org/data2services/dataset/biogrid/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND(<https://w3id.org/data2services/dataset/wikipathways/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
     BIND("3.4.158"^^xsd:string AS ?pavVersion) # user input. TODO: extract it from the graph?
     BIND("1.0"^^xsd:string AS ?pavVersionRdf) # Increment it from the latest version? Or user input
 
     # Define the graph (A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution of the dataset)
-    BIND(iri("https://w3id.org/data2services/graph/biolink/biogrid") AS ?dcatAccessURL) # May. uri
+    BIND(iri("https://w3id.org/data2services/graph/biolink/wikipathways") AS ?dcatAccessURL) # May. uri
     # Should we really use it for graph? Monarch is using it for downloadable zip files
 
     OPTIONAL {
@@ -313,7 +313,6 @@ WHERE
 
     #BIND("2013-08"^^xsd:gYearMonth AS ?dctCreated)
     #BIND("2018-03-12"^^xsd:date AS ?dctIssued) # Same for version and source distribution
-    # TODO: extract from biogrid_dataset.ttl?
 
     #BIND(iri("http://www.ebi.ac.uk/chembl/") AS ?foafPage)
     #BIND(iri("http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif") AS ?schemaorgLogo)
