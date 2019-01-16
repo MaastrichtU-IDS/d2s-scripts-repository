@@ -237,7 +237,8 @@ INSERT {
 }
 WHERE 
 {
-        ##### Get WikiPathways dataset informations from WikiPathways: http://data.wikipathways.org/20181110/rdf/
+        ##### Get WikiPathways dataset informations
+    # From WikiPathways: http://data.wikipathways.org/20181110/rdf/
     GRAPH <http://rdf.wikipathways.org/graph> {
         ?dataset a void:Dataset ;
                 pav:createdBy ?dctCreator ;
@@ -248,6 +249,8 @@ WHERE
                 void:subset ?voidSubset .
 
         ?voidSubset void:dataDump ?dcatDownloadURLSource .
+
+
     }
 
 
