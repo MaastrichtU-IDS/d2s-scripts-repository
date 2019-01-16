@@ -30,8 +30,11 @@ WHERE {
       ?directedInteraction a wp:Inhibition ;
           wp:source ?source ;
           wp:target ?target ;
-          dct:isPartOf ?isPartOf ;
-          dct:bibliographicCitation ?citation .
+          dct:isPartOf ?isPartOf .
+
+      OPTIONAL {
+        ?directedInteraction dct:bibliographicCitation ?citation .
+      }
 
 }
 }

@@ -25,16 +25,22 @@ INSERT
           bl:same_as ?xrefWikidata ;
           bl:same_as ?xrefHmdb ;
           bl:same_as ?xrefChemspider .
+
+    ?participants bl:part_of ?dataNode . # for being wp:participants
  }
 }
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
       ?dataNode a wp:Complex ;
-          dc:identifier ?id ;
-          rdfs:label ?label .
 
       OPTIONAL {
+          ?dataNode dc:identifier ?id ;
+      } OPTIONAL {
+          ?dataNode rdfs:label ?label .
+      } OPTIONAL {
+          ?dataNode wp:participants ?participants .
+      } OPTIONAL {
           ?dataNode dct:isPartOf ?isPartOf .
       } OPTIONAL {
           ?dataNode dct:bibliographicCitation ?citations .
@@ -54,7 +60,7 @@ WHERE {
           ?dataNode wp:bdbHmdb ?xrefHmdb .
       } OPTIONAL {
           ?dataNode wp:bdbChemspider ?xrefChemspider .
-      }
+      } 
     }
   }
 }

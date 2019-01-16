@@ -33,8 +33,11 @@ WHERE {
       ?directedInteraction a ?interactionType ;
           wp:source ?source ;
           wp:target ?target ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434
-          dct:bibliographicCitation ?citation ;
           dct:isPartOf ?isPartOf .
+
+      OPTIONAL {
+        ?directedInteraction dct:bibliographicCitation ?citation .
+      }
       
       #FILTER(?interactionType IN (wp:Conversion , wp:ComplexBinding , wp:Binding ))
 }

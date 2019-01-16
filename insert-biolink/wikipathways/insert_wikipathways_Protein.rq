@@ -9,7 +9,6 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 
-# Don't stop processing. But if used as select * it resolves in seconds. So the insert should work
 INSERT
 {
   GRAPH <?_outputGraph> {  
@@ -30,11 +29,13 @@ INSERT
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
-      ?dataNode a wp:Protein ;
-          dc:identifier ?id ;
-          rdfs:label ?label .
+      ?dataNode a wp:Protein .
 
       OPTIONAL {
+          ?dataNode dc:identifier ?id .
+      } OPTIONAL {
+          ?dataNode rdfs:label ?label .
+      } OPTIONAL {
           ?dataNode dct:isPartOf ?isPartOf .
       } OPTIONAL {
           ?dataNode dct:bibliographicCitation ?citations .

@@ -27,14 +27,20 @@ INSERT
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
-      ?pathwayUri a wp:Pathway ;
-          dct:references ?pathwayReferences ;
-          dc:title ?pathwayName ;
-          dct:identifier ?pathwayId ;
-          dct:description ?pathwayDescription ;
-          wp:organism ?pathwayOrganism .
-          # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328
+      ?pathwayUri a wp:Pathway .
+      # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328
 
+      OPTIONAL {
+        ?pathwayUri dct:references ?pathwayReferences .
+      } OPTIONAL {
+        ?pathwayUri dc:title ?pathwayName .
+      } OPTIONAL {
+        ?pathwayUri dct:identifier ?pathwayId .
+      } OPTIONAL {
+        ?pathwayUri dct:description ?pathwayDescription .
+      } OPTIONAL {
+        ?pathwayUri wp:organism ?pathwayOrganism .
+      }
 
 }
 }

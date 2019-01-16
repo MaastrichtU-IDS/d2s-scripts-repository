@@ -30,11 +30,13 @@ INSERT
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
-      ?dataNode a wp:Metabolite ;
-          dc:identifier ?id ;
-          rdfs:label ?label .
+      ?dataNode a wp:Metabolite .
 
       OPTIONAL {
+          ?dataNode dc:identifier ?id .
+      } OPTIONAL {
+          ?dataNode rdfs:label ?label .
+      } OPTIONAL {
           ?dataNode dct:isPartOf ?isPartOf .
       } OPTIONAL {
           ?dataNode dct:bibliographicCitation ?citations .
