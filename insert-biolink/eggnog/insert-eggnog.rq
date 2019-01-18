@@ -1,0 +1,71 @@
+#PREFIX d2sgeneric: <http://data2services/data/emonet/string/9606.protein.actions.v10.5.tsv/>
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+INSERT
+{
+  GRAPH <?_outputGraph> {  
+
+    # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
+   ?groupUri a bl:GeneGrouping ; # Or bl:GeneFamily
+            bl:id ?GroupName ;
+            bl:name ?GroupName ;
+            bl:description ?description ;
+            bl:category ?COGFunctionalCategory ;
+            bl:has_participant ?ProteinIDs ; 
+            bl:in_taxon ?TaxonomicLevel .
+            #SpeciesCount
+            #ProteinCount: has_count? node_property?
+            #ProteinIDs to split properly
+            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
+
+    ?uriProt1 a bl:Protein ; # From ProteinIDs
+        bl:id ?prot1 ;
+        bl:part_of ?groupUri .
+    
+    ?uriProt2 a bl:Protein ; # From ProteinIDs
+        bl:id ?prot2 ;
+        bl:part_of ?groupUri .
+    
+ }
+}
+WHERE {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+
+      #SELECT * {  # TO REMOVE
+      ?s d2smodel:Groupname ?GroupName .
+
+      BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/group/", ?GroupName)) AS ?groupUri )
+
+
+      OPTIONAL {
+        ?s d2smodel:Consensusfunctionaldescription ?description .
+      } OPTIONAL {
+        ?s d2smodel:Taxonomiclevel ?TaxonomicLevel .
+      } OPTIONAL {
+        ?s d2smodel:Proteincount ?ProteinCount .
+      } OPTIONAL {
+        ?s d2smodel:Speciescount ?SpeciesCount .
+      } OPTIONAL {
+        ?s d2smodel:Cogfunctionalcategory ?COGFunctionalCategory .
+      } OPTIONAL {
+        ?s d2smodel:Proteinids ?ProteinIDs . # The most important, complex to process
+        #BIND ( strafter(?ProteinIDs, ",") AS ?prot1 )
+        #BIND ( strbefore(?ProteinIDs, ",") AS ?prot2 )
+        #BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/protein/", ?prot2)) AS ?uriProt2 )
+      }
+
+      # Avoid taking the first row with columns labels
+      FILTER( ?TaxonomicLevel != "TaxonomicLevel")
+
+    #} # TO REMOVE
+    #LIMIT 10
+
+}
+}
+}
