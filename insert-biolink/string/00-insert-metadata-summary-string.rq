@@ -83,11 +83,11 @@ WHERE
     BIND(<https://w3id.org/data2services/dataset/string/> AS ?summaryUri)  # user input
     # Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
-    BIND("HUGO Gene Nomenclature Committee"@en AS ?dctTitle) # user input
+    BIND("STRING database"@en AS ?dctTitle) # user input
     BIND("Protein-Protein Interaction Networks. STRING is a database of known and predicted protein-protein interactions. The interactions include direct (physical) and indirect (functional) associations; they stem from computational prediction, from knowledge transfer between organisms, and from interactions aggregated from other (primary) databases."@en AS ?dctDescription) # user input
 
     # Use https://orcid.org/ for researchers when possible or generate a new agent URI (like here)
-    BIND(" EMBL European Molecular Biology Laboratory" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
+    BIND("EMBL European Molecular Biology Laboratory" AS ?dctPublisherName) # Optional, to store publisher name in our graph if the URI already resolves
     BIND(<https://www.embl.de/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
     BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctPublisherName))) AS ?dctPublisher)
 
