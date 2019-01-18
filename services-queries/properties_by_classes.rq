@@ -1,17 +1,18 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-select ?graph ?class ?classLabel ?count
+# /explore/{graph}/properties/{class}
+select ?graph ?class ?classLabel ?property ?propertyLabel ?count 
+from named <?_graph> # Remove it to get for all graphs
 where{
     {
-        select ?graph ?class ?property (count(?class) as ?count)  
+        select ?graph ?class ?property (count(?property) as ?count)
         where { 
             graph ?graph {
-                ?s a <http://data2services/data/bio2vec/eggnog/NOG.annotations.tsv> .
+                ?s a <?_class> .
                 ?s a ?class .
 
                 ?s ?property ?o .
             }
-            FILTER(?graph = <?_graph>) # Remove it to get for all graphs
         } 
         group by ?graph ?class ?property
         order by desc(?count)

@@ -9,6 +9,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX void: <http://rdfs.org/ns/void#>
 
 # Add ?classCount
+# /explore
 SELECT ?source ?graph 
 WHERE {
     GRAPH <http://data2services/metadata/datasets>
