@@ -1,18 +1,18 @@
+# Example4 from file
+# /{source}/{class}/{id}/{property}
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX bl: <http://bioentity.io/vocab/>
-
-SELECT ?propertyValue
+SELECT ?_source ?_type ?_property ?object
 WHERE 
 {
     # Should be a variable (source)
-    GRAPH <http://data2services/biolink/drugbank> 
+    GRAPH <?_source> 
     {
         # Should be a variable (type)
-        ?item a bl:Drug .
+        ?item a ?_type .
         # Should be a variable (id)
-        ?item bl:id "DB11571" .
-        # Should be a variable (property)
-        ?item bl:affects ?propertyValue .
+        ?item bl:id "?_object" .
+        ?item ?_property ?object .
     }
 }
