@@ -18,6 +18,9 @@ INSERT
             bl:has_confidence_level ?ConfidenceLevelUri .
             # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
+    ?uriProtSource a bl:Protein .
+    ?uriProtTarget a bl:Protein .
+
     ?ConfidenceLevelUri a bl:ConfidenceLevel ;
             bl:id "score" ;
             bl:name "Score" ;
