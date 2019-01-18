@@ -1,0 +1,23 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select *
+where{
+    {
+        select ?class ?property (count(?class) as ?count)  
+        where { 
+            ?s a ?class .
+
+            ?s ?property ?o .
+        } 
+        group by ?class ?property
+        order by desc(?count)
+    }
+    
+    optional {
+        ?class rdfs:label ?label .
+    }
+    
+    optional {
+        ?property rdfs:label ?propertyredicateLabel .
+    }
+}
