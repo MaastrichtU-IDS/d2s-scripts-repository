@@ -10,8 +10,6 @@ WHERE
             graph ?graph {
                 [] a ?class .
             }
-            # Should be a variable (graph)
-            FILTER(?graph = <?_graph>)
         }
         group by ?graph ?class
         order by desc(?count)
