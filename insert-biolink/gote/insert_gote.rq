@@ -9,140 +9,72 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-   ?protUri a bl:Protein . 
-   ?pathwayUri a bl:Pathway . 
+   ?protUri a bl:Protein ;
+       . 
+
+   ?tissuePathwayUri a bl:Pathway ; # TODO: not this type?
+      bl:name ?tissueName .
+
+   ?pathwayUri a bl:Pathway ;
+      bl:name ?pathwayName .
 
    ?interactionUri a bl:MacromolecularMachineToBiologicalProcessAssociation ;
-            bl:relation bl:interacts_with ;
-            bl:macromolecular_machine_to_biological_process_association_subject ?uniprotUri1 ;
-            bl:macromolecular_machine_to_biological_process_association_object ?uniprotUri2 ;
-            bl:has_confidence_level ?ConfidenceLevelStrScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelProtpepScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelStrMaxScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelRedScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelOrtScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelPhyScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelCoexpScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelGoScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelExpScoreUri ;
-            bl:has_confidence_level ?ConfidenceLevelFinalScoreUri .
+            bl:relation bl:expressed_in ;
+            bl:macromolecular_machine_to_biological_process_association_subject ?protUri ;
+            bl:macromolecular_machine_to_biological_process_association_object ?tissuePathwayUri ;
+            bl:part_of ?pathwayUri ;  
+            bl:has_confidence_level ?pathwayPvalueUri ;
+            bl:quantifier_qualifier ?highScoreUri ;
+            bl:quantifier_qualifier ?specificScoreUri .
 
-    ?ConfidenceLevelStrScoreUri a bl:ConfidenceLevel ;
-            bl:id "str_score" ;
-            bl:name "Str score" ;
-            bl:node_property ?str_score .
+    ?highScoreUri a bl:RelationshipQuantifier ;
+            bl:id "zScoreHighGpcrExpression" ;
+            bl:name "High GPCR z-score" ;
+            bl:description "z-score of GPCR represents how high the GPCR is expressed in the tissue" ;
+            bl:node_property ?zScoreHighGpcrExpression .
 
-    ?ConfidenceLevelProtpepScoreUri a bl:ConfidenceLevel ;
-            bl:id "protpep_score" ;
-            bl:name "Protpep score" ;
-            bl:node_property ?protpep_score .
+    ?specificScoreUri a bl:SpecificityQuantifier ;
+            bl:id "zScoreSpecificExpression" ;
+            bl:name "Specific GPCR z-score" ;
+            bl:description "z-score of GPCR represents how specific the GPCR is expressed in the tissue" ;
+            bl:node_property ?zScoreSpecificExpression .
 
-    ?ConfidenceLevelStrMaxScoreUri a bl:ConfidenceLevel ;
-            bl:id "str_max_score" ;
-            bl:name "Str Max score" ;
-            bl:node_property ?str_max_score .
-
-    ?ConfidenceLevelRedScoreUri a bl:ConfidenceLevel ;
-            bl:id "red_score" ;
-            bl:name "Red score" ;
-            bl:node_property ?red_score .
-
-    ?ConfidenceLevelOrtScoreUri a bl:ConfidenceLevel ;
-            bl:id "ort_score" ;
-            bl:name "Ort score" ;
-            bl:node_property ?ort_score .
-
-    ?ConfidenceLevelPhyScoreUri a bl:ConfidenceLevel ;
-            bl:id "phy_score" ;
-            bl:name "Phy score" ;
-            bl:node_property ?phy_score .
-
-    ?ConfidenceLevelCoexpScoreUri a bl:ConfidenceLevel ;
-            bl:id "coexp_score" ;
-            bl:name "Coexp score" ;
-            bl:node_property ?coexp_score .
-
-    ?ConfidenceLevelGoScoreUri a bl:ConfidenceLevel ;
-            bl:id "go_score" ;
-            bl:name "Go score" ;
-            bl:node_property ?go_score .
-
-    ?ConfidenceLevelTotalScoreUri a bl:ConfidenceLevel ;
-            bl:id "total_score" ;
-            bl:name "Total score" ;
-            bl:node_property ?total_score .
-
-    ?ConfidenceLevelExpScoreUri a bl:ConfidenceLevel ;
-            bl:id "exp_score" ;
-            bl:name "Exp score" ;
-            bl:node_property ?exp_score .
-
-    ?ConfidenceLevelFinalScoreUri a bl:ConfidenceLevel ;
-            bl:id "final_score" ;
-            bl:name "Final score" ;
-            bl:node_property ?final_score .
+    ?pathwayPvalueUri a bl:ConfidenceLevel ;
+            bl:id "pathwayPvalue" ;
+            bl:name "p-value of the pathway" ;
+            bl:node_property ?pathwayPvalue .
 
  }
 }
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
+      # gpcr_pathway.R: predicting G-protein independent pathways transduced by beta-arrestins.
+      # gpcr_gp_pathway.R: predicting G-protein dependent pathways transduced by G-proteins.
+      # do a bind on contains _gp_ to have different type?
+
       ?s d2smodel:Gpcruniprotid ?protId .
       ?s d2smodel:Pathwaynames ?pathwayName .
+      ?s d2smodel:Tissuename ?tissueName .
 
       BIND( iri(concat("http://identifiers.org/uniprot/", ?protId ) ) AS ?protUri )
       BIND( iri(concat("https://w3id.org/data2services/data/pathway/", md5(?pathwayName) ) ) AS ?pathwayUri )
-      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", concat(?prot1, ?prot2) ) ) AS ?interactionUri )
+      BIND( iri(concat("https://w3id.org/data2services/data/", md5(concat(?pathwayName, ?tissueName)) ) ) AS ?tissuePathwayUri )
+      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?protId, str(?tissuePathwayUri))) ) ) AS ?interactionUri )
 
        OPTIONAL { 
-         ?s d2smodel:Str_score ?str_score .
-         BIND( iri(concat(str(?interactionUri), "/str_score")) AS ?ConfidenceLevelStrScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Protpep_score ?protpep_score .
-         BIND( iri(concat(str(?interactionUri), "/protpep_score")) AS ?ConfidenceLevelProtpepScoreUri)
+         ?s d2smodel:Pathwaypvalue ?pathwayPvalue .
+         BIND( iri(concat(str(?interactionUri), "/pathway_pvalue")) AS ?pathwayPvalueUri)
        } OPTIONAL { 
-         ?s d2smodel:Str_max_score ?str_max_score .
-         BIND( iri(concat(str(?interactionUri), "/str_max_score")) AS ?ConfidenceLevelStrMaxScoreUri)
+         ?s d2smodel:Zscorehighgpcrexpression ?zScoreHighGpcrExpression .
+         BIND( iri(concat(str(?interactionUri), "/high_score")) AS ?highScoreUri)
        } OPTIONAL { 
-         ?s d2smodel:Red_score ?red_score .
-         BIND( iri(concat(str(?interactionUri), "/red_score")) AS ?ConfidenceLevelRedScoreUri)
-       } OPTIONAL { 
-         ?s d2smodel:Ort_score ?ort_score .
-         BIND( iri(concat(str(?interactionUri), "/ort_score")) AS ?ConfidenceLevelOrtScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Phy_score ?phy_score .
-         BIND( iri(concat(str(?interactionUri), "/phy_score")) AS ?ConfidenceLevelPhyScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Coexp_score ?coexp_score .
-         BIND( iri(concat(str(?interactionUri), "/coexp_score")) AS ?ConfidenceLevelCoexpScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Go_score ?go_score .
-         BIND( iri(concat(str(?interactionUri), "/go_score")) AS ?ConfidenceLevelGoScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Total_score ?total_score .
-         BIND( iri(concat(str(?interactionUri), "/total_score")) AS ?ConfidenceLevelTotalScoreUri)
-
-       } OPTIONAL {
-         ?s d2smodel:Dbs ?dbs . # array separated by ,
-
-       } OPTIONAL {
-         ?s d2smodel:Pubs ?pubs . # array
-         BIND( if( contains(?pubs, "|"),
-              iri(concat("http://identifiers.org/", strbefore(?pubs, "|") ) ) ,
-              iri(concat("http://identifiers.org/", ?pubs) ) ) 
-         AS ?pubsUri )
-       
-       } OPTIONAL {
-         ?s d2smodel:Exp_score ?exp_score .
-         BIND( iri(concat(str(?interactionUri), "/exp_score")) AS ?ConfidenceLevelExpScoreUri)
-       } OPTIONAL {
-         ?s d2smodel:Final_score ?final_score .
-         BIND( iri(concat(str(?interactionUri), "/final_score")) AS ?ConfidenceLevelFinalScoreUri)
-
-  }
+         ?s d2smodel:Zscorespecificexpression ?zScoreSpecificExpression .
+         BIND( iri(concat(str(?interactionUri), "/specific_score")) AS ?specificScoreUri)
+       }
 
   # Avoid taking the first row with columns labels
-  FILTER( ?prot1 != "prot1") 
+  FILTER( ?tissueName != "TissueName") 
 }
 }
 }

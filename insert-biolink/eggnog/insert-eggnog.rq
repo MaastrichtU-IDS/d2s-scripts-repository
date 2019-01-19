@@ -19,7 +19,7 @@ INSERT
             bl:has_participant ?ProteinIDs ; 
             bl:in_taxon ?TaxonomicLevel .
             #SpeciesCount
-            #ProteinCount: has_count? node_property?
+            #ProteinCount: has_count? node_property? NO: quantifier qualifier
             #ProteinIDs to split properly
             # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
