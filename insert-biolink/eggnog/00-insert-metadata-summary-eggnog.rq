@@ -83,7 +83,7 @@ WHERE
     BIND(<https://w3id.org/data2services/dataset/string/> AS ?summaryUri)  # user input
     # Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
-    BIND("STRING database"@en AS ?dctTitle) # user input
+    BIND("EggNOG"@en AS ?dctTitle) # user input
     BIND("Protein-Protein Interaction Networks. STRING is a database of known and predicted protein-protein interactions. The interactions include direct (physical) and indirect (functional) associations; they stem from computational prediction, from knowledge transfer between organisms, and from interactions aggregated from other (primary) databases."@en AS ?dctDescription) # user input
 
     # Use https://orcid.org/ for researchers when possible or generate a new agent URI (like here)

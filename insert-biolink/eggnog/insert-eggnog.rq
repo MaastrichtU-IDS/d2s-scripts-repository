@@ -16,20 +16,20 @@ INSERT
             bl:name ?GroupName ;
             bl:description ?description ;
             bl:category ?COGFunctionalCategory ;
-            bl:has_participant ?ProteinIDs ; 
+            bl:has_participant ?ProteinIDs ; # TODO: not good
             bl:in_taxon ?TaxonomicLevel .
             #SpeciesCount
             #ProteinCount: has_count? node_property? NO: quantifier qualifier
             #ProteinIDs to split properly
             # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
-    ?uriProt1 a bl:Protein ; # From ProteinIDs
-        bl:id ?prot1 ;
-        bl:part_of ?groupUri .
+    #?uriProt1 a bl:Protein ; # We need to split the ProteinIDs
+    #    bl:id ?prot1 ;
+    #    bl:part_of ?groupUri .
     
-    ?uriProt2 a bl:Protein ; # From ProteinIDs
-        bl:id ?prot2 ;
-        bl:part_of ?groupUri .
+    #?uriProt2 a bl:Protein ; # From ProteinIDs
+    #    bl:id ?prot2 ;
+    #    bl:part_of ?groupUri .
     
  }
 }
@@ -42,11 +42,10 @@ WHERE {
 
       BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/group/", ?GroupName)) AS ?groupUri )
 
-
       OPTIONAL {
         ?s d2smodel:Consensusfunctionaldescription ?description .
       } OPTIONAL {
-        ?s d2smodel:Taxonomiclevel ?TaxonomicLevel .
+        ?s d2smodel:Taxonomiclevel ?TaxonomicLevel . # TODO: generate URI 
       } OPTIONAL {
         ?s d2smodel:Proteincount ?ProteinCount .
       } OPTIONAL {
@@ -54,9 +53,10 @@ WHERE {
       } OPTIONAL {
         ?s d2smodel:Cogfunctionalcategory ?COGFunctionalCategory .
       } OPTIONAL {
-        ?s d2smodel:Proteinids ?ProteinIDs . # The most important, complex to process
-        #BIND ( strafter(?ProteinIDs, ",") AS ?prot1 )
+        ?s d2smodel:Proteinids ?ProteinIDs . # The most important, really complex to process
+        #BIND ( strafter(?ProteinidsDs, ",") AS ?prot1 )
         #BIND ( strbefore(?ProteinIDs, ",") AS ?prot2 )
+        #BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/protein/", ?prot1)) AS ?uriProt1 )
         #BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/protein/", ?prot2)) AS ?uriProt2 )
       }
 

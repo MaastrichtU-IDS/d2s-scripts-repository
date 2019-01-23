@@ -18,6 +18,9 @@ INSERT
             bl:has_confidence_level ?ConfidenceLevelUri .
             # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
+    # Direct relation
+    ?uriProtSource ?relationUri ?uriProtTarget .
+
     ?uriProtSource a bl:Protein .
     ?uriProtTarget a bl:Protein .
 
@@ -56,7 +59,7 @@ WHERE {
       OPTIONAL { 
         ?s d2smodel:Mode ?mode . # type of interaction: activation, inhibition, reaction, binding, expression, catalysis, ptmod (post-translational modifications)
       } OPTIONAL { 
-        ?s d2smodel:Action ?action . # the effect of the action ("inhibition", "activation")
+        ?s d2smodel:Action ?action . # Not used at the moment. The effect of the action ("inhibition", "activation"). Only filled for activation and inhibition modes
       } OPTIONAL {
         ?s d2smodel:Score ?score . # 0 to 1000
         BIND ( iri(concat("https://w3id.org/data2services/data/string/interaction/", md5(concat(?protSource, ?protTarget)), "/score" )) AS ?ConfidenceLevelUri )

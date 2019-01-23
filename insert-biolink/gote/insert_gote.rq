@@ -12,17 +12,17 @@ INSERT
    ?protUri a bl:Protein ;
        . 
 
-   ?tissuePathwayUri a bl:Pathway ; # TODO: not this type?
+   ?tissueUri a bl:GrossAnatomicalStructure ; # tissue
       bl:name ?tissueName .
 
-   ?pathwayUri a bl:Pathway ;
-      bl:name ?pathwayName .
+   ?pathwayUri a bl:Pathway ; # tissue-specific molecular pathway
+      bl:name ?pathwayName ;
+      bl:part_of ?tissueUri .
 
    ?interactionUri a bl:MacromolecularMachineToBiologicalProcessAssociation ;
             bl:relation bl:expressed_in ;
             bl:macromolecular_machine_to_biological_process_association_subject ?protUri ;
-            bl:macromolecular_machine_to_biological_process_association_object ?tissuePathwayUri ;
-            bl:part_of ?pathwayUri ;  
+            bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
             bl:has_confidence_level ?pathwayPvalueUri ;
             bl:quantifier_qualifier ?highScoreUri ;
             bl:quantifier_qualifier ?specificScoreUri .
@@ -59,8 +59,8 @@ WHERE {
 
       BIND( iri(concat("http://identifiers.org/uniprot/", ?protId ) ) AS ?protUri )
       BIND( iri(concat("https://w3id.org/data2services/data/pathway/", md5(?pathwayName) ) ) AS ?pathwayUri )
-      BIND( iri(concat("https://w3id.org/data2services/data/", md5(concat(?pathwayName, ?tissueName)) ) ) AS ?tissuePathwayUri )
-      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?protId, str(?tissuePathwayUri))) ) ) AS ?interactionUri )
+      BIND( iri(concat("https://w3id.org/data2services/data/tissue/", md5(?tissueName) ) ) AS ?tissueUri )
+      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?protId, ?tissueName, ?pathwayName)) ) ) AS ?interactionUri )
 
        OPTIONAL { 
          ?s d2smodel:Pathwaypvalue ?pathwayPvalue .
