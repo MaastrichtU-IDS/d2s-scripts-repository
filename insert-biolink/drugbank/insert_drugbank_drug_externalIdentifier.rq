@@ -50,21 +50,22 @@ WHERE {
                 ( "KEGG Compound" "kegg.compound" )
                 ( "KEGG Drug" "kegg.drug" )
                 ( "ChEMBL" "chembl.compound" )
-                ( "ChEBI" "chebi" )
+                ( "ChEBI" "chebi/CHEBI:" )
                 ( "PubChem Compound" "pubchem.compound" )
                 ( "PubChem Substance" "pubchem.substance" )
-                ( "HUGO Gene Nomenclature Committee (HGNC)" "hgnc" )
                 ( "PharmGKB" "pharmgkb.drug" )
                 ( "GenAtlas" "genatlas" )
                 ( "Wikipedia" "wikipedia.en" )
-                ( "Guide to Pharmacology" "iuphar.ligand" ) # Not sure
-                ( "IUPHAR" "iuphar.ligand" ) # Not sure
-                ( "GenBank Gene Database" "ena.embl" )
-                ( "GenBank Protein Database" "ncbiprotein" )
+                ( "Guide to Pharmacology" "iuphar.ligand" )
+                ( "IUPHAR" "iuphar.ligand" )
                 ( "ChemSpider" "chemspider" )
-                ( "Therapeutic Targets Database" "ttd.drug" ) #ok
-                ( "Drugs Product Database (DPD)" "cdpd" )
+                ( "Therapeutic Targets Database" "ttd.drug" )
                 ( "Human Metabolome Database" "hmdb" )
+
+                #( "Drugs Product Database (DPD)" "cdpd" )
+                #( "GenBank Gene Database" "ena.embl" )
+                #( "GenBank Protein Database" "ncbiprotein" )
+                #( "HUGO Gene Nomenclature Committee (HGNC)" "hgnc" )
 
                 #( "UniProtKB" "uniprot" )
                 #( "GenBank" "" ) # https://www.ncbi.nlm.nih.gov/nuccore/M32315
@@ -73,25 +74,28 @@ WHERE {
             }
 
             VALUES (?drugIdentifierResource ?drugIdentifierProperty) {
-                ( "KEGG Compound" bl:same_as ) # OK
-                ( "KEGG Drug" bl:same_as ) #ok
-                ( "ChEMBL" bl:same_as ) #ok
-                ( "ChEBI" bl:same_as )
-                ( "PubChem Compound" bl:same_as ) 
-                ( "PubChem Substance" bl:same_as ) # OK
-                ( "HUGO Gene Nomenclature Committee (HGNC)" bl:same_as )
-                ( "PharmGKB" bl:same_as ) #ok
-                ( "GenAtlas" bl:same_as )
-                ( "Wikipedia" bl:same_as )
-                ( "Guide to Pharmacology" bl:same_as )
-                ( "IUPHAR" bl:same_as )
-                ( "GenBank Gene Database" bl:same_as )
-                ( "GenBank Protein Database" bl:same_as )
+                ( "KEGG Compound" bl:same_as ) # ok
+                ( "KEGG Drug" bl:same_as ) # ok
+                ( "ChEMBL" bl:same_as ) # ok
+                ( "ChEBI" bl:same_as ) # ok
+                ( "PubChem Compound" bl:same_as ) # ok
+                ( "PubChem Substance" bl:same_as ) # ok
+                ( "PharmGKB" bl:same_as ) # ok
+                ( "GenAtlas" bl:same_as ) # ok
+                ( "Wikipedia" bl:same_as ) # ok
+                ( "Guide to Pharmacology" bl:same_as ) # ok
+                ( "IUPHAR" bl:same_as ) # ok
                 ( "ChemSpider" bl:same_as ) #ok
-                ( "Therapeutic Targets Database" bl:same_as )
-                ( "Drugs Product Database (DPD)" bl:same_as )
-                ( "Human Metabolome Database" bl:same_as )
+                ( "Therapeutic Targets Database" bl:same_as ) # ok
+                ( "Human Metabolome Database" bl:same_as ) # ok
                 ( undef undef )
+
+                #( "Drugs Product Database (DPD)" bl:same_as ) # identifiers.org outdated for cdpd. not resolving
+                
+                # Nothing generated
+                #( "GenBank Gene Database" bl:same_as )
+                #( "GenBank Protein Database" bl:same_as )
+                #( "HUGO Gene Nomenclature Committee (HGNC)" bl:same_as ) # nothing generated
             
                 # Not processed:
                 # ( "UniProtKB" iri("") ) # External link to UniProt is not exactly a same_as, even if it points to a protein similar to the one in the drug.
