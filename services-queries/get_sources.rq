@@ -12,12 +12,8 @@ PREFIX void: <http://rdfs.org/ns/void#>
 # /explore
 SELECT ?source ?graph 
 WHERE {
-    GRAPH <http://data2services/metadata/datasets>
-    {
         ?dataset a dctypes:Dataset ;
-            idot:preferredPrefix ?source ;
-            dcat:accessURL ?graph .
+            idot:preferredPrefix ?source .
         ?version dct:isVersionOf ?dataset ; 
-            dcat:distribution [ a void:Dataset ] .  
-    }
+            dcat:distribution [ a void:Dataset ; dcat:accessURL ?graph ] .  
 }
