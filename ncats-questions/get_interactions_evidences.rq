@@ -1,0 +1,22 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+
+select *
+from named <?_graph>
+where {
+  GRAPH ?graph
+  {
+    # Is there evidence of a biochemical basis for the Adverse Event? 
+    # Does either drug or the combined treatment interact with a component of the mechanism of the adverse event?
+    # Get pathways from GOTE and get evidences for protein interaction due to a defined drug
+    
+    ?s a bl:MacromolecularMachineToBiologicalProcessAssociation ;
+        bl:macromolecular_machine_to_biological_process_association_subject ?uniprotUri ;
+        bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
+        bl:quantifier_qualifier [ bl:id "zScoreHighGpcrExpression" ;  bl:node_property ?zScoreHighGpcrExpression] ;
+        bl:quantifier_qualifier [ bl:id "zScoreSpecificExpression" ;  bl:node_property ?zScoreSpecificExpression] ;
+        bl:has_confidence_level [ bl:node_property ?pathwayPvalue] ;
+        bl:relation ?relation .
+  }
+}
