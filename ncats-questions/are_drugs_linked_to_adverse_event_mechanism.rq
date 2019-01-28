@@ -1,0 +1,21 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+
+
+# Are either or both drugs together mechanistically linked to adverse event mechanism?
+
+select *
+from named <?_graph>
+where {
+  GRAPH ?graph
+  {
+    ?s a bl:MacromolecularMachineToBiologicalProcessAssociation ;
+        bl:macromolecular_machine_to_biological_process_association_subject ?uniprotUri ;
+        bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
+        bl:quantifier_qualifier [ bl:id "zScoreHighGpcrExpression" ;  bl:node_property ?zScoreHighGpcrExpression] ;
+        bl:quantifier_qualifier [ bl:id "zScoreSpecificExpression" ;  bl:node_property ?zScoreSpecificExpression] ;
+        bl:has_confidence_level [ bl:node_property ?pathwayPvalue] ;
+        bl:relation ?relation .
+  }
+}
