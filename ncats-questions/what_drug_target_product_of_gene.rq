@@ -1,0 +1,17 @@
+# What drugs/compounds target gene products of gene "coagulation factor II, thrombin"?
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+SELECT distinct *
+{   ?gene a bl:Gene ;
+      bl:id ?geneId ; 
+      bl:name ?geneLabel ;
+      bl:has_gene_product ?geneProduct .
+    ?geneProduct bl:name ?geneProductLabel .
+    
+    ?interaction ?p ?geneProduct .
+    ?interaction ?p ?drug .
+    ?drug a bl:ChemicalSubstance .
+    #?drug rdfs:label ?drugLabel .
+    #FILTER regex(str(?geneLabel), "coagulation factor II, thrombin") . 
+}
