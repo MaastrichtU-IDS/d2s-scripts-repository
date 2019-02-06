@@ -20,9 +20,7 @@ PREFIX sio: <http://semanticscience.org/resource/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
-
-
-PREFIX bl: <http://bioentity.io/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX hcls: <http://www.w3.org/hcls#>
 PREFIX d2sdata: <https://w3id.org/data2services/data/>
