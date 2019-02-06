@@ -1,0 +1,9 @@
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+
+# What genes are involved in [pathway/process]?
+
+select * 
+where {
+    ?s a bl:Protein .
+    ?s ?p [a bl:Pathway ] .
+}

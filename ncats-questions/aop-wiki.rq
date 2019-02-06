@@ -1,0 +1,50 @@
+# Integrate chemical knowledge from AOP-Wiki with WikiPathways, by utilizing Wikidata RDF. 
+# Federated query:
+
+prefix dc: <http://purl.org/dc/elements/1.1/>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix cheminf: <http://semanticscience.org/resource/> 
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix wp: <http://vocabularies.wikipathways.org/wp#>
+prefix aopo: <http://aopkb.org/aop_ontology#>
+
+select distinct ?ChemicalName ?LinkedAOP ?LinkedAOPURI ?CASRN ?ChemicalURI ?PathwayID ?PathwayURI where{
+select * where { 
+ ?cheLook a cheminf:CHEMINF_000000 ;
+ dc:identifier ?ChemicalURI ;
+ dc:title ?ChemicalName ;
+ cheminf:CHEMINF_000446 ?CASRN ;
+ dcterms:isPartOf ?LinkedStressor.
+ ?LinkedStressor dcterms:isPartOf ?LinkedAOPURI .
+ ?LinkedAOPURI a aopo:AdverseOutcomePathway ;
+ rdfs:label ?LinkedAOP.
+ service <https://query.wikidata.org/bigdata/namespace/wdq/sparql>{
+   ?wikidata wdt:P231 ?CASRN.
+   service <http://sparql.wikipathways.org/>{
+     ?metabolite wp:bdbWikidata ?wikidata;
+     dcterms:isPartOf ?PathwayURI.
+     ?PathwayURI a wp:Pathway ;
+     dcterms:identifier ?PathwayID.
+}}}} order by ?ChemicalName
+
+
+# Retrieve all measurement/method information for AOP 12 from the AOP-Wiki data.
+# Simple query:
+prefix dc: <http://purl.org/dc/elements/1.1/>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix aop: <http://identifiers.org/aop/>
+prefix aopo: <http://aopkb.org/aop_ontology#>
+prefix mmo: <http://purl.obolibrary.org/obo/MMO_>
+
+
+select ?AopLabel?KeLookUp ?AssayText
+where {
+ ?KeLook a aopo:KeyEvent ;
+ rdfs:label ?KeLookUp ;
+ dcterms:isPartOf ?aop1 ; 
+ mmo:0000000 ?AssayText .
+ ?aop1 dc:identifier ?AopAssoc ;
+ rdfs:label ?AopLabel .
+ values ?aop1 {aop:12}
+}
