@@ -14,8 +14,8 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
     ?dataNode a bl:GeneProduct ;
-          bl:id ?id ;
-          bl:name ?label ;
+          #bl:id ?id ; Avoid conflict with Uniprot 
+          #bl:name ?label ;
           bl:part_of ?isPartOf ;
           bl:systematic_synonym ?xrefHgnc ;
           bl:same_as ?xrefUniprot ;

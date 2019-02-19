@@ -1,0 +1,35 @@
+PREFIX up: <http://purl.uniprot.org/core/> 
+PREFIX taxon: <http://purl.uniprot.org/taxonomy/> 
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+PREFIX uniprot: <http://identifiers.org/uniprot/>
+INSERT {
+    #GRAPH <https://w3id.org/data2services/graph/biolink/uniprot> {
+    GRAPH <?_outputGraph> {  
+        ?protIdoUri a bl:Protein ;
+            bl:id ?protId ;
+            bl:name ?label ; 
+            bl:same_as ?uniprotUri ;
+            bl:same_as ?protIdoSameAs ;
+            bl:in_taxon ?organism .
+
+        ?taxon a bl:OrganismTaxon .
+    }
+}
+WHERE {
+  SERVICE <https://sparql.uniprot.org>  {
+    ?uniprotUri a up:Protein ;
+      rdfs:label ?label ;
+      up:organism ?organism ;
+      ?p ?o .
+      # up:classifiedWith ?category . # Use category for go terms here? also some uniprot keywords
+  }
+  BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
+  BIND ( iri(concat("http://identifiers.org/uniprot:", ?protId)) AS ?protIdoUri )
+  BIND ( iri(concat("http://identifiers.org/uniprot/", ?protId)) AS ?protIdoSameAs )
+}
