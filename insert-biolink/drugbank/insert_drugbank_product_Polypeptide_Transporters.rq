@@ -44,8 +44,7 @@ INSERT {
             bl:name ?ncbiTaxonName ;
             bl:same_as ?ncbiTaxonUri .
 
-        #?polypeptideAttrUri a bl:GeneOrGeneProduct ;
-        #    bl:same_as ?polypeptideAttrUniprotUri .
+        ?polypeptideAttrUri a bl:GeneProduct .
 
     }
 }

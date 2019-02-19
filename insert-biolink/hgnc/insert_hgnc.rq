@@ -54,6 +54,8 @@ INSERT
    # https://biolink.github.io/biolink-model/docs/has_gene_product.html
    ?hgncUri bl:has_gene_product ?UniprotIdsUri .
 
+   ?UniprotIdsUri a bl:Protein .
+
    ?hgncUri bl:same_as ?EnsemblIdSuppliedByEnsemblUri .
 
    # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html

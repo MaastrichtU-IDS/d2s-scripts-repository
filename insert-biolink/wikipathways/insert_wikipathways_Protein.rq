@@ -13,7 +13,7 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
     ?dataNode a bl:Protein ;
-          bl:id ?id ;
+          #bl:id ?id ; conflict with preppi id (and preppi is better, because here it gives the full URI)
           bl:name ?label ;
           bl:part_of ?isPartOf ;
           bl:systematic_synonym ?xrefHgnc ;
