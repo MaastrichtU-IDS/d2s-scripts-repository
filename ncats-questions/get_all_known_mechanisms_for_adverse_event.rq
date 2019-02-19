@@ -1,21 +1,36 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX aopo: <http://aopkb.org/aop_ontology#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
 
+# To execute in AOP-Wiki-V4 graph (ncats-test): http://graphdb.dumontierlab.com/sparql
 
-# Get all known mechanisms for adverse event (Adverse Outcome Pathways)
+# Get all known mechanisms (key events) for adverse event (Adverse Outcome Pathways) 1530 results
 
-select *
-from named <?_graph>
-where {
-  GRAPH ?graph
-  {
-    ?s a bl:MacromolecularMachineToBiologicalProcessAssociation ;
-        bl:macromolecular_machine_to_biological_process_association_subject ?uniprotUri ;
-        bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
-        bl:quantifier_qualifier [ bl:id "zScoreHighGpcrExpression" ;  bl:node_property ?zScoreHighGpcrExpression] ;
-        bl:quantifier_qualifier [ bl:id "zScoreSpecificExpression" ;  bl:node_property ?zScoreSpecificExpression] ;
-        bl:has_confidence_level [ bl:node_property ?pathwayPvalue] ;
-        bl:relation ?relation .
-  }
+SELECT ?aopUri ?adverseOutcomePathway ?composedOfKeyEvents ?keyEventUri
+WHERE {
+    GRAPH <http://AOP-Wiki-V4> {
+        ?aopUri a aopo:AdverseOutcomePathway ;
+          aopo:has_key_event ?keyEventUri .
+        ?aopUri dc:title ?adverseOutcomePathway .
+        ?keyEventUri dc:title ?composedOfKeyEvents .
+    }
 }
+
+
+# With BioLink?
+
+#SELECT * FROM NAMED <?_graph>
+#WHERE {
+#  GRAPH ?graph
+#  {
+#    ?s a bl:MacromolecularMachineToBiologicalProcessAssociation ;
+#        bl:macromolecular_machine_to_biological_process_association_subject ?uniprotUri ;
+#        bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
+#        bl:quantifier_qualifier [ bl:id "zScoreHighGpcrExpression" ;  bl:node_property ?zScoreHighGpcrExpression] ;
+#        bl:quantifier_qualifier [ bl:id "zScoreSpecificExpression" ;  bl:node_property ?zScoreSpecificExpression] ;
+#        bl:has_confidence_level [ bl:node_property ?pathwayPvalue] ;
+#        bl:relation ?relation .
+#  }
+#}
