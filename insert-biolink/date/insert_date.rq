@@ -12,8 +12,7 @@ INSERT
    bl:id ?drugId ;
    bl:name ?drugName . 
 
-   ?targetUniprotUri a bl:Protein ;
-   bl:id ?targetUniprotId .
+   ?targetUniprotUri a bl:Protein .
 
    ?targetSymbolUri a bl:Gene ;
    bl:id ?targetSymbol ;
