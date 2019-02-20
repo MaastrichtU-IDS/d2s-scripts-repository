@@ -9,77 +9,64 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-   ?hgncUri a bl:Gene. 
-   ?hgncUri bl:iri ?hgncUri .
-   ?hgncUri bl:id ?Hgnc_id .
-   ?hgncUri bl:Name ?Name .
-   ?hgncUri rdfs:label ?Name .
-   ?hgncUri bl:systematic_synonym ?Symbol .
-   ?hgncUri bl:systematic_synonym ?singleAlias_symbol .
+    ?hgncUri a bl:Gene ;
+      bl:iri ?hgncUri ;
+      bl:id ?Hgnc_id ;
+      bl:name ?Name ;
+      bl:systematic_synonym ?Symbol ;
+      bl:systematic_synonym ?singleAlias_symbol ;
+      w3idvocab:Status ?Status ; # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
 
-   ?hgncUri w3idvocab:Status ?Status .
-   # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
+    ?hgncUri bl:category ?Locus_type .
+    # Could it be bl:category? Values: "RNA, long non-coding", "gene with protein product", "pseudogene", "virus integration site"
+    ?hgncUri bl:category ?Locus_group .
+    # Almost same as Locus_type. Values: "non-coding RNA", "protein-coding gene", "pseudogene", "other"
 
-   ?hgncUri bl:category ?Locus_type .
-   # Could it be bl:category? Values: "RNA, long non-coding", "gene with protein product", "pseudogene", "virus integration site"
-   ?hgncUri bl:category ?Locus_group .
-   # Almost same as Locus_type. Values: "non-coding RNA", "protein-coding gene", "pseudogene", "other"
+    #?hgncUri bl:GenomicSequenceLocalization ?
+    # Should we use https://biolink.github.io/biolink-model/docs/located_in.html ?
 
-   #?hgncUri bl:GenomicSequenceLocalization ?
-   # Should we use https://biolink.github.io/biolink-model/docs/located_in.html ?
+    ?hgncUri bl:update_date ?DateModified .
 
-   ?hgncUri bl:update_date ?DateModified .
+    ?hgncUri bl:same_as ?EntrezIdUri ; # https://www.ncbi.nlm.nih.gov/gene/1047
+      bl:same_as ?EnsemblGeneUri ; # http://identifiers.org/ensembl/ENSG00000153132
+      bl:same_as ?OmimIdUri ; # http://identifiers.org/mim/601858
+      bl:same_as ?AccessionNumbersUri ; # https://www.ncbi.nlm.nih.gov/nuccore/D86322
+      bl:same_as ?EnsemblIdSuppliedByEnsemblUri .
 
+    # https://biolink.github.io/biolink-model/docs/TranscriptToGeneRelationship.html
+    ?refseqAssociationUri a bl:TranscriptToGeneRelationship ;
+      bl:transcript_to_gene_relationship_subject ?RefseqAccessionUri ;
+      bl:transcript_to_gene_relationship_object ?hgncUri ;
+      bl:relation bl:expresses .
 
-   # https://www.ncbi.nlm.nih.gov/gene/1047
-   ?hgncUri bl:same_as ?EntrezIdUri .
+    ?RefseqAccessionUri a bl:Transcript . # https://www.ncbi.nlm.nih.gov/nuccore/NM_004362
 
-   # http://identifiers.org/ensembl/ENSG00000153132
-   ?hgncUri bl:same_as ?EnsemblGeneUri .
+    # https://biolink.github.io/biolink-model/docs/has_gene_product.html
+    ?hgncUri bl:has_gene_product ?UniprotIdsUri .
 
-   # http://identifiers.org/mim/601858
-   ?hgncUri bl:same_as ?OmimIdUri .
+    ?UniprotIdsUri a bl:Protein .
 
-   # https://www.ncbi.nlm.nih.gov/nuccore/D86322
-   ?hgncUri bl:same_as ?AccessionNumbersUri .
-
-   # https://biolink.github.io/biolink-model/docs/TranscriptToGeneRelationship.html
-   ?refseqAssociationUri a bl:TranscriptToGeneRelationship ;
-            bl:transcript_to_gene_relationship_subject ?RefseqAccessionUri ;
-            bl:transcript_to_gene_relationship_object ?hgncUri ;
-            bl:relation bl:expresses .
-
-   ?RefseqAccessionUri a bl:Transcript . # https://www.ncbi.nlm.nih.gov/nuccore/NM_004362
-
-   # https://biolink.github.io/biolink-model/docs/has_gene_product.html
-   ?hgncUri bl:has_gene_product ?UniprotIdsUri .
-
-   ?UniprotIdsUri a bl:Protein .
-
-   ?hgncUri bl:same_as ?EnsemblIdSuppliedByEnsemblUri .
-
-   # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
-   ?mgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+    # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
+    ?mgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdUri .
 
-   ?suppliedMgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+    ?suppliedMgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdSuppliedByMgiUri .
 
-   ?rgdAssociationUri a bl:GeneToGeneHomologyAssociation ;
+    ?rgdAssociationUri a bl:GeneToGeneHomologyAssociation ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?RgdIdUri .
 
 
+    ?hgncUri bl:located_in ?GenomicSequenceLocalizationUri ;
+      bl:located_in ?CcdsIdUri . # TODO: atm it generates http://identifiers.org/ccds/CCDS7241 but this does not resolve. It would need to be http://identifiers.org/ccds/CCDS7241.1
 
-   ?hgncUri bl:located_in ?GenomicSequenceLocalizationUri .
-   ?hgncUri bl:located_in ?CcdsIdUri . # TODO: atm it generates http://identifiers.org/ccds/CCDS7241 but this does not resolve. It would need to be http://identifiers.org/ccds/CCDS7241.1
-
-   ?GenomicSequenceLocalizationUri a bl:GenomicSequenceLocalization ;
+    ?GenomicSequenceLocalizationUri a bl:GenomicSequenceLocalization ;
       bl:genomic_sequence_localization_subject ?hgncUri ;
       bl:genomic_sequence_localization_object ?LocationUri .
 
@@ -89,10 +76,9 @@ INSERT
       bl:category "chromosome" .
 
 
-
-   # Publication
-   ?hgncUri bl:publications ?PubmedIdUri .
-   ?PubmedIdUri a bl:Publication ;
+    # Publication
+    ?hgncUri bl:publications ?PubmedIdUri .
+    ?PubmedIdUri a bl:Publication ;
       bl:id ?Pubmed_id ;
       bl:iri ?PubmedIdUri ;
       bl:relates_to ?hgncUri .
@@ -107,7 +93,6 @@ INSERT
     ?StatusUri a <https://w3id.org/data2services/model/Status> ;
           rdfs:subClassOf bl:Attribute ;
           bl:Name ?Status .
-
 
  }
 }
