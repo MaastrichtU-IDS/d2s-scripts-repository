@@ -9,15 +9,15 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
    ?drugUri a bl:Drug ;
-   bl:id ?drugId ;
-   bl:name ?drugName . 
+    bl:id ?drugId ;
+    bl:name ?drugName . 
 
    ?targetUniprotUri a bl:Protein .
 
    ?targetSymbolUri a bl:Gene ;
-   bl:id ?targetSymbol ;
-   bl:has_gene_product ?targetUniprotUri ;
-   bl:systematic_synonym ?targetSymbol .
+     bl:id ?targetSymbol ;
+     bl:has_gene_product ?targetUniprotUri ;
+     bl:systematic_synonym ?targetSymbol .
    # expressed_in tissue?
 
    ?tissueUri a bl:GrossAnatomicalStructure ; # tissue

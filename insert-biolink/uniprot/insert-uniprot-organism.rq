@@ -9,13 +9,11 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
-    GRAPH <https://w3id.org/data2services/graph/biolink/uniprot> {
-    #GRAPH <?_outputGraph> {  
+    GRAPH <?_outputGraph> {  
         ?uniprotUri a bl:OrganismTaxon ;
             bl:id ?uniprotUri ;
             bl:name ?label ;
             rdfs:subClassOf ?subClassOf .
-
     }
 }
 WHERE {

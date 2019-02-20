@@ -9,7 +9,6 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
-    #GRAPH <https://w3id.org/data2services/graph/biolink/uniprot> {
     GRAPH <?_outputGraph> {  
         ?protIdoUri a bl:Protein ;
             bl:id ?protId ;
