@@ -1,17 +1,28 @@
 # What drugs/compounds target gene products of gene "coagulation factor II, thrombin"?
 
+# Only 60 results
+
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
-SELECT distinct *
-{   ?gene a bl:Gene ;
-      bl:id ?geneId ; 
-      bl:name ?geneLabel ;
-      bl:has_gene_product ?geneProduct .
-    ?geneProduct bl:name ?geneProductLabel .
+SELECT distinct ?gene ?produceProtein ?affectedByDrug ?byRelation ?inInteraction
+{
+  # Get gene and its product
+  ?geneUri a bl:Gene ;
+    bl:id ?geneId ; 
+    #bl:name ?gene ;
+    bl:has_gene_product ?geneProductUri .
+  OPTIONAL {?geneUri bl:name ?gene .} # TODO: at the moment hgnc generated bl:Name
+  ?geneProductUri bl:name ?produceProtein .
     
-    ?interaction ?p ?geneProduct .
-    ?interaction ?p ?drug .
-    ?drug a bl:ChemicalSubstance .
-    #?drug rdfs:label ?drugLabel .
-    #FILTER regex(str(?geneLabel), "coagulation factor II, thrombin") . 
+  # Get associations where drugs that affects the gene product
+  ?inInteraction ?associationSubject ?geneProductUri ;
+   ?associationObject ?drugUri ;
+   bl:relation ?relation .
+
+  # Get the drug
+  ?drugUri a bl:ChemicalSubstance .
+  OPTIONAL {?drugUri bl:name ?affectedByDrug .}
+
+
+  #FILTER regex(str(?gene), "coagulation factor II, thrombin") . 
 }
