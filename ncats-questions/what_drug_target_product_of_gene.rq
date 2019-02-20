@@ -17,7 +17,7 @@ SELECT distinct ?gene ?produceProtein ?affectedByDrug ?byRelation ?inInteraction
   # Get associations where drugs that affects the gene product
   ?inInteraction ?associationSubject ?geneProductUri ;
    ?associationObject ?drugUri ;
-   bl:relation ?relation .
+   bl:relation ?byRelation .
 
   # Get the drug
   ?drugUri a bl:ChemicalSubstance .
