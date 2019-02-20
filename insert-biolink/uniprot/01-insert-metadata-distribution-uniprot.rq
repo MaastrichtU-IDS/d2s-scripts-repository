@@ -278,7 +278,7 @@ WHERE
     BIND("UniProt Consortium" AS ?dctCreatorName) # Optional if external URI, to store creator name in our graph if the URI already resolves
     BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctCreatorName))) AS ?dctCreator)
 
-    BIND(iri("https://creativecommons.org/licenses/by/4.0/") AS ?dctLicense) # Get from summary. But let the possibility to redefine it for a dataset
+    #BIND(iri("https://creativecommons.org/licenses/by/4.0/") AS ?dctLicense) # Get from summary. But let the possibility to redefine it for a dataset
 
 
     ## Source Distribution 
