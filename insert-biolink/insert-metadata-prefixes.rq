@@ -1,0 +1,30 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX idot: <http://identifiers.org/idot/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX d2svocab: <https://w3id.org/data2services/vocab/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+INSERT DATA {
+    GRAPH <https://w3id.org/data2services/graph/prefixes> {
+        d2svocab:prefixes\/bl a d2svocab:Prefix ;
+            d2svocab:prefix "bl";
+            d2svocab:namespace "http://w3id.org/biolink/vocab/" .
+        
+        d2svocab:prefixes\/rdfs a d2svocab:Prefix ;
+            d2svocab:prefix "rdfs";
+            d2svocab:namespace "http://www.w3.org/2000/01/rdf-schema#" .
+            
+        d2svocab:prefixes\/owl a d2svocab:Prefix ;
+            d2svocab:prefix "owl";
+            d2svocab:namespace "http://www.w3.org/2002/07/owl#" .
+
+        d2svocab:prefixes\/rdf a d2svocab:Prefix ;
+            d2svocab:prefix "rdf";
+            d2svocab:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
+    }
+}
