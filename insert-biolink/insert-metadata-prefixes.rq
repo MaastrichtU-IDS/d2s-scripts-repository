@@ -12,19 +12,23 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 INSERT DATA {
     GRAPH <https://w3id.org/data2services/graph/prefixes> {
         d2svocab:prefixes\/bl a d2svocab:Prefix ;
-            d2svocab:prefix "bl";
+            d2svocab:prefix "bl:";
             d2svocab:namespace "http://w3id.org/biolink/vocab/" .
+
+        d2svocab:prefixes\/sio a d2svocab:Prefix ;
+            d2svocab:prefix "sio:";
+            d2svocab:namespace "http://semanticscience.org/resource/" .
         
         d2svocab:prefixes\/rdfs a d2svocab:Prefix ;
-            d2svocab:prefix "rdfs";
+            d2svocab:prefix "rdfs:";
             d2svocab:namespace "http://www.w3.org/2000/01/rdf-schema#" .
             
         d2svocab:prefixes\/owl a d2svocab:Prefix ;
-            d2svocab:prefix "owl";
+            d2svocab:prefix "owl:";
             d2svocab:namespace "http://www.w3.org/2002/07/owl#" .
 
         d2svocab:prefixes\/rdf a d2svocab:Prefix ;
-            d2svocab:prefix "rdf";
+            d2svocab:prefix "rdf:";
             d2svocab:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" .
     }
 }
