@@ -15,7 +15,7 @@ INSERT
       bl:name ?Name ;
       bl:systematic_synonym ?Symbol ;
       bl:systematic_synonym ?singleAlias_symbol ;
-      w3idvocab:Status ?Status ; # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
+      w3idvocab:Status ?Status . # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
 
     ?hgncUri bl:category ?Locus_type .
     # Could it be bl:category? Values: "RNA, long non-coding", "gene with protein product", "pseudogene", "virus integration site"
