@@ -3,24 +3,32 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX up: <http://purl.uniprot.org/core/> 
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
-    GRAPH <?_outputGraph> {  
-        ?protIdoUri a bl:Protein ;
-            bl:id ?protId ;
-            bl:name ?label ; 
-            bl:same_as ?uniprotUri ;
-            bl:same_as ?protIdoSameAs ;
-            bl:in_taxon ?organism .
-        ?taxon a bl:OrganismTaxon .
-    }
+  GRAPH <?_outputGraph> {  
+    ?protIdoUri a bl:Protein ;
+      bl:id ?protId ;
+      bl:name ?label ; 
+      bl:same_as ?uniprotUri ;
+      bl:same_as ?protIdoSameAs ;
+      bl:in_taxon ?organism .
+    ?taxon a bl:OrganismTaxon .
+  }
 }
 WHERE {
-    SERVICE <https://sparql.uniprot.org>  {
-        ?uniprotUri a up:Protein ;
-                    rdfs:label ?label ;
-                    up:organism ?organism .
-                    # up:classifiedWith ?category . # Use category for go terms here? also some uniprot keywords
+  {
+    SELECT ?uniprotUri WHERE {
+      ?uniprotUri a bl:Protein .
+      FILTER(strstarts(str(?uniprotUri), "http://identifiers.org/uniprot/"))
     }
-    BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
-    BIND ( iri(concat("http://identifiers.org/uniprot:", ?protId)) AS ?protIdoUri )
-    BIND ( iri(concat("http://identifiers.org/uniprot/", ?protId)) AS ?protIdoSameAs )
+  }
+
+  SERVICE <https://sparql.uniprot.org>  {
+    # 233.686.171 proteins
+    ?uniprotUri a up:Protein ;
+      rdfs:label ?label ;
+      up:organism ?organism .
+      # up:classifiedWith ?category . # Use category for go terms here? also some uniprot keywords
+  }
+  BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
+  BIND ( iri(concat("http://identifiers.org/uniprot:", ?protId)) AS ?protIdoUri )
+  BIND ( iri(concat("http://identifiers.org/uniprot/", ?protId)) AS ?protIdoSameAs )
 }

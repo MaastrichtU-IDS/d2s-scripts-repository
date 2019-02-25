@@ -3,20 +3,39 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX up: <http://purl.uniprot.org/core/> 
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
-    GRAPH <?_outputGraph> {  
-        ?uniprotUri a bl:OrganismTaxon ;
-            bl:id ?uniprotUri ;
+    GRAPH <?_outputGraph> { # https://w3id.org/data2services/graph/biolink/uniprot
+        ?taxonomyUri a bl:OrganismTaxon ;
+            bl:id ?taxonomyUriStr ;
             bl:name ?label ;
-            rdfs:subClassOf ?subClassOf .
+            rdfs:subClassOf ?subClassOfUri .
+
+        ?subClassOfUri a bl:OrganismTaxon ;
+            bl:id ?subClassOfUriStr ;
+            bl:name ?labelSubClassOf .
     }
 }
 WHERE {
+
+  {
+    SELECT ?taxonomyUri ?uniprotUri WHERE {
+      ?taxonomyUri a bl:OrganismTaxon .
+      FILTER(strstarts(str(?taxonomyUri), "http://identifiers.org/taxonomy/"))
+      BIND(iri(replace(str(?taxonomyUri), "http://identifiers.org/taxonomy/", "http://purl.uniprot.org/taxonomy/")) AS ?uniprotUri)
+    }
+  }
+
   SERVICE <https://sparql.uniprot.org>  {
-    ?uniprotUri a up:Taxon ;
+    # 2.363.344 taxons
+    ?uniprotUri a up:Taxon ; # http://purl.uniprot.org/taxonomy/1003157
       rdfs:subClassOf ?subClassOf .
+    # Using uniprotUri here doesn't work
 
     OPTIONAL {
-      ?uniprotUri up:scientificName ?label ;
+      ?uniprotUri up:scientificName ?label .
+    }
+
+    OPTIONAL {
+      ?subClassOf up:scientificName ?labelSubClassOf .
     }
   }
 }
