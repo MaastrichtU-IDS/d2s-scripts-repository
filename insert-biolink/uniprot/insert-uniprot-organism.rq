@@ -1,12 +1,6 @@
-PREFIX up: <http://purl.uniprot.org/core/> 
-PREFIX taxon: <http://purl.uniprot.org/taxonomy/> 
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
-PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX up: <http://purl.uniprot.org/core/> 
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
     GRAPH <?_outputGraph> {  
@@ -19,8 +13,7 @@ INSERT {
 WHERE {
   SERVICE <https://sparql.uniprot.org>  {
     ?uniprotUri a up:Taxon ;
-      rdfs:subClassOf ?subClassOf ;
-      ?p ?o .
+      rdfs:subClassOf ?subClassOf .
 
     OPTIONAL {
       ?uniprotUri up:scientificName ?label ;
