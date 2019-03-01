@@ -10,8 +10,7 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
     ?hgncUri a bl:Gene ;
-      bl:iri ?hgncUri ;
-      bl:id ?Hgnc_id ;
+      bl:id ?hgncUriId ;
       bl:name ?Name ;
       bl:systematic_synonym ?Symbol ;
       bl:systematic_synonym ?singleAlias_symbol ;
@@ -35,13 +34,13 @@ INSERT
 
     # https://biolink.github.io/biolink-model/docs/TranscriptToGeneRelationship.html
     ?refseqAssociationUri a bl:TranscriptToGeneRelationship ;
-      bl:id ?refseqAssociationUri ;
+      bl:id ?refseqAssociationUriId ;
       bl:transcript_to_gene_relationship_subject ?RefseqAccessionUri ;
       bl:transcript_to_gene_relationship_object ?hgncUri ;
       bl:relation bl:expresses .
 
     ?RefseqAccessionUri a bl:Transcript ;
-      bl:id ?RefseqAccessionUri . # https://www.ncbi.nlm.nih.gov/nuccore/NM_004362
+      bl:id ?RefseqAccessionUriId . # https://www.ncbi.nlm.nih.gov/nuccore/NM_004362
 
     # https://biolink.github.io/biolink-model/docs/has_gene_product.html
     ?hgncUri bl:has_gene_product ?UniprotIdsUri .
@@ -50,16 +49,19 @@ INSERT
 
     # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
     ?mgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:id ?mgiAssociationUriId ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdUri .
 
     ?suppliedMgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:id ?suppliedMgiAssociationUriId ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?MouseGenomeDatabaseIdSuppliedByMgiUri .
 
     ?rgdAssociationUri a bl:GeneToGeneHomologyAssociation ;
+            bl:id ?rgdAssociationUriId ;
             bl:relation bl:homologous_to ;
             bl:gene_to_gene_association_subject ?hgncUri ;
             bl:gene_to_gene_association_object ?RgdIdUri .
@@ -69,11 +71,12 @@ INSERT
       bl:located_in ?CcdsIdUri . # TODO: atm it generates http://identifiers.org/ccds/CCDS7241 but this does not resolve. It would need to be http://identifiers.org/ccds/CCDS7241.1
 
     ?GenomicSequenceLocalizationUri a bl:GenomicSequenceLocalization ;
+      bl:id ?GenomicSequenceLocalizationUriId ;
       bl:genomic_sequence_localization_subject ?hgncUri ;
       bl:genomic_sequence_localization_object ?LocationUri .
 
     ?LocationUri a bl:GenomicEntity ;
-      bl:id ?Location ;
+      bl:id ?LocationUriId ;
       bl:Name ?Location ;
       bl:category "chromosome" .
 
@@ -87,6 +90,7 @@ INSERT
 
     ?hgncUri bl:filler ?GeneFamilyUri .
     ?GeneFamilyUri a <https://w3id.org/data2services/model/GeneFamily> ;
+      bl:id ?GeneFamilyUriId ;
       bl:subClassOf bl:Attribute ;
       bl:name ?Gene_family .
 
@@ -148,6 +152,7 @@ WHERE {
               iri(concat("https://data2services/model/gene-family/", md5(strbefore(?Gene_family, "|")) ) ) ,
               iri(concat("https://data2services/model/gene-family/", md5(?Gene_family) ) ) ) 
          AS ?GeneFamilyUri ) # TODO: not good for URI
+         BIND ( str(?GeneFamilyUri) AS ?GeneFamilyUriId )
 
        } OPTIONAL {
          ?s d2sgeneric:Gene_family_id ?Gene_family_id . # array
@@ -167,12 +172,14 @@ WHERE {
               iri(concat("https://w3id.org/data2services/model/sequence-localization/", md5(concat(?Hgnc_id, ?Location))))
               ) 
          AS ?GenomicSequenceLocalizationUri )
+         BIND ( str(?GenomicSequenceLocalizationUri) AS ?GenomicSequenceLocalizationUriId )
 
          BIND( if( contains(?Location, " "),
               iri("") ,
               iri(concat("https://w3id.org/data2services/model/chromosome/", ?Location) )
               ) 
          AS ?LocationUri )
+         BIND ( str(?LocationUri) AS ?LocationUriId )
 
          #FILTER NOT EXISTS { contains(?Location, " ")  }
 
@@ -219,7 +226,9 @@ WHERE {
               iri(concat("https://www.ncbi.nlm.nih.gov/nuccore/", strbefore(?Refseq_accession, "|") ) ) ,
               iri(concat("https://www.ncbi.nlm.nih.gov/nuccore/", ?Refseq_accession ) ) ) 
          AS ?RefseqAccessionUri )
+         BIND ( str(RefseqAccessionUri) AS ?RefseqAccessionUriId)
          BIND ( iri(concat("https://w3id.org/data2services/model/association/transcript/", md5(concat(?Hgnc_id, ?Refseq_accession)))) AS ?refseqAssociationUri )
+         BIND ( str(refseqAssociationUri) AS ?refseqAssociationUriId)
 
        } OPTIONAL {
          ?s d2sgeneric:Ccds_id ?Ccds_id .
@@ -253,6 +262,7 @@ WHERE {
               iri(concat("http://identifiers.org/", ?Mgd_id ) ) ) 
          AS ?MouseGenomeDatabaseIdUri )
          BIND ( iri(concat("https://w3id.org/data2services/model/association/homology/", md5(concat(?Hgnc_id, ?Mgd_id)))) AS ?mgiAssociationUri )
+         BIND ( str(?mgiAssociationUri) AS ?mgiAssociationUriId )
 
        } OPTIONAL {
          ?s d2sgeneric:Rgd_id ?Rgd_id .
@@ -261,6 +271,7 @@ WHERE {
               iri(concat("http://identifiers.org/", ?Rgd_id ) ) ) 
          AS ?RgdIdUri )
          BIND ( iri(concat("https://w3id.org/data2services/model/association/homology/", md5(concat(?Hgnc_id, ?Rgd_id)))) AS ?rgdAssociationUri )
+         BIND ( str(?rgdAssociationUri) AS ?rgdAssociationUriId )
 
        } OPTIONAL {
          ?s d2sgeneric:Lsdb ?Lsdb .
@@ -345,6 +356,8 @@ WHERE {
        }
 
   BIND ( iri(concat("http://identifiers.org/", ?Hgnc_id)) AS ?hgncUri )
+  BIND ( str(?Hgnc_id) AS ?hgncUriId )
+
 
   # Avoid taking the first row with columns labels
   #FILTER( !contains(?Hgnc_id, "hgnc_id") )
