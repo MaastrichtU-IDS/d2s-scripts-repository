@@ -14,17 +14,19 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
     ?dataNode a bl:MacromolecularComplex ;
-          bl:id ?id ;
+          dc:identifier ?id ;
+          bl:id ?dataNodeId ;
           bl:name ?label ;
           bl:part_of ?isPartOf ;
-          bl:systematic_synonym ?xrefHgnc ;
-          bl:same_as ?xrefUniprot ;
-          bl:same_as ?xrefNcbigene ;
-          bl:same_as ?xrefChebi ;
-          bl:same_as ?xrefPubchem ;
+          #bl:systematic_synonym ?xrefHgncString ;
+          #bl:same_as ?xrefUniprot ;
+          #bl:same_as ?xrefNcbigene ;
+          #bl:same_as ?xrefChebi ;
+          #bl:same_as ?xrefPubchem ;
           bl:same_as ?xrefWikidata ;
-          bl:same_as ?xrefHmdb ;
-          bl:same_as ?xrefChemspider .
+          #bl:same_as ?xrefHmdb ;
+          #bl:same_as ?xrefChemspider 
+          .
 
     ?participants bl:part_of ?dataNode . # for being wp:participants
  }
@@ -33,6 +35,7 @@ WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
       ?dataNode a wp:Complex ;
+      BIND (str(?dataNode) AS ?dataNodeId)
 
       OPTIONAL {
           ?dataNode dc:identifier ?id ;
@@ -50,6 +53,7 @@ WHERE {
           ?dataNode wp:bdbEntrezGene ?xrefNcbigene .
       } OPTIONAL {
           ?dataNode wp:bdbHgncSymbol ?xrefHgnc .
+          BIND (str(?xrefHgnc) AS ?xrefHgncString)
       } OPTIONAL {
           ?dataNode wp:bdbChEBI ?xrefChebi .
       } OPTIONAL {
