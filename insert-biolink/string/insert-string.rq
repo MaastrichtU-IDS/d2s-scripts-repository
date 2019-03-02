@@ -21,8 +21,10 @@ INSERT
     # Direct relation
     ?uriProtSource ?relationUri ?uriProtTarget .
 
-    ?uriProtSource a bl:Protein .
-    ?uriProtTarget a bl:Protein .
+    ?uriProtSource a bl:Protein ;
+      bl:id ?uriProtSourceId .
+    ?uriProtTarget a bl:Protein ;
+      bl:id ?uriProtTargetId .
 
     ?ConfidenceLevelUri a bl:ConfidenceLevel ;
             bl:id "score" ;
@@ -67,8 +69,10 @@ WHERE {
         ?s d2smodel:Is_directional ?isDirectional . # f or t. We only use A_is_acting at the moment
       }
 
-      BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protSource, ".")) ) AS ?uriProtSource )      
+      BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protSource, ".")) ) AS ?uriProtSource )
+      BIND(str(?uriProtSource) AS ?uriProtSourceId)      
       BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protTarget, ".")) ) AS ?uriProtTarget )
+      BIND(str(?uriProtTarget) AS ?uriProtTargetId)
 
       VALUES (?mode ?relationUri) {
         ( "activation" bl:increases_activity_of )

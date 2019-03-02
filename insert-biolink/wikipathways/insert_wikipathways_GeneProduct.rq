@@ -15,8 +15,8 @@ INSERT
   GRAPH <?_outputGraph> {  
     ?dataNode a bl:GeneProduct ;
           dc:identifier ?id ;
-          #bl:id ?dataNodeId ; Avoid conflict with Uniprot 
-          #bl:name ?label ;
+          bl:id ?dataNodeId ; # Multiple bl:id fail ShEx validation?
+          bl:name ?label ;
           bl:part_of ?isPartOf ;
           #bl:systematic_synonym ?xrefHgncString ; # TODO: Gene to GeneProduct?
           #bl:same_as ?xrefUniprot ;

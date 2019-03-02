@@ -13,6 +13,7 @@ INSERT
   GRAPH <?_outputGraph> {  
 
     ?directedInteraction a bl:ChemicalToThingAssociation ; # Chemical causing molecular modification (conversion) to another Chemical 
+          bl:id ?directedInteractionId ;
           bl:chemical_to_thing_association_subject ?source ;
           bl:relation bl:disrupts ;
           bl:chemical_to_thing_association_object ?target ;
@@ -34,6 +35,7 @@ WHERE {
           wp:source ?source ;
           wp:target ?target ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434
           dct:isPartOf ?isPartOf .
+      BIND( str(?directedInteraction) AS ?directedInteractionId)
 
       OPTIONAL {
         ?directedInteraction dct:bibliographicCitation ?citation .

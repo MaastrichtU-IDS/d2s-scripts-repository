@@ -16,7 +16,8 @@ INSERT
     ?pathwayUri a bl:Pathway ;
           #<http://purl.obolibrary.org/obo/NCBITaxon_9606> link using https://biolink.github.io/biolink-model/docs/AnatomicalEntityToAnatomicalEntityPartOfAssociation.html ?
           bl:name ?pathwayName ;
-          bl:id ?pathwayId ;
+          bl:id ?pathwayUriId
+          dc:identifier ?pathwayId ;
           bl:description ?pathwayDescription ;
           bl:in_taxon ?pathwayOrganism . # or part_of?
           #bl:publications ?pathwayReferences .
@@ -28,6 +29,7 @@ WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
       ?pathwayUri a wp:Pathway .
+      BIND (str(?pathwayUri) AS ?pathwayUriId)
       # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328
 
       OPTIONAL {

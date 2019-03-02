@@ -13,6 +13,7 @@ INSERT
   GRAPH <?_outputGraph> {  
 
     ?directedInteraction a bl:GeneToThingAssociation ; # GeneProduct to Interaction association
+          bl:id ?directedInteractionId ;
           bl:gene_to_thing_association_subject ?source ; # GeneProduct
           bl:relation bl:increases_activity_of ; # or increases_response_to
           bl:gene_to_thing_association_object ?target ; # Interaction
@@ -31,6 +32,7 @@ WHERE {
           wp:source ?source ;
           wp:target ?target ;
           dct:isPartOf ?isPartOf .
+      BIND( str(?directedInteraction) AS ?directedInteractionId)
 
       OPTIONAL {
         ?directedInteraction dct:bibliographicCitation ?citation .

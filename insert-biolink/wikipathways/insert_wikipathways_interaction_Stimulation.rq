@@ -14,6 +14,7 @@ INSERT
     # Use https://biolink.github.io/biolink-model/docs/affects.html
 
     ?directedInteraction a bl:GeneToThingAssociation ; # Gene to Interaction (process) association
+          bl:id ?directedInteractionId ;
           bl:gene_to_gene_association_subject ?source ; # GeneProduct
           bl:pairwise_gene_to_gene_interaction_relation bl:increases_activity_of ;
           bl:gene_to_gene_association_object ?target ; # Interaction
@@ -32,6 +33,7 @@ WHERE {
           wp:source ?source ;
           wp:target ?target ;
           dct:isPartOf ?isPartOf .
+      BIND( str(?directedInteraction) AS ?directedInteractionId)
 
       OPTIONAL {
         ?directedInteraction dct:bibliographicCitation ?citation .

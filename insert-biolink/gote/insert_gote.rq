@@ -9,12 +9,14 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
    ?protUri a bl:Protein ;
-       . 
+      bl:id ?protUriId . 
 
    ?tissueUri a bl:GrossAnatomicalStructure ; # tissue
+      bl:id ?tissueUriId ;
       bl:name ?tissueName .
 
    ?pathwayUri a bl:Pathway ; # tissue-specific molecular pathway
+      bl:id ?pathwayUriId ;
       bl:name ?pathwayName ;
       bl:part_of ?tissueUri .
 
@@ -57,8 +59,11 @@ WHERE {
       ?s d2smodel:Tissuename ?tissueName .
 
       BIND( iri(concat("http://identifiers.org/uniprot/", ?protId ) ) AS ?protUri )
+      BIND(str(?protUri) AS ?protUriId)
       BIND( iri(concat("https://w3id.org/data2services/data/pathway/", md5(?pathwayName) ) ) AS ?pathwayUri )
+      BIND(str(?pathwayUri) AS ?pathwayUriId)
       BIND( iri(concat("https://w3id.org/data2services/data/tissue/", md5(?tissueName) ) ) AS ?tissueUri )
+      BIND(str(?tissueUri) AS ?tissueUriId)
       BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?protId, ?tissueName, ?pathwayName)) ) ) AS ?interactionUri )
 
        OPTIONAL { 

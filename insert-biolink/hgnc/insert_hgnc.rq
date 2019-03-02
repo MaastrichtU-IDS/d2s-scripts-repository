@@ -45,7 +45,8 @@ INSERT
     # https://biolink.github.io/biolink-model/docs/has_gene_product.html
     ?hgncUri bl:has_gene_product ?UniprotIdsUri .
 
-    ?UniprotIdsUri a bl:Protein .
+    ?UniprotIdsUri a bl:Protein ;
+      bl:id ?UniprotIdsUriId .
 
     # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
     ?mgiAssociationUri a bl:GeneToGeneHomologyAssociation ;
@@ -246,6 +247,7 @@ WHERE {
               iri(concat("http://identifiers.org/uniprot/", strbefore(?Uniprot_ids, "|") ) ) ,
               iri(concat("http://identifiers.org/uniprot/", ?Uniprot_ids ) ) ) 
          AS ?UniprotIdsUri )
+         BIND(str(?UniprotIdsUri) AS ?UniprotIdsUriId)
 
 
        } OPTIONAL {
