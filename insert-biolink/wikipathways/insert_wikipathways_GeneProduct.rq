@@ -15,10 +15,10 @@ INSERT
   GRAPH <?_outputGraph> {  
     ?dataNode a bl:GeneProduct ;
           dc:identifier ?id ;
-          bl:id ?dataNodeId ; # Multiple bl:id fail ShEx validation?
+          bl:id ?dataNodeId ;
           bl:name ?label ;
           bl:part_of ?isPartOf ;
-          #bl:systematic_synonym ?xrefHgncString ; # TODO: Gene to GeneProduct?
+          #bl:systematic_synonym ?xrefHgncString ; # TODO: Gene to GeneProduct association?
           #bl:same_as ?xrefUniprot ;
           #bl:same_as ?xrefNcbigene ;
           #bl:same_as ?xrefChebi ;
@@ -27,6 +27,9 @@ INSERT
           #bl:same_as ?xrefHmdb ;
           #bl:same_as ?xrefChemspider 
           .
+    #?xrefHgnc a bl:Gene ;
+    #  bl:id ?xrefHgncString .
+
  }
 }
 WHERE {
