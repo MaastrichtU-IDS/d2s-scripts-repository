@@ -1,0 +1,24 @@
+# 6.6.1.2 To specify the number of unique, typed entities in the dataset
+
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX hcls: <http://www.w3.org/hcls#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+CONSTRUCT {
+  hcls:numberOfEntities a dqv:QualityMeasurement ;
+  dqv:isMeasurementOf dqv:R2metric ;
+  dqv:value ?entities .
+  dqv:R2metric a dqv:Metric ;
+  skos:definition "Number of unique, typed entities in the dataset"@en ;
+  dqv:expectedDatatype xsd:double ;
+  dqv:inDimension dqv:Relevancy .
+  dqv:Relevancy a dqv:Dimension ;
+  skos:prefLabel "Relevancy" ;
+  skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+  dqv:inCategory dqv:Contextual .
+  dqv:Contextual a dqv:Category.
+} WHERE { 
+  GRAPH <?_inputGraph> { 
+    SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } 
+  } 
+}
