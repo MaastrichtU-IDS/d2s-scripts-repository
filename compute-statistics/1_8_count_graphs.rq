@@ -19,9 +19,7 @@ INSERT {
     dqv:Intrinsic a dqv:Category.
   }
 } WHERE { 
-  GRAPH <?_inputGraph> {
-    SELECT (COUNT(DISTINCT ?g ) AS ?graphs) { 
-      GRAPH ?g { ?s ?p ?o } 
-    } 
+  SELECT (COUNT(DISTINCT ?g ) AS ?graphs) { 
+    GRAPH ?g { ?s ?p ?o } 
   } 
 }
