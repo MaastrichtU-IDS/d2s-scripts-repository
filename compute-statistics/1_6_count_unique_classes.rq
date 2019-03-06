@@ -3,7 +3,8 @@ PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX hcls: <http://www.w3.org/hcls#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-CONSTRUCT {
+INSERT {
+  GRAPH <?_outputGraph> {
   hcls:numberOfUniqueClasses a dqv:QualityMeasurement;
     dqv:isMeasurementOf dqv:CN1cmetric ;
   dqv:value ?distinctClasses .
