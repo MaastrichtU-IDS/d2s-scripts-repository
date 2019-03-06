@@ -5,7 +5,7 @@ PREFIX hcls: <http://www.w3.org/hcls#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 INSERT {
-  GRAPH <?_inputGraph/metadata> {
+  GRAPH <?_inputGraph/statistics> {
     hcls:numberOfEntities a dqv:QualityMeasurement ;
     dqv:isMeasurementOf dqv:R2metric ;
     dqv:value ?entities .
