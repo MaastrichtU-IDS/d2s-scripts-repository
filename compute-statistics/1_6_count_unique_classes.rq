@@ -5,18 +5,19 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 INSERT {
   GRAPH <?_outputGraph> {
-  hcls:numberOfUniqueClasses a dqv:QualityMeasurement;
-    dqv:isMeasurementOf dqv:CN1cmetric ;
-  dqv:value ?distinctClasses .
-    dqv:CN1cmetric a dqv:Metric ;
-    skos:definition "Number of unique classes in the dataset."@en ;
-    dqv:expectedDatatype xsd:double ;
-    dqv:inDimension dqv:Conciseness .
-  dqv:Conciseness a dqv:Dimension ;
-    skos:prefLabel "Conciseness" ;
-    skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
-    dqv:inCategory dqv:Intrinsic .
-  dqv:Intrinsic a dqv:Category .
+    hcls:numberOfUniqueClasses a dqv:QualityMeasurement;
+      dqv:isMeasurementOf dqv:CN1cmetric ;
+    dqv:value ?distinctClasses .
+      dqv:CN1cmetric a dqv:Metric ;
+      skos:definition "Number of unique classes in the dataset."@en ;
+      dqv:expectedDatatype xsd:double ;
+      dqv:inDimension dqv:Conciseness .
+    dqv:Conciseness a dqv:Dimension ;
+      skos:prefLabel "Conciseness" ;
+      skos:definition "Conciseness refers to the minimization of redundancy of entities at the schema and the data level. Conciseness is classified into (i) intensional conciseness (schema level) which refers to the case when the data does not contain redundant schema elements (properties and classes) and (ii) extensional conciseness (data level) which refers to the case when the data does not contain redundant objects (instances)."@en ;
+      dqv:inCategory dqv:Intrinsic .
+    dqv:Intrinsic a dqv:Category .
+  }
 } WHERE {
   GRAPH <?_inputGraph> {
     SELECT (COUNT(DISTINCT ?o) AS ?distinctClasses) { ?s a ?o }

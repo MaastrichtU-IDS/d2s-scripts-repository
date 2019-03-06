@@ -5,18 +5,19 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 INSERT {
   GRAPH <?_outputGraph> {
-  hcls:numberOfTriples a dqv:QualityMeasurement ;
-  dqv:isMeasurementOf dqv:R1metric .
-  hcls:numberOfTriples dqv:value ?triples .
-  dqv:R1metric a dqv:Metric ;
-  skos:definition "Measuring the coverage (i.e. number of entities described in a dataset) and level of detail (i.e. number of properties) in a dataset to ensure that the data retrieved is appropriate for the task at hand"@en ;
-  dqv:expectedDatatype xsd:double ;
-  dqv:inDimension dqv:Relevancy .
-  dqv:Relevancy a dqv:Dimension ;
-  skos:prefLabel "Relevancy" ;
-  skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
-  dqv:inCategory dqv:Contextual .
-  dqv:Contextual a dqv:Category.
+    hcls:numberOfTriples a dqv:QualityMeasurement ;
+    dqv:isMeasurementOf dqv:R1metric .
+    hcls:numberOfTriples dqv:value ?triples .
+    dqv:R1metric a dqv:Metric ;
+    skos:definition "Measuring the coverage (i.e. number of entities described in a dataset) and level of detail (i.e. number of properties) in a dataset to ensure that the data retrieved is appropriate for the task at hand"@en ;
+    dqv:expectedDatatype xsd:double ;
+    dqv:inDimension dqv:Relevancy .
+    dqv:Relevancy a dqv:Dimension ;
+    skos:prefLabel "Relevancy" ;
+    skos:definition "Relevancy refers to the provision of information which is in accordance with the task at hand and important to the users' query."@en ;
+    dqv:inCategory dqv:Contextual .
+    dqv:Contextual a dqv:Category.
+  }
 } WHERE { 
   GRAPH <?_inputGraph> {
     SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } 
