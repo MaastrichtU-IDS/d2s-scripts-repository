@@ -5,7 +5,7 @@ PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 INSERT {
-  GRAPH <https://w3id.org/data2services/graph/biolink/drugbank/statistics> {
+  GRAPH <?_inputGraph/statistics> {
     ?distributionRdfUri void:classPartition [
         void:class ?o ;
         void:distinctSubjects ?distinctInstances
@@ -13,11 +13,11 @@ INSERT {
     
   }
 } WHERE { 
-  GRAPH <https://w3id.org/data2services/graph/biolink/drugbank/datasets> {
+  GRAPH <?_inputGraph/datasets> {
     ?distributionRdfUri a dctypes:Dataset , dcat:Distribution , void:Dataset .
   }
 
-  GRAPH <https://w3id.org/data2services/graph/biolink/drugbank> {
+  GRAPH <?_inputGraph> {
     { SELECT ?o (COUNT(DISTINCT ?s) AS ?distinctInstances) { ?s a ?o } GROUP BY ?o }
   }
 }
