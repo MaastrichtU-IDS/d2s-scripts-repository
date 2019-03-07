@@ -80,7 +80,7 @@ WHERE
     ##### User input
 
     ### MUST
-    BIND(<http://identifiers.org/drugbank:> AS ?summaryUri)  # user input. Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND(<https://w3id.org/data2services/dataset/drugbank/> AS ?summaryUri)  # user input. Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
     BIND("DrugBank"@en AS ?dctTitle) # user input
     BIND("The DrugBank database is a unique bioinformatics and cheminformatics resource that combines detailed drug data with comprehensive drug target information."@en AS ?dctDescription) # user input

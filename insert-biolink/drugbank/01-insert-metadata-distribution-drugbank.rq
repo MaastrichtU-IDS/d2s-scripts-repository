@@ -239,7 +239,7 @@ INSERT {
 }
 WHERE 
 {
-    BIND(<http://identifiers.org/drugbank:> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND(<https://w3id.org/data2services/dataset/drugbank/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
     BIND("5.1.1"^^xsd:string AS ?pavVersion) # Increment it from the latest version? Or user input
     BIND("1.0"^^xsd:string AS ?pavVersionRdf) # Increment it from the latest version? Or user input
 

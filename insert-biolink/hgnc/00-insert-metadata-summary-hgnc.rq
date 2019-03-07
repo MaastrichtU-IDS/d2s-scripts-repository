@@ -80,7 +80,7 @@ WHERE
     ##### User input
 
     ### MUST
-    BIND(<http://identifiers.org/hgnc/> AS ?summaryUri)  # user input
+    BIND(<https://w3id.org/data2services/dataset/hgnc/> AS ?summaryUri)  # user input
     # Careful, ido uses it as void:uriSpace for a dcat:CatalogRecord
     
     BIND("HUGO Gene Nomenclature Committee"@en AS ?dctTitle) # user input
