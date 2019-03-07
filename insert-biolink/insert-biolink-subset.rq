@@ -1,0 +1,21 @@
+#PREFIX d2sgeneric: <http://data2services/data/emonet/string/9606.protein.actions.v10.5.tsv/>
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+      
+INSERT {
+    GRAPH ?providedBy {
+        ?edgeUri a bl:ChemicalToGeneAssociation ;
+          ?p ?o .
+    }
+} WHERE {
+    SERVICE <http://localhost:7200/repositories/ncats-red-kg>  {
+        GRAPH ?providedBy {
+            ?edgeUri a bl:ChemicalToGeneAssociation ;
+                ?p ?o .
+        }
+    }
+}
