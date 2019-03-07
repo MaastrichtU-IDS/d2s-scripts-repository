@@ -1,0 +1,35 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX idot: <http://identifiers.org/idot/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX void-ext: <http://ldf.fi/void-ext#>
+
+# Show relations between classes in the graph, and count the number of distinct classes that are related
+SELECT ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+WHERE {
+  GRAPH ?g {
+    ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
+    ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
+    ?rdfDistribution a void:Dataset ; 
+      dcat:accessURL ?graph .
+
+    ?rdfDistribution void:classPartition [
+      void:class rdfs:Class ;
+      void:distinctSubjects ?classes
+    ] .
+
+    ?rdfDistribution void:propertyPartition [
+        void:property ?relationWith ;
+        void:classPartition [
+            void:class ?class1 ;
+            void:distinctSubjects ?classCount1 ;
+        ];
+        void-ext:objectClassPartition [
+          void:class ?class2 ;
+          void:distinctObjects ?classCount2 ;
+    ]] . 
+  } 
+} ORDER BY ?source DESC(?classCount1) DESC(?classCount2)
