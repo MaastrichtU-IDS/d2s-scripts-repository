@@ -33,7 +33,7 @@ pipeline {
         sh "shexeval -gn '' -ss -ut -sq 'select distinct ?item from <${params.GraphUri}> where{?item a <http://w3id.org/biolink/vocab/Gene>} LIMIT 100' ${params.ValidateRepositoryUri} https://github.com/biolink/biolink-model/raw/master/shex/biolink-modelnc.shex > shex_validation.txt"
       }
     }
-// shexeval -gn '' -ss -ut -sq 'select distinct ?item from <https://w3id.org/data2services/graph/biolink/date> where{?item a <http://w3id.org/biolink/vocab/Gene>} LIMIT 100' http://graphdb.dumontierlab.com/repositories/public/statements https://github.com/biolink/biolink-model/raw/master/shex/biolink-modelnc.shex
+    // shexeval -gn '' -ss -ut -sq 'select distinct ?item from <https://w3id.org/data2services/graph/biolink/date> where{?item a <http://w3id.org/biolink/vocab/Gene>} LIMIT 100' http://graphdb.dumontierlab.com/repositories/public/statements https://github.com/biolink/biolink-model/raw/master/shex/biolink-modelnc.shex
     /*stage('RDFUnit') {
       steps {
         sh 'docker run --rm -t --volumes-from jenkins-translator -v /data/translator:/data dqa-rdfunit  -o ttl -d "http://graphdb.dumontierlab.com/repositories/ncats-red-kg" \
