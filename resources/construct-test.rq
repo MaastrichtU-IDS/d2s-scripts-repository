@@ -1,0 +1,6 @@
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+construct {
+    ?s a bl:Pathway .
+} where {
+    ?s a bl:Pathway .
+}
