@@ -14,9 +14,8 @@ INSERT {
   }
 } WHERE { 
   GRAPH ?metadataGraph {
-    ?distributionRdfUri a dctypes:Dataset , dcat:Distribution , void:Dataset .
-    ?version dcat:distribution ?distributionRdfUri ;
-      dcat:accessURL <?_inputGraph> .
+    ?distributionRdfUri void:Dataset ;
+      dcat:accessURL <?_inputGraph> . 
   }
 
   GRAPH <?_inputGraph> {
