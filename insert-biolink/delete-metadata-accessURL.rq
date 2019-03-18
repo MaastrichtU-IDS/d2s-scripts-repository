@@ -1,0 +1,9 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+DELETE
+{   
+  ?datasetMetadata dcat:accessURL <?_inputGraph>
+}
+WHERE
+{ 
+  ?datasetMetadata dcat:accessURL <?_inputGraph> .
+}
