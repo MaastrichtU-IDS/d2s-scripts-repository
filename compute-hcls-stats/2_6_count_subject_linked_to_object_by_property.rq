@@ -6,7 +6,7 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 INSERT {
-  GRAPH <?_inputGraph/metadata> {
+  GRAPH ?metadataGraph {
     ?distributionRdfUri void:propertyPartition [
         void:property ?p ;
         #void:triples "12419715"^^xsd:integer ;
@@ -21,8 +21,10 @@ INSERT {
 
   }
 } WHERE { 
-  GRAPH <?_inputGraph/metadata> {
+  GRAPH ?metadataGraph {
     ?distributionRdfUri a dctypes:Dataset , dcat:Distribution , void:Dataset .
+    ?version dcat:distribution ?distributionRdfUri ;
+      dcat:accessURL <?_inputGraph> .
   }
 
   GRAPH <?_inputGraph> {
