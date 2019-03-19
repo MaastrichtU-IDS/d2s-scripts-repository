@@ -1,6 +1,0 @@
-SELECT DISTINCT ?Concept WHERE
-{
-    GRAPH <?_graph> {
-        [] a ?Concept .
-    }
-} LIMIT ?_limit
