@@ -1,0 +1,13 @@
+---
+queries :
+  - |
+    SELECT DISTINCT ?genre WHERE
+    {
+        ?genre a <http://dbpedia.org/ontology/Genre> .
+    } LIMIT 10
+  - |
+    SELECT DISTINCT ?Concept WHERE 
+    {
+        [] a ?Concept .
+    } LIMIT 10
+  
