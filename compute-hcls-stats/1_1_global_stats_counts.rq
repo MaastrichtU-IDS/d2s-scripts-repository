@@ -22,7 +22,7 @@ INSERT {
   }
 } WHERE { 
   GRAPH ?metadataGraph {
-    ?distributionRdfUri void:Dataset ;
+    ?distributionRdfUri a void:Dataset ;
       dcat:accessURL <?_inputGraph> . 
       # Only work when one dataset that has this URL as accessURL
   }
