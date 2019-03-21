@@ -1,0 +1,41 @@
+#PREFIX d2sgeneric: <http://data2services/data/emonet/string/9606.protein.actions.v10.5.tsv/>
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+INSERT
+{
+  GRAPH <?_outputGraph> { 
+
+    ?phenotypeUri a bl:Phenotype ;
+      bl:id ?phenotypeId ;
+      bl:name ?phenotypeLabel ;
+      bl:category ?phenotypeOboNamespace ;
+      bl:subclass_of ?phenotypeSubClassOf . 
+
+ }
+}
+WHERE {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> { # bio2vec-test
+      # What to do with PMID?
+      #http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
+
+      ?phenotypeUri a owl:Class ;
+        oboInOwl:id ?phenotypeId ;
+        rdfs:label ?phenotypeLabel .
+
+      OPTIONAL { ?phenotypeUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      OPTIONAL { ?phenotypeUri rdfs:subClassOf ?phenotypeSubClassOf . }
+
+      # Use identifiers.org for HP classes
+      BIND( if( strstarts(?phenotypeId, "HP:"),
+              iri(concat("http://identifiers.org/", ?phenotypeId)) ,
+              ?phenotypeUri )
+         AS ?phenotypeUri )
+    }
+  }
+}
