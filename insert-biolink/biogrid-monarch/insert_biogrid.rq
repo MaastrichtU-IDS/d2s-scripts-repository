@@ -12,6 +12,9 @@ INSERT
   GRAPH <?_outputGraph> {  
     # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
 
+    ?associationSubject a bl:Gene .
+    ?associationObject a bl:Gene .
+
     ?association a bl:PairwiseGeneToGeneInteraction ;
           bl:gene_to_gene_association_subject ?associationSubject ;
           bl:pairwise_gene_to_gene_interaction_relation ?associationPredicate ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434, colocalize with http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002325, genetically interacts with genetically interacts with

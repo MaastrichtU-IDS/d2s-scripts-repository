@@ -19,7 +19,7 @@ INSERT
             # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
     # Direct relation
-    ?uriProtSource ?relationUri ?uriProtTarget .
+    #?uriProtSource ?relationUri ?uriProtTarget .
 
     ?uriProtSource a bl:Protein ;
       bl:id ?uriProtSourceId .

@@ -60,7 +60,7 @@ BIND( iri(concat("http://identifiers.org/uniprot/", ?targetUniprotId ) ) AS ?tar
 BIND( iri(concat("https://w3id.org/data2services/data/pathway/", md5(?pathwayName) ) ) AS ?pathwayUri )
 
 BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?drugId, ?targetUniprotId, ?pathwayName)) ) ) AS ?interactionUri )
-BIND( iri(concat("https://w3id.org/data2services/data/pathway/association/", md5(concat(?drugId, ?pathwayName)) ) ) AS ?pathwayAssociationUri )
+BIND( iri(concat("https://w3id.org/data2services/data/pathway/association/", md5(concat(?drugId, ?targetUniprotId, ?pathwayName)) ) ) AS ?pathwayAssociationUri )
 
 OPTIONAL { 
  ?s d2smodel:Cell_line_id ?cellLineId . # NA (majority), HT1080, SHSYSY.RA, astrocytes, GM2313...
