@@ -15,9 +15,8 @@ INSERT
       bl:id ?phenotypeId ;
       bl:name ?phenotypeLabel ;
       bl:description ?phenotypeDescription ;
-      bl:category ?phenotypeOboNamespace ;
-      bl:subclass_of ?phenotypeSubClassOf . 
-
+      bl:category ?phenotypeSubClassOf . # not using bl:subclass_of, it is for OntologyClass
+      #bl:category ?phenotypeOboNamespace .
  }
 }
 WHERE {
@@ -30,7 +29,7 @@ WHERE {
         oboInOwl:id ?phenotypeId ;
         rdfs:label ?phenotypeLabel .
 
-      OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      #OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
       OPTIONAL { ?phenotypeBufferUri rdfs:comment ?phenotypeDescription . }
 
       # Use identifiers.org for HP classes
