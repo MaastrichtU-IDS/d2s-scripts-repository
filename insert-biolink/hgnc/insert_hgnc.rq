@@ -13,7 +13,7 @@ INSERT
       bl:id ?hgncUriId ;
       bl:name ?Name ;
       bl:systematic_synonym ?Symbol ;
-      bl:systematic_synonym ?singleAlias_symbol ;
+      bl:synonym ?singleAlias_name ;
       w3idvocab:Status ?Status . # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
 
     ?hgncUri bl:category ?Locus_type .

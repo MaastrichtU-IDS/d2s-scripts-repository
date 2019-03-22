@@ -15,6 +15,8 @@ INSERT
       bl:id ?phenotypeId ;
       bl:name ?phenotypeLabel ;
       bl:description ?phenotypeDescription ;
+      bl:description ?phenotypeOboDefinition ;
+      bl:synonym ?phenotypeExactSynonym ;
       bl:category ?phenotypeSubClassOf . # not using bl:subclass_of, it is for OntologyClass
       #bl:category ?phenotypeOboNamespace .
  }
@@ -25,21 +27,26 @@ WHERE {
       # What to do with PMID?
       #http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
 
-      ?phenotypeBufferUri a owl:Class ;
+      ?phenotypeOriginalUri a owl:Class ;
         oboInOwl:id ?phenotypeId ;
         rdfs:label ?phenotypeLabel .
 
-      #OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
-      OPTIONAL { ?phenotypeBufferUri rdfs:comment ?phenotypeDescription . }
+      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasExactSynonym ?phenotypeExactSynonym . }
+
+      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasDbXref ?phenotypeDbXref }
+      #OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      OPTIONAL { ?phenotypeOriginalUri rdfs:comment ?phenotypeDescription . }
+
+      OPTIONAL { ?phenotypeOriginalUri <http://purl.obolibrary.org/obo/IAO_0000115> ?phenotypeOboDefinition . }
 
       # Use identifiers.org for HP classes
       BIND( if( strstarts(?phenotypeId, "HP:"),
               iri(concat("http://identifiers.org/", ?phenotypeId)) ,
-              ?phenotypeBufferUri )
+              ?phenotypeOriginalUri )
          AS ?phenotypeUri )
 
       OPTIONAL { 
-        ?phenotypeBufferUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
+        ?phenotypeOriginalUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
         ?phenotypeBufferSubClassOf oboInOwl:id ?subClassOfId . 
 
         # Use identifiers.org for HP classes
