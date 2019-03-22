@@ -31,7 +31,6 @@ WHERE {
         rdfs:label ?phenotypeLabel .
 
       OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
-      OPTIONAL { ?phenotypeBufferUri rdfs:subClassOf ?phenotypeSubClassOf . }
       OPTIONAL { ?phenotypeBufferUri rdfs:comment ?phenotypeDescription . }
 
       # Use identifiers.org for HP classes
@@ -39,6 +38,17 @@ WHERE {
               iri(concat("http://identifiers.org/", ?phenotypeId)) ,
               ?phenotypeBufferUri )
          AS ?phenotypeUri )
+
+      OPTIONAL { 
+        ?phenotypeBufferUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
+        ?phenotypeBufferSubClassOf oboInOwl:id ?subClassOfId . 
+
+        # Use identifiers.org for HP classes
+        BIND( if( strstarts(?subClassOfId, "HP:"),
+                iri(concat("http://identifiers.org/", ?subClassOfId)) ,
+                ?phenotypeBufferSubClassOf )
+           AS ?phenotypeSubClassOf )
+      }
     }
   }
 }
