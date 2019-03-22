@@ -32,7 +32,7 @@ WHERE {
 
       OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
       OPTIONAL { ?phenotypeBufferUri rdfs:subClassOf ?phenotypeSubClassOf . }
-      OPTIONAL { ?phenotypeBufferUri dfs:comment ?phenotypeDescription . }
+      OPTIONAL { ?phenotypeBufferUri rdfs:comment ?phenotypeDescription . }
 
       # Use identifiers.org for HP classes
       BIND( if( strstarts(?phenotypeId, "HP:"),
