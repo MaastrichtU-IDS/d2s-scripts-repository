@@ -13,6 +13,7 @@ INSERT
     ?phenotypeUri a bl:Phenotype ;
       bl:id ?phenotypeId ;
       bl:name ?phenotypeLabel ;
+      bl:description ?phenotypeDescription ;
       bl:category ?phenotypeOboNamespace ;
       bl:subclass_of ?phenotypeSubClassOf . 
 
@@ -30,6 +31,7 @@ WHERE {
 
       OPTIONAL { ?phenotypeBufferUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
       OPTIONAL { ?phenotypeBufferUri rdfs:subClassOf ?phenotypeSubClassOf . }
+      OPTIONAL { ?phenotypeBufferUri dfs:comment ?phenotypeDescription . }
 
       # Use identifiers.org for HP classes
       BIND( if( strstarts(?phenotypeId, "HP:"),
