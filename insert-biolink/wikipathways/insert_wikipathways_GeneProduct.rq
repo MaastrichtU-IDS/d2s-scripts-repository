@@ -13,10 +13,11 @@ PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-    ?dataNode a bl:GeneProduct ;
+    ?dataNode a bl:Gene ;
           dc:identifier ?id ;
           bl:id ?dataNodeId ;
           bl:name ?label ;
+          bl:synonym ?title ;
           bl:part_of ?isPartOf ;
           #bl:systematic_synonym ?xrefHgncString ; # TODO: Gene to GeneProduct association?
           #bl:same_as ?xrefUniprot ;
@@ -42,6 +43,8 @@ WHERE {
           ?dataNode dc:identifier ?id .
       } OPTIONAL {
           ?dataNode rdfs:label ?label .
+      } OPTIONAL {
+          ?dataNode dct:title ?title .
       } OPTIONAL {
           ?dataNode dct:isPartOf ?isPartOf .
       } OPTIONAL {
