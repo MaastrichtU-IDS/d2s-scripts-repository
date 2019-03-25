@@ -22,11 +22,15 @@ WHERE {
   }
 
   SERVICE <https://sparql.uniprot.org>  {
-    # 233.686.171 proteins
-    ?uniprotUri a up:Protein ;
-      rdfs:label ?label ;
-      up:organism ?organism .
-      # up:classifiedWith ?category . # Use category for go terms here? also some uniprot keywords
+    {
+      SELECT * WHERE {
+        # 233.686.171 proteins
+        ?uniprotUri a up:Protein ;
+          rdfs:label ?label ;
+          up:organism ?organism .
+          # up:classifiedWith ?category . # Use category for go terms here? also some uniprot keywords
+      }
+    }
   }
   BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
   BIND ( iri(concat("http://identifiers.org/uniprot:", ?protId)) AS ?protIdoUri )
