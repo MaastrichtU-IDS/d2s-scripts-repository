@@ -1,0 +1,29 @@
+
+PREFIX x2rm: <http://data2services/model/>
+PREFIX d2s: <http://data2services/vocab/>
+PREFIX ido: <http://identifiers.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+# http://graphdb.dumontierlab.com/sparql in repository test_vincent
+INSERT {
+    GRAPH <http://diff> {
+      ?s ?p ?o
+    }
+}
+WHERE {
+ GRAPH <http://date/v2>
+ {
+   ?s ?p ?o .
+ }
+ FILTER NOT EXISTS { 
+     GRAPH <http://date/v1>
+     {   
+       ?s ?p ?o .
+     }
+  }
+}
