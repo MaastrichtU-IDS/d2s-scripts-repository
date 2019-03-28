@@ -16,6 +16,7 @@ INSERT
       bl:description ?phenotypeDescription ;
       bl:description ?phenotypeOboDefinition ;
       bl:synonym ?phenotypeExactSynonym ;
+      bl:same_as ?phenotypeEquivalentClass ;
       bl:category ?phenotypeSubClassOf . # not using bl:subclass_of, it is for OntologyClass
  }
 }
@@ -56,6 +57,8 @@ WHERE {
       OPTIONAL { ?phenotypeOriginalUri oboInOwl:id ?phenotypeId . }
 
       OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+
+      OPTIONAL { ?phenotypeOriginalUri owl:equivalentClass ?phenotypeEquivalentClass . }
 
       OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasExactSynonym ?phenotypeExactSynonym . }
 
