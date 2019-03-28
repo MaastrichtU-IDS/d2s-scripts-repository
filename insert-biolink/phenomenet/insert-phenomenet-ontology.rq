@@ -74,9 +74,8 @@ WHERE {
         # Use identifiers.org + id for most classes
         BIND( if( ?entityType = bl:Cell , # Use identifiers.org for Cell
                 iri(replace(?phenotypeBufferSubClassOf, "http://purl.obolibrary.org/obo/CL_", "http://identifiers.org/CL:")),
-                concat("http://identifiers.org/", ?subClassOfId) ) # ?phenotypeOriginalUri
-              ?phenotypeBufferSubClassOf )
-         AS ?phenotypeSubClassOf )
+                        concat("http://identifiers.org/", ?subClassOfId)) # ?phenotypeOriginalUri
+                      AS ?phenotypeSubClassOf ) 
       }
     }
   }
