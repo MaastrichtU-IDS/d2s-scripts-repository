@@ -34,7 +34,7 @@ WHERE {
       # spatial, quality, biological_process, zebrafish_anatomy, cellular_component, molecular_function, uberon, cell, 
       # MPheno.ontology, cl, human_phenotype, uberon/phenoscape-anatomy, none, zebrafish_stages, zebrafish_anatomical_ontology
       OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
-      VALUES (?phenotypeOboNamespace ?entityType) {
+      VALUES (?filterOboNamespace ?entityType) {
           ( "MPheno.ontology" bl:Phenotype ) # identifiers.org + id (obo)
           ( "human_phenotype" bl:Phenotype ) # identifiers.org + id (obo)
           #( "zebrafish_anatomy" bl:Phenotype ) # Seems to be anatomy. Not sure it is phenotype (http://purl.obolibrary.org/obo/ZFA_0001486) no identifiers.org
@@ -51,6 +51,7 @@ WHERE {
           ( "cl" bl:Cell ) # no id http://purl.obolibrary.org/obo/CL_0000150. Should be http://identifiers.org/CL:0000150
           #(UNDEF bl:MolecularEntity )
       }
+      FILTER (sameTerm(LCASE(?phenotypeOboNamespace), ?filterOboNamespace))
 
       OPTIONAL { ?phenotypeOriginalUri oboInOwl:id ?phenotypeId . }
 
