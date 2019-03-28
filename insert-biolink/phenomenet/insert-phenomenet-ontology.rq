@@ -28,6 +28,8 @@ WHERE {
       ?phenotypeOriginalUri a owl:Class ;
         rdfs:label ?phenotypeLabel .
 
+      FILTER( ! strstarts(?phenotypeOboNamespace, "zebrafish_") )
+
       # Get the Class type:
       # spatial, quality, biological_process, zebrafish_anatomy, cellular_component, molecular_function, uberon, cell, 
       # MPheno.ontology, cl, human_phenotype, uberon/phenoscape-anatomy, none, zebrafish_stages, zebrafish_anatomical_ontology
