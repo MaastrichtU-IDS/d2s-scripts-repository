@@ -76,6 +76,7 @@ WHERE {
 
       OPTIONAL { 
         ?entityOriginalUri rdfs:subClassOf ?entitySubClassOf .
+        FILTER (!isBlank(?entitySubClassOf)) 
 
         # Tried to use identifiers.org IDs also
         #?entityOriginalUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
