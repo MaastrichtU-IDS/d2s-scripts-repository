@@ -1,0 +1,8 @@
+# Res
+
+select (SAMPLE(?entity) AS ?item) ?graph ?type where {
+    GRAPH ?graph {
+      ?entity a ?type .
+      FILTER(strstarts(str(?type), "http://w3id.org/biolink/vocab/"))
+  }
+} GROUP BY ?type ?graph
