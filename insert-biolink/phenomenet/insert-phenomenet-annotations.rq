@@ -30,7 +30,8 @@ WHERE {
         d2smodel:Hpo_id ?hpoId .
 
       BIND ( iri(concat("http://identifiers.org/", ?omimId)) AS ?omimUri )
-      BIND ( iri(concat("http://identifiers.org/", ?hpoId)) AS ?hpoUri )
+      BIND ( iri(concat("http://purl.obolibrary.org/obo/", replace(?hpoId, ":", "_"))) AS ?hpoUri )
+      #BIND ( iri(concat("http://identifiers.org/", ?hpoId)) AS ?hpoUri )
 
       OPTIONAL {
         ?s d2smodel:Evidence_code ?Evidence_code .
@@ -42,7 +43,7 @@ WHERE {
 
       # Avoid taking the first row with columns labels
       FILTER( ?omimId != "DB_Reference")
-      FILTER( strstarts(?omimId, "OMIM:") ) # Avoid getting PMID
+      FILTER( strstarts(?omimId, "OMIM:") ) # Only get OMIM (avoid PMID)
     }
   }
 }

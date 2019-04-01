@@ -10,14 +10,14 @@ INSERT
 {
   GRAPH <?_outputGraph> { 
 
-    ?phenotypeUri a ?entityType ;
+    ?entityOriginalUri a ?entityType ;
       bl:id ?phenotypeId ;
       bl:name ?phenotypeLabel ;
       bl:description ?phenotypeDescription ;
       bl:description ?phenotypeOboDefinition ;
       bl:synonym ?phenotypeExactSynonym ;
       bl:same_as ?phenotypeEquivalentClass ;
-      bl:category ?phenotypeSubClassOf . # not using bl:subclass_of, it is for OntologyClass
+      bl:category ?entitySubClassOf . # not using bl:subclass_of, it is for OntologyClass
  }
 }
 WHERE {
@@ -26,7 +26,7 @@ WHERE {
       # What to do with PMID?
       #http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
 
-      ?phenotypeOriginalUri a owl:Class ;
+      ?entityOriginalUri a owl:Class ;
         rdfs:label ?phenotypeLabel .
 
       FILTER( ! strstarts(?phenotypeOboNamespace, "zebrafish_") )
@@ -34,7 +34,8 @@ WHERE {
       # Get the Class type:
       # spatial, quality, biological_process, zebrafish_anatomy, cellular_component, molecular_function, uberon, cell, 
       # MPheno.ontology, cl, human_phenotype, uberon/phenoscape-anatomy, none, zebrafish_stages, zebrafish_anatomical_ontology
-      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      OPTIONAL { ?entityOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+
       VALUES (?filterOboNamespace ?entityType) {
           ( "MPheno.ontology" bl:Phenotype ) # identifiers.org + id (obo)
           ( "human_phenotype" bl:Phenotype ) # identifiers.org + id (obo)
@@ -54,34 +55,36 @@ WHERE {
       }
       FILTER (sameTerm(LCASE(?phenotypeOboNamespace), ?filterOboNamespace))
 
-      OPTIONAL { ?phenotypeOriginalUri oboInOwl:id ?phenotypeId . }
+      OPTIONAL { ?entityOriginalUri oboInOwl:id ?phenotypeId . }
 
-      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      OPTIONAL { ?entityOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
 
-      OPTIONAL { ?phenotypeOriginalUri owl:equivalentClass ?phenotypeEquivalentClass . }
+      OPTIONAL { ?entityOriginalUri owl:equivalentClass ?phenotypeEquivalentClass . }
 
-      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasExactSynonym ?phenotypeExactSynonym . }
+      OPTIONAL { ?entityOriginalUri oboInOwl:hasExactSynonym ?phenotypeExactSynonym . }
 
-      OPTIONAL { ?phenotypeOriginalUri oboInOwl:hasDbXref ?phenotypeDbXref }
-      OPTIONAL { ?phenotypeOriginalUri rdfs:comment ?phenotypeDescription . }
+      OPTIONAL { ?entityOriginalUri oboInOwl:hasDbXref ?phenotypeDbXref }
+      OPTIONAL { ?entityOriginalUri rdfs:comment ?phenotypeDescription . }
 
-      OPTIONAL { ?phenotypeOriginalUri <http://purl.obolibrary.org/obo/IAO_0000115> ?phenotypeOboDefinition . }
+      OPTIONAL { ?entityOriginalUri <http://purl.obolibrary.org/obo/IAO_0000115> ?phenotypeOboDefinition . }
 
-      # Use identifiers.org + id for most classes
-      BIND( if( ?entityType = bl:Cell , # Use identifiers.org for Cell
-              iri(replace(?phenotypeOriginalUri, "http://purl.obolibrary.org/obo/CL_", "http://identifiers.org/CL:")),
-              iri(concat("http://identifiers.org/", ?phenotypeId) )) # ?phenotypeOriginalUri
-         AS ?phenotypeUri )
+      # Tried to use identifiers.org + id for most classes. Use another service for that?
+      #BIND( if( ?entityType = bl:Cell , # Use identifiers.org for Cell
+      #        iri(replace(?entityOriginalUri, "http://purl.obolibrary.org/obo/CL_", "http://identifiers.org/CL:")),
+      #        iri(concat("http://identifiers.org/", ?phenotypeId) )) # ?entityOriginalUri
+      #   AS ?phenotypeUri )
 
       OPTIONAL { 
-        ?phenotypeOriginalUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
-        ?phenotypeBufferSubClassOf oboInOwl:id ?subClassOfId . 
+        ?entityOriginalUri rdfs:subClassOf ?entitySubClassOf .
 
+        # Tried to use identifiers.org IDs also
+        #?entityOriginalUri rdfs:subClassOf ?phenotypeBufferSubClassOf .
+        #?phenotypeBufferSubClassOf oboInOwl:id ?subClassOfId . 
         # Use identifiers.org + id for most classes
-        BIND( if( ?entityType = bl:Cell , # Use identifiers.org for Cell
-                iri(replace(?phenotypeBufferSubClassOf, "http://purl.obolibrary.org/obo/CL_", "http://identifiers.org/CL:")),
-                        iri(concat("http://identifiers.org/", ?subClassOfId))) # ?phenotypeOriginalUri
-                      AS ?phenotypeSubClassOf ) 
+        #BIND( if( ?entityType = bl:Cell , # Use identifiers.org for Cell
+        #        iri(replace(?phenotypeBufferSubClassOf, "http://purl.obolibrary.org/obo/CL_", "http://identifiers.org/CL:")),
+        #                iri(concat("http://identifiers.org/", ?subClassOfId))) # ?entityOriginalUri
+        #              AS ?phenotypeSubClassOf ) 
       }
     }
   }
