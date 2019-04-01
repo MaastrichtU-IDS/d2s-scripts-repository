@@ -22,9 +22,11 @@ INSERT
     #?uriProtSource ?relationUri ?uriProtTarget .
 
     ?uriProtSource a bl:Protein ;
-      bl:id ?uriProtSourceId .
+      bl:id ?uriProtSourceId ;
+      bl:same_as ?uriSameasSourceId .
     ?uriProtTarget a bl:Protein ;
-      bl:id ?uriProtTargetId .
+      bl:id ?uriProtTargetId ;
+      bl:same_as ?uriSameasTargetId .
 
     ?ConfidenceLevelUri a bl:ConfidenceLevel ;
             bl:id "score" ;
@@ -70,9 +72,11 @@ WHERE {
       }
 
       BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protSource, ".")) ) AS ?uriProtSource )
-      BIND(str(?uriProtSource) AS ?uriProtSourceId)      
+      BIND( concat("ensembl:", strafter(?protSource, ".") AS ?uriProtSourceId)
+      BIND( iri(concat("http://ensembl.org/id/", strafter(?protSource, ".")) AS ?uriSameasSourceId)
       BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protTarget, ".")) ) AS ?uriProtTarget )
-      BIND(str(?uriProtTarget) AS ?uriProtTargetId)
+      BIND( concat("ensembl:", strafter(?protTarget, ".") AS ?uriProtTargetId)
+      BIND( iri(concat("http://ensembl.org/id/", strafter(?protTarget, ".")) AS ?uriSameasTargetId)
 
       VALUES (?filterMode ?relationUri) {
         ( "activation" bl:increases_activity_of )
