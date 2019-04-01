@@ -39,9 +39,9 @@ WHERE {
       VALUES (?filterOboNamespace ?entityType) {
           ( "MPheno.ontology" bl:Phenotype ) # identifiers.org + id (obo)
           ( "human_phenotype" bl:Phenotype ) # identifiers.org + id (obo)
-          #( "zebrafish_anatomy" bl:Phenotype ) # Seems to be anatomy. Not sure it is phenotype (http://purl.obolibrary.org/obo/ZFA_0001486) no identifiers.org
-          #( "zebrafish_anatomical_ontology" bl:Phenotype ) # Only 2 ZFA entities^
-          #( "zebrafish_stages" bl:Phenotype ) # Seems to be anatomy (http://purl.obolibrary.org/obo/ZFS_0001486) no identifiers.org
+          ( "zebrafish_anatomy" bl:Phenotype ) # Seems to be anatomy. Not sure it is phenotype (http://purl.obolibrary.org/obo/ZFA_0001486) no identifiers.org
+          ( "zebrafish_anatomical_ontology" bl:Phenotype ) # Only 2 ZFA entities^
+          ( "zebrafish_stages" bl:Phenotype ) # Seems to be anatomy (http://purl.obolibrary.org/obo/ZFS_0001486) no identifiers.org
           ( "biological_process" bl:BiologicalProcess )
           ( "cellular_component" bl:CellularComponent )
           ( "molecular_function" bl:MolecularActivity ) # Or bl:GeneOntologyClass?
