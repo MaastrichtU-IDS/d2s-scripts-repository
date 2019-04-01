@@ -74,7 +74,7 @@ WHERE {
       BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protTarget, ".")) ) AS ?uriProtTarget )
       BIND(str(?uriProtTarget) AS ?uriProtTargetId)
 
-      VALUES (?mode ?relationUri) {
+      VALUES (?filterMode ?relationUri) {
         ( "activation" bl:increases_activity_of )
         ( "inhibition" bl:decreases_activity_of )
         ( "catalysis" bl:increases_activity_of )
@@ -82,8 +82,9 @@ WHERE {
         ( "reaction" bl:molecularly_interacts_with )
         ( "binding" bl:molecularly_interacts_with )
         ( "ptmod" bl:affects_molecular_modification_of )
-        (UNDEF bl:interacts_with)
+        #(UNDEF bl:interacts_with) # TODO: take also interaction when mode not defined
       }
+      FILTER (sameTerm(LCASE(?filterMode), ?mode))
 
 
       # Avoid taking the first row with columns labels
