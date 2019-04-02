@@ -239,12 +239,12 @@ INSERT {
 }
 WHERE 
 {
-    BIND(<https://w3id.org/data2services/dataset/string/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
-    BIND("10.5"^^xsd:string AS ?pavVersion) # Increment it from the latest version? Or user input
+    BIND(<https://w3id.org/data2services/dataset/eggnog/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND("4.5"^^xsd:string AS ?pavVersion) # Increment it from the latest version? Or user input
     BIND("1.0"^^xsd:string AS ?pavVersionRdf) # Increment it from the latest version? Or user input
 
     # Define the graph (A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution of the dataset)
-    BIND(iri("https://w3id.org/data2services/graph/biolink/hgnc") AS ?dcatAccessURL) # May. uri
+    BIND(iri("https://w3id.org/data2services/graph/biolink/eggnog") AS ?dcatAccessURL) # May. uri
 
     OPTIONAL {
       ?summaryUri dct:title ?dctTitle ;
@@ -274,15 +274,16 @@ WHERE
     #BIND(<https://www.drugbank.ca/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
     #BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctPublisherName))) AS ?dctPublisher) # Get from summary. But let the possibility to redefine it for a dataset
 
-    BIND("HUGO Gene Nomenclature Committee at the European Bioinformatics Institute" AS ?dctCreatorName) # Optional if external URI, to store creator name in our graph if the URI already resolves
-    BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctCreatorName))) AS ?dctCreator)
+    #BIND("HUGO Gene Nomenclature Committee at the European Bioinformatics Institute" AS ?dctCreatorName) # Optional if external URI, to store creator name in our graph if the URI already resolves
+    #BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctCreatorName))) AS ?dctCreator)
+    BIND(?dctPublisher AS ?dctCreator )
 
     #BIND(iri("http://creativecommons.org/licenses/by-sa/3.0/") AS ?dctLicense) # Get from summary. But let the possibility to redefine it for a dataset
 
 
     ## Source Distribution 
     BIND(concat(?versionTitle, " Database Distribution") AS ?sourceDistributionTitle)
-    BIND("application/xml" AS ?dctFormatSource)
+    BIND("text/tab-separated-values" AS ?dctFormatSource)
 
     ## RDF Distribution
     BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
@@ -309,7 +310,7 @@ WHERE
     #BIND(:pubchem-bioassay-09-01-2014 AS ?dctSource)
 
     ## Source distribution
-    BIND(<https://stringdb-static.org/download/protein.actions.v10.5/9606.protein.actions.v10.5.txt.gz> AS ?dcatDownloadURLSource) # user input
+    BIND(<http://eggnogdb.embl.de/download/latest/> AS ?dcatDownloadURLSource) # user input
     #BIND("1"^^xsd:string AS ?pavVersionSource) # user input
     #BIND(<http://identifiers.org/drugbank/version#0> AS ?pavPreviousVersion)
     #BIND(<http://example.com/madeUp/editor> AS ?pavCreatedWith )
@@ -331,7 +332,7 @@ WHERE
     #############
 
     BIND(<http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> AS ?dctConformsTo)  # constant. uri
-    BIND("ENSP00000000233"^^xsd:string AS ?idotExampleIdentifier)
+    BIND("COG0108"^^xsd:string AS ?idotExampleIdentifier)
     
     #BIND("Alternative label for dataset" AS ?dctAlternative)
     #BIND("The data in ChEMBL is covered by the Creative Commons By Attribution." AS ?dctRights)
@@ -362,8 +363,8 @@ WHERE
     #VALUES (?idotAccessPatternSource) { ( "http://bio2rdf.org/chembl ) ( "http://identifiers.org/chembl.compound/" ) } # array
 
     ## RDF distribution
-    BIND(<http://identifiers.org/ensembl:ENSP00000280155> AS ?voidExampleResourceRdf) # TODO: automate
-    BIND(<http://identifiers.org/ensembl:ENSP00000280155> AS ?sioHasDataItem)
+    BIND(<https://w3id.org/data2services/data/eggnog/group/COG0108> AS ?voidExampleResourceRdf) # TODO: automate
+    BIND(<https://w3id.org/data2services/data/eggnog/group/COG0108> AS ?sioHasDataItem)
     #VALUES (?voidSubset) { ( :chembl17_rdf_molecule_dataset ) ( :chembl17_rdf_target_dataset ) } # uri array of distributions
     #BIND("CHEMBL\\d+"^^xsd:string AS ?idotIdentifierPatternRdf)
     #VALUES (?idotAccessPatternRdf) { ( "http://bio2rdf.org/chembl ) ( "http://identifiers.org/chembl.compound/" ) } # array

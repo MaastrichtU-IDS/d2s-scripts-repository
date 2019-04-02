@@ -244,7 +244,7 @@ WHERE
     BIND("1.0"^^xsd:string AS ?pavVersionRdf) # Increment it from the latest version? Or user input
 
     # Define the graph (A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution of the dataset)
-    BIND(iri("https://w3id.org/data2services/graph/biolink/hgnc") AS ?dcatAccessURL) # May. uri
+    BIND(iri("https://w3id.org/data2services/graph/biolink/string") AS ?dcatAccessURL) # May. uri
 
     OPTIONAL {
       ?summaryUri dct:title ?dctTitle ;
@@ -282,7 +282,7 @@ WHERE
 
     ## Source Distribution 
     BIND(concat(?versionTitle, " Database Distribution") AS ?sourceDistributionTitle)
-    BIND("application/xml" AS ?dctFormatSource)
+    BIND("text/tab-separated-values" AS ?dctFormatSource)
 
     ## RDF Distribution
     BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
