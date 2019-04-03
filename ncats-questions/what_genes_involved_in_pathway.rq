@@ -3,7 +3,7 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 select ?proteinUri ?protein ?relation ?pathway ?pathwayUri
 where {
   {
-    # From GOTE
+    # From DATE
     ?proteinUri a bl:Protein .
     ?association a bl:MacromolecularMachineToBiologicalProcessAssociation ;
       ?p ?proteinUri ;
@@ -21,8 +21,7 @@ where {
     OPTIONAL { ?pathwayUri bl:name ?pathway }
     OPTIONAL { ?proteinUri bl:name ?protein }
     FILTER(!isBlank(?pathwayUri))
+    #TODO: ?pathwayUri a bl:Pathway . Wikipathway misses bl:Pathway
   }
-
-  #?pathwayUri a bl:Pathway . Wikipathway misses bl:Pathway
 }
 
