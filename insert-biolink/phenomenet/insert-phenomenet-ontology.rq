@@ -59,7 +59,9 @@ WHERE {
 
       OPTIONAL { ?entityOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
 
-      OPTIONAL { ?entityOriginalUri owl:equivalentClass ?phenotypeEquivalentClass . }
+      OPTIONAL { ?entityOriginalUri owl:equivalentClass ?phenotypeEquivalentClass .
+                 FILTER (!isBlank(?phenotypeEquivalentClass)) 
+      }
 
       OPTIONAL { ?entityOriginalUri oboInOwl:hasExactSynonym ?phenotypeExactSynonym . }
 

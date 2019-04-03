@@ -71,12 +71,12 @@ WHERE {
         ?s d2smodel:Is_directional ?isDirectional . # f or t. We only use A_is_acting at the moment
       }
 
-      BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protSource, ".")) ) AS ?uriProtSource )
-      BIND( concat("ensembl:", strafter(?protSource, ".") AS ?uriProtSourceId)
-      BIND( iri(concat("http://ensembl.org/id/", strafter(?protSource, ".")) AS ?uriSameasSourceId)
-      BIND ( iri(concat("http://identifiers.org/ensembl:", strafter(?protTarget, ".")) ) AS ?uriProtTarget )
-      BIND( concat("ensembl:", strafter(?protTarget, ".") AS ?uriProtTargetId)
-      BIND( iri(concat("http://ensembl.org/id/", strafter(?protTarget, ".")) AS ?uriSameasTargetId)
+      BIND( iri(concat("http://identifiers.org/ensembl:", strafter(?protSource, ".")) ) AS ?uriProtSource )
+      BIND( concat("ensembl:", strafter(?protSource, ".")) AS ?uriProtSourceId)
+      BIND( iri(concat("http://ensembl.org/id/", strafter(?protSource, "."))) AS ?uriSameasSourceId)
+      BIND( iri(concat("http://identifiers.org/ensembl:", strafter(?protTarget, ".")) ) AS ?uriProtTarget )
+      BIND( concat("ensembl:", strafter(?protTarget, ".")) AS ?uriProtTargetId)
+      BIND( iri(concat("http://ensembl.org/id/", strafter(?protTarget, "."))) AS ?uriSameasTargetId)
 
       VALUES (?filterMode ?relationUri) {
         ( "activation" bl:increases_activity_of )
