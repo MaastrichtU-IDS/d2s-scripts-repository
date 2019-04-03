@@ -1,0 +1,14 @@
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+# What are the defining symptoms / phenotypes of [condition x]?
+# 174,052 results from PhenomeNET
+select distinct ?phenotypeUri ?phenotype ?relation ?disease ?diseaseUri
+where {
+    ?diseaseUri a bl:Disease ;
+      ?relation ?phenotypeUri .
+    ?phenotypeUri a bl:Phenotype .
+    
+    OPTIONAL { ?phenotypeUri bl:name ?phenotype }
+    OPTIONAL { ?diseaseUri bl:name ?disease }
+}
+
+

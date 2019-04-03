@@ -1,9 +1,28 @@
 PREFIX bl: <http://w3id.org/biolink/vocab/>
-
 # What genes are involved in [pathway/process]?
-
-select * 
+select ?proteinUri ?protein ?relation ?pathway ?pathwayUri
 where {
-    ?s a bl:Protein .
-    ?s ?p [a bl:Pathway ] .
+  {
+    # From GOTE
+    ?proteinUri a bl:Protein .
+    ?association a bl:MacromolecularMachineToBiologicalProcessAssociation ;
+      ?p ?proteinUri ;
+      ?p2 ?pathwayUri ;
+      bl:relation ?relation .
+      OPTIONAL { ?pathwayUri bl:name ?pathway }
+      OPTIONAL { ?proteinUri bl:name ?protein }
+    ?pathwayUri a bl:Pathway .
+
+  } UNION {
+    # From Wikipathway
+    ?proteinUri a bl:Protein ;
+      ?relation ?pathwayUri .
+    FILTER(?relation = bl:part_of)
+    OPTIONAL { ?pathwayUri bl:name ?pathway }
+    OPTIONAL { ?proteinUri bl:name ?protein }
+    FILTER(!isBlank(?pathwayUri))
+  }
+
+  #?pathwayUri a bl:Pathway . Wikipathway misses bl:Pathway
 }
+
