@@ -1,6 +1,6 @@
 # What drugs/compounds target gene products of gene "coagulation factor II, thrombin"?
 
-# Only 623 results from WikiPathways and DATE
+# 623 results from WikiPathways and DATE
 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
@@ -25,3 +25,5 @@ SELECT distinct ?gene ?produceProtein ?affectedByDrug ?byRelation ?inInteraction
 
 #    FILTER(contains(str(?gene), "coagulation factor II, thrombin")) . 
 }
+# SHOULD GET DRUGBANK
+# http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fw3id.org%2Fdata2services%2Fdata%2Fassociation%2Ftarget%2F881666509406c7ad85ea471cb6812284
