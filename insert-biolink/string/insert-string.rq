@@ -9,18 +9,6 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-
-    # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
-   ?associationUri a bl:PairwiseGeneToGeneInteraction ;
-            bl:pairwise_gene_to_gene_interaction_relation ?relationUri ; # activate etc
-            bl:gene_to_gene_association_subject ?uriProtSource ;
-            bl:gene_to_gene_association_object ?uriProtTarget ;
-            bl:has_confidence_level ?ConfidenceLevelUri .
-            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
-
-    # Direct relation
-    #?uriProtSource ?relationUri ?uriProtTarget .
-
     ?uriProtSource a bl:Protein ;
       bl:id ?uriProtSourceId ;
       bl:same_as ?uriSameasSourceId .
@@ -28,11 +16,21 @@ INSERT
       bl:id ?uriProtTargetId ;
       bl:same_as ?uriSameasTargetId .
 
-    ?ConfidenceLevelUri a bl:ConfidenceLevel ;
-            bl:id "score" ;
-            bl:name "Score" ;
-            bl:node_property ?score .
+    # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
+   #?associationUri a bl:PairwiseGeneToGeneInteraction ;
+   #         bl:pairwise_gene_to_gene_interaction_relation ?relationUri ; # activate etc
+   #         bl:gene_to_gene_association_subject ?uriProtSource ;
+   #         bl:gene_to_gene_association_object ?uriProtTarget ;
+   #         bl:has_confidence_level ?ConfidenceLevelUri .
+            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
+    #?ConfidenceLevelUri a bl:ConfidenceLevel ;
+    #        bl:id "score" ;
+    #        bl:name "Score" ;
+    #        bl:node_property ?score .
+
+    # Direct relations
+    ?uriProtSource ?relationUri ?uriProtTarget .
  }
 }
 WHERE {
@@ -40,7 +38,6 @@ WHERE {
     GRAPH <?_inputGraph> {
       # Transform https://stringdb-static.org/download/protein.actions.v10.5/9606.protein.actions.v10.5.txt.gz
 
-      #SELECT * {  # TO REMOVE
       ?s d2smodel:A_is_acting ?aIsActing . # f or t. 
       # the directionality of the action if applicable (t gives that item_id_a is acting upon item_id_b)
       # but f doesn't mean that b is acting on a. Sometimes it is just that directionality is not know (eg: binding)
@@ -93,9 +90,6 @@ WHERE {
 
       # Avoid taking the first row with columns labels
       FILTER( ?protA != "item_id_a")
-
-    #} # TO REMOVE
-    #LIMIT 10
 
 }
 }
