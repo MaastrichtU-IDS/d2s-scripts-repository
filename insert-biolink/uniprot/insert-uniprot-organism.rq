@@ -42,7 +42,7 @@ WHERE {
         #} OPTIONAL {
         #  ?taxonUri up:partOfLineage ?partOfLineage . # "false"xsd:boolean
         #}
-      } LIMIT 1000
+      } # LIMIT 1000
     }
   }
 }
