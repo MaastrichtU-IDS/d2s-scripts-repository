@@ -4,38 +4,45 @@ PREFIX up: <http://purl.uniprot.org/core/>
 PREFIX uniprot: <http://identifiers.org/uniprot/>
 INSERT {
     GRAPH <?_outputGraph> { # https://w3id.org/data2services/graph/biolink/uniprot
-        ?taxonomyUri a bl:OrganismTaxon ;
-            bl:id ?taxonomyUriStr ;
+        ?taxonUri a bl:OrganismTaxon ;
+            #bl:id ?taxonomyUriStr ;
             bl:name ?label ;
-            rdfs:subClassOf ?subClassOfUri .
+            bl:synonym ?synonym ;
+            rdfs:subClassOf ?subClassOf .
 
-        ?subClassOfUri a bl:OrganismTaxon ;
-            bl:id ?subClassOfUriStr ;
-            bl:name ?labelSubClassOf .
+        #?subClassOfUri a bl:OrganismTaxon ;
+        #    bl:id ?subClassOfUriStr ;
+        #    bl:name ?labelSubClassOf .
     }
 }
 WHERE {
 
-  {
-    SELECT ?taxonomyUri ?uniprotUri WHERE {
-      ?taxonomyUri a bl:OrganismTaxon .
-      FILTER(strstarts(str(?taxonomyUri), "http://identifiers.org/taxonomy/"))
-      BIND(iri(replace(str(?taxonomyUri), "http://identifiers.org/taxonomy/", "http://purl.uniprot.org/taxonomy/")) AS ?uniprotUri)
-    }
-  }
+  #SELECT ?taxonomyUri ?uniprotUri WHERE {
+  #  ?taxonomyUri a bl:OrganismTaxon .
+  #  FILTER(strstarts(str(?taxonomyUri), "http://identifiers.org/taxonomy/"))
+  #  BIND(iri(replace(str(?taxonomyUri), "http://identifiers.org/taxonomy/", "http://purl.uniprot.org/taxonomy/")) AS ?uniprotUri)
+  #}
 
   SERVICE <https://sparql.uniprot.org>  {
-    # 2.363.344 taxons
-    ?uniprotUri a up:Taxon ; # http://purl.uniprot.org/taxonomy/1003157
-      rdfs:subClassOf ?subClassOf .
-    # Using uniprotUri here doesn't work
+    {
+      SELECT * WHERE {
+        # 2.363.344 taxons
+        ?taxonUri a up:Taxon . # http://purl.uniprot.org/taxonomy/1003157
 
-    OPTIONAL {
-      ?uniprotUri up:scientificName ?label .
-    }
+        OPTIONAL {
+          ?taxonUri up:scientificName ?label .
+        } OPTIONAL {
+          ?taxonUri up:otherName ?synonym .
+        } OPTIONAL {
+          ?taxonUri rdfs:subClassOf ?subClassOf .
+        }
 
-    OPTIONAL {
-      ?subClassOf up:scientificName ?labelSubClassOf .
+        #OPTIONAL {
+        #  ?taxonUri up:rank ?rank . # http://purl.uniprot.org/core/Species
+        #} OPTIONAL {
+        #  ?taxonUri up:partOfLineage ?partOfLineage . # "false"xsd:boolean
+        #}
+      } LIMIT 1000
     }
   }
 }
