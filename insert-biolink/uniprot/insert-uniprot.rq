@@ -45,6 +45,8 @@ WHERE {
           rdfs:label ?label ;
           up:organism ?organism .
 
+        FILTER( ?organism = <http://purl.uniprot.org/taxonomy/9606> )
+
         OPTIONAL {
           ?uniprotUri up:created ?created . # "2017-05-10"xsd:date
 
@@ -76,7 +78,7 @@ WHERE {
         #} OPTIONAL {
         #  ?uniprotUri up:version ?uniprotVersion .
         
-      } #LIMIT 100
+      } LIMIT 1000
     }
   }
   BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
