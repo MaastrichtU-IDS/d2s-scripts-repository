@@ -78,7 +78,7 @@ WHERE {
         #} OPTIONAL {
         #  ?uniprotUri up:version ?uniprotVersion .
         
-      } LIMIT 1000
+      } #LIMIT 1000
     }
   }
   BIND ( replace(str(?uniprotUri), "http://purl.uniprot.org/uniprot/", "") AS ?protId )
