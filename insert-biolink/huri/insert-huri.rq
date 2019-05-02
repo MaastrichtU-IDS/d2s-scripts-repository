@@ -55,27 +55,20 @@ WHERE {
       BIND( iri(concat("http://identifiers.org/ensembl/", ?geneIdB ) ) AS ?protUriB )
       BIND( concat("ensembl:", ?geneIdB ) AS ?curieB )
 
-      ?s d2smodel:in_screen_1 ?in_screen_1 .
-      ?s d2smodel:in_screen_2 ?in_screen_2 .
-      ?s d2smodel:in_screen_3 ?in_screen_3 .
-      ?s d2smodel:in_screen_4 ?in_screen_4 .
-      ?s d2smodel:in_screen_5 ?in_screen_5 .
-      ?s d2smodel:in_screen_6 ?in_screen_6 .
-      ?s d2smodel:in_screen_7 ?in_screen_7 .
-      ?s d2smodel:in_screen_8 ?in_screen_8 .
-      ?s d2smodel:in_screen_9 ?in_screen_9 .
-      ?s d2smodel:in_assay_v1 ?in_assay_v1 .
-      ?s d2smodel:in_assay_v2 ?in_assay_v2 .
-      ?s d2smodel:in_assay_v3 ?in_assay_v3 .
+      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?geneIdA, ?geneIdB)) ) ) AS ?associationUri )
 
-      BIND( iri(concat("http://identifiers.org/ensembl/", ?protId ) ) AS ?protUri )
-      BIND(str(?protUri) AS ?protUriId)
-      BIND( iri(concat("https://w3id.org/data2services/data/pathway/", md5(?pathwayName) ) ) AS ?pathwayUri )
-      BIND(str(?pathwayUri) AS ?pathwayUriId)
-      BIND( iri(concat("https://w3id.org/data2services/data/tissue/", md5(?tissueName) ) ) AS ?tissueUri )
-      BIND(str(?tissueUri) AS ?tissueUriId)
-      BIND( iri(concat("https://w3id.org/data2services/data/protein/interaction/", md5(concat(?protId, ?tissueName, ?pathwayName)) ) ) AS ?interactionUri )
-
+      #?s d2smodel:in_screen_1 ?in_screen_1 .
+      #?s d2smodel:in_screen_2 ?in_screen_2 .
+      #?s d2smodel:in_screen_3 ?in_screen_3 .
+      #?s d2smodel:in_screen_4 ?in_screen_4 .
+      #?s d2smodel:in_screen_5 ?in_screen_5 .
+      #?s d2smodel:in_screen_6 ?in_screen_6 .
+      #?s d2smodel:in_screen_7 ?in_screen_7 .
+      #?s d2smodel:in_screen_8 ?in_screen_8 .
+      #?s d2smodel:in_screen_9 ?in_screen_9 .
+      #?s d2smodel:in_assay_v1 ?in_assay_v1 .
+      #?s d2smodel:in_assay_v2 ?in_assay_v2 .
+      #?s d2smodel:in_assay_v3 ?in_assay_v3 .
 
   # Avoid taking the first row with columns labels
   FILTER( ?Ensembl_gene_id_a != "Ensembl_gene_id_a") 
