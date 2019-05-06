@@ -20,12 +20,12 @@ INSERT
 
 
     ?entity1 a ?entity1Type ;
-      bl:id Entity1_id ;
-      bl:name Entity1_name ;
+      bl:id ?Entity1_id ;
+      bl:name ?Entity1_name .
 
     ?entity2 a ?entity2Type ;
-      bl:id Entity2_id ;
-      bl:name Entity2_name ;
+      bl:id ?Entity2_id ;
+      bl:name ?Entity2_name .
 
  }
 }
