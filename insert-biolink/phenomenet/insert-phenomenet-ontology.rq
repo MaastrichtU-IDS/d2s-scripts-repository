@@ -57,7 +57,7 @@ WHERE {
 
       OPTIONAL { ?entityOriginalUri oboInOwl:id ?phenotypeId . }
 
-      OPTIONAL { ?entityOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
+      #OPTIONAL { ?entityOriginalUri oboInOwl:hasOBONamespace ?phenotypeOboNamespace . }
 
       OPTIONAL { ?entityOriginalUri owl:equivalentClass ?phenotypeEquivalentClass .
                  FILTER (!isBlank(?phenotypeEquivalentClass)) 

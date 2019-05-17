@@ -45,6 +45,7 @@ WHERE {
           rdfs:label ?label ;
           up:organism ?organism .
 
+        # Only take human proteins
         FILTER( ?organism = <http://purl.uniprot.org/taxonomy/9606> )
 
         OPTIONAL {
