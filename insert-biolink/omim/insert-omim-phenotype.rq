@@ -1,0 +1,30 @@
+PREFIX d2smodel: <http://data2services/model/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
+INSERT
+{
+  GRAPH <?_outputGraph> {  
+    ?omimUri a bl:Phenotype ;
+      bl:id ?omimCurie .
+ }
+}
+WHERE {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+      ?s d2smodel:Mim_number ?omim_id .
+      ?s d2smodel:Mim_entry_type ?Mim_entry_type .
+      #gene phenotype (predominantly phenotypes) moved/removed gene/phenotype
+      FILTER (?Mim_entry_type = "phenotype")
+      
+      BIND ( iri(concat("http://identifiers.org/omim/", ?omim_id)) AS ?omimUri )
+      BIND ( concat("omim:", ?omim_id) AS ?omimCurie )
+
+      # Avoid taking the first row with columns labels
+      FILTER( ?omim_id != "Omim_id") 
+    }
+  }
+}
