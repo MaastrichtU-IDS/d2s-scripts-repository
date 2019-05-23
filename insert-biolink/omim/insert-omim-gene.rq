@@ -7,7 +7,7 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_outputGraph> {
     ?omimUri a bl:Gene ;
       bl:id ?omimCurie ;
       bl:same_as ?uriNcbi , 
@@ -25,7 +25,7 @@ WHERE {
       ?s d2smodel:Mim_number ?omim_id .
       ?s d2smodel:Mim_entry_type ?Mim_entry_type .
       #gene phenotype (predominantly phenotypes) moved/removed gene/phenotype
-      FILTER (?Mim_entry_type = "gene")
+      FILTER (?Mim_entry_type = "gene" || ?Mim_entry_type = "gene/phenotype")
       
       OPTIONAL { 
         ?s d2smodel:Entrez_gene_id_ncbi ?idNcbi .
