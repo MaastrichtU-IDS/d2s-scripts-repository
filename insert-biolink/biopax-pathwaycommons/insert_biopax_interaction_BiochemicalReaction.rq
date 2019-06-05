@@ -35,7 +35,7 @@ INSERT
  }
 }
 WHERE {
-  #SERVICE <?_serviceUrl>  {
+  SERVICE <?_serviceUrl>  {
     #GRAPH <?_inputGraph> { # We need to use implicit graph for inference
     #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?reactionUri a bp:BiochemicalReaction ;
@@ -81,5 +81,5 @@ WHERE {
         ?xrefPublication a bp:PublicationXref . # only Pubmed identifiers.org
       }
     #}
-  #}
+  }
 }

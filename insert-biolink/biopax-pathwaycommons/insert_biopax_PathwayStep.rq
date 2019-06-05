@@ -17,9 +17,9 @@ INSERT
  }
 }
 WHERE {
-  #SERVICE <?_serviceUrl>  {
-    #GRAPH <?_inputGraph> {
-    GRAPH <http://pathwaycommons.org/pc2/graph> {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+    #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?pathwayUri a bp:Pathway ;
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .
 
@@ -27,5 +27,5 @@ WHERE {
       ?pathwayStep bp:nextStep ?nextPathwayStep .
       ?nextPathwayStep bp:stepProcess ?nextStepProcess .
     }
-  #}
+  }
 }

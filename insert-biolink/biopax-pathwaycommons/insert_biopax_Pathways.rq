@@ -35,9 +35,9 @@ INSERT
  }
 }
 WHERE {
-  #SERVICE <?_serviceUrl>  {
-    #GRAPH <?_inputGraph> {
-    GRAPH <http://pathwaycommons.org/pc2/graph> {
+  SERVICE <?_serviceUrl>  {
+    GRAPH <?_inputGraph> {
+    #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?pathwayUri a bp:Pathway ;
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .
         #bp:pathwayOrder ?pathwayOrder . # order of the components in the pathway (bad uri)
@@ -63,5 +63,5 @@ WHERE {
         ?xrefPublication a bp:PublicationXref . # only Pubmed identifiers.org
       }
     }
-  #}
+  }
 }
