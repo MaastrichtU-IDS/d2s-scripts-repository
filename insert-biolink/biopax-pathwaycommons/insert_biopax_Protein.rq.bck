@@ -28,6 +28,11 @@ INSERT
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
+
+      # WE NEED:
+      # Complex, DNA, Protein, RNA, SmallMolecule,DnaRegion, RnaRegion
+      # Gene
+
       ?proteinUri a bp:Protein ;
           bp:entityReference ?uri . # Use it has URI. usually ido (uniprot, refseq, chebi) or http://pathwaycommons.org/pc2/#SmallMoleculeReference_5db71a6750411a9300c2ec710b0de52b
           

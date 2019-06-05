@@ -1,5 +1,3 @@
-BASE <http://rdf.ebi.ac.uk/chembl/>
-PREFIX : <http://rdf.ebi.ac.uk/chembl/>
 PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX cito: <http://purl.org/spar/cito/>
@@ -34,6 +32,10 @@ INSERT {
         ?dctPublisher a dct:Agent ;
             foaf:name ?dctPublisherName ;
             foaf:page ?dctPublisherPage ;
+        .
+
+        ?dctCreator a dct:Agent ;
+            foaf:name ?dctCreatorName
         .
 
         ?dctPublisherRdf a dct:Agent ;
@@ -235,42 +237,25 @@ INSERT {
 }
 WHERE 
 {
-        ##### Get WikiPathways dataset informations
-    # From WikiPathways: http://data.wikipathways.org/20181110/rdf/
-    GRAPH <http://rdf.wikipathways.org/graph> {
-        ?dataset a void:Dataset ;
-                pav:createdBy ?dctCreator ;
-                dct:issued ?dctIssued ;
-                dct:license ?dctLicense ;
-                pav:createdOn ?pavCreatedOn ;
-                void:exampleResource ?voidExampleResourceRdf ;
-                void:subset ?voidSubset .
-
-        ?voidSubset void:dataDump ?dcatDownloadURLSource .
-
-
-    }
-
-
-    BIND(<https://w3id.org/data2services/dataset/wikipathways/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
-    BIND("3.4.158"^^xsd:string AS ?pavVersion) # user input. TODO: extract it from the graph?
+    BIND(<https://w3id.org/data2services/dataset/pathwaycommons/> AS ?summaryUri) # user input. Careful, for drugbank ido uses it as void:uriSpace for a dcat:CatalogRecord
+    BIND("1.0"^^xsd:string AS ?pavVersion) # Increment it from the latest version? Or user input
     BIND("1.0"^^xsd:string AS ?pavVersionRdf) # Increment it from the latest version? Or user input
 
     # Define the graph (A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution of the dataset)
-    BIND(iri("https://w3id.org/data2services/graph/biolink/wikipathways") AS ?dcatAccessURL) # May. uri
-    # Should we really use it for graph? Monarch is using it for downloadable zip files
+    BIND(iri("https://w3id.org/data2services/graph/biolink/pathwaycommons") AS ?dcatAccessURL) # May. uri
 
     OPTIONAL {
       ?summaryUri dct:title ?dctTitle ;
         dct:description ?dctDescription ;
+        dct:license ?dctLicense ;
         dct:publisher ?dctPublisher ;
         idot:preferredPrefix ?idotPreferredPrefix ;
-        idot:alternatePrefix ?idotAlternatePrefix .
+        idot:alternatePrefix ?idotAlternatePrefix ;
+        dcat:accessURL ?dcatAccessURL .
     }
 
     # Needs to be at the beginning
     BIND(iri(concat(str(?summaryUri), "version#", str(?pavVersion))) AS ?versionUri)
-    #getsum: BIND(iri("http://test/") AS ?versionUri)
     BIND(iri(concat(str(?summaryUri), "distribution/source#", str(?pavVersion))) AS ?distributionSourceUri)
     BIND(iri(concat(str(?summaryUri), "distribution/rdf#", str(?pavVersionRdf))) AS ?distributionRdfUri)
 
@@ -286,12 +271,13 @@ WHERE
     #BIND("DrugBank" AS ?dctPublisherName) # Optional if external URI, to store publisher name in our graph if the URI already resolves
     #BIND(<https://www.drugbank.ca/> AS ?dctPublisherPage) # Optional, to store publisher info in our graph if the URI already resolves
     #BIND(iri(concat("https://w3id.org/data2services/agent/", md5(?dctPublisherName))) AS ?dctPublisher) # Get from summary. But let the possibility to redefine it for a dataset
+
     #BIND(iri("http://creativecommons.org/licenses/by-sa/3.0/") AS ?dctLicense) # Get from summary. But let the possibility to redefine it for a dataset
 
 
     ## Source Distribution 
     BIND(concat(?versionTitle, " Database Distribution") AS ?sourceDistributionTitle)
-    BIND("application/xml" AS ?dctFormatSource)
+    BIND("text/csv" AS ?dctFormatSource)
 
     ## RDF Distribution
     BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
@@ -309,9 +295,8 @@ WHERE
     ### SHOULD ###
     ##############
 
+    BIND("2018-06-09"^^xsd:date AS ?dctIssued) # Same for version and source distribution
     #BIND("2013-08"^^xsd:gYearMonth AS ?dctCreated)
-    #BIND("2018-03-12"^^xsd:date AS ?dctIssued) # Same for version and source distribution
-
     #BIND(iri("http://www.ebi.ac.uk/chembl/") AS ?foafPage)
     #BIND(iri("http://www.ebi.ac.uk/rdf/sites/ebi.ac.uk.rdf/files/resize/images/rdf/chembl_service_logo-146x48.gif") AS ?schemaorgLogo)
     BIND(<http://lexvo.org/id/iso639-3/eng> AS ?dctLanguage)
@@ -319,7 +304,7 @@ WHERE
     #BIND(:pubchem-bioassay-09-01-2014 AS ?dctSource)
 
     ## Source distribution
-    #BIND(<http://data.wikipathways.org/20190111/rdf/wikipathways-20190111-rdf-wp.zip> AS ?dcatDownloadURLSource) # user input
+    BIND(<http://www.pathwaycommons.org/archives/PC2/v10/PathwayCommons10.All.BIOPAX.owl.gz> AS ?dcatDownloadURLSource) # user input
     #BIND("1"^^xsd:string AS ?pavVersionSource) # user input
     #BIND(<http://identifiers.org/drugbank/version#0> AS ?pavPreviousVersion)
     #BIND(<http://example.com/madeUp/editor> AS ?pavCreatedWith )
@@ -341,13 +326,14 @@ WHERE
     #############
 
     BIND(<http://www.w3.org/2001/sw/hcls/notes/hcls-dataset/> AS ?dctConformsTo)  # constant. uri
-    #BIND("HGNC:7720"^^xsd:string AS ?idotExampleIdentifier)
+    BIND("http://identifiers.org/reactome/R-HSA-177929"^^xsd:string AS ?idotExampleIdentifier)
     
     #BIND("Alternative label for dataset" AS ?dctAlternative)
     #BIND("The data in ChEMBL is covered by the Creative Commons By Attribution." AS ?dctRights)
     #BIND(<ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/chembl_17/chembl_17_release_notes.txt> AS ?dcatLandingPage) 
 
     # Additional dates and actors. Same for version and RDF distribution
+    #BIND("2013-08"^^xsd:gYearMonth AS ?pavCreatedOn)
     #BIND("2013-08"^^xsd:gYearMonth AS ?pavAuthoredOn)
     #BIND("2013-08"^^xsd:gYearMonth AS ?pavCuratedOn)
     #BIND(iri("http://orcid.org/0000-0002-8011-0300") AS ?dctContributor)
@@ -371,7 +357,9 @@ WHERE
     #VALUES (?idotAccessPatternSource) { ( "http://bio2rdf.org/chembl ) ( "http://identifiers.org/chembl.compound/" ) } # array
 
     ## RDF distribution
-    BIND(<https://monarchinitiative.org/MONARCH_0008b64e576ec362> AS ?sioHasDataItem)
+    BIND(<http://identifiers.org/reactome/R-HSA-177929> AS ?voidExampleResourceRdf) # TODO: automate
+    BIND(<http://identifiers.org/reactome/R-HSA-177929> AS ?sioHasDataItem)
+    #VALUES (?voidSubset) { ( :chembl17_rdf_molecule_dataset ) ( :chembl17_rdf_target_dataset ) } # uri array of distributions
     #BIND("CHEMBL\\d+"^^xsd:string AS ?idotIdentifierPatternRdf)
     #VALUES (?idotAccessPatternRdf) { ( "http://bio2rdf.org/chembl ) ( "http://identifiers.org/chembl.compound/" ) } # array
 
