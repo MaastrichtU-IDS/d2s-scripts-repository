@@ -2,7 +2,7 @@
 
 This repository stores transformation scripts used in the [data2services-pipeline](https://github.com/MaastrichtU-IDS/data2services-pipeline) to build Data2Services knowledge graphs (SPARQL insert queries, RML mapping files).
 
-SPARQL queries are usually executed by repositories using the [data2services-sparql-operations](https://github.com/MaastrichtU-IDS/data2services-sparql-operations) docker module.
+SPARQL queries are usually executed by repositories using the [data2services-sparql-operations](https://github.com/MaastrichtU-IDS/data2services-sparql-operations) docker image.
 
 ## Clone
 
