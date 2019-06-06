@@ -49,85 +49,6 @@ docker run -it --rm -v "$PWD/insert-biolink/hgnc":/data \
 ```
 
 
-
-
-
-## RDF validation
-
-### Simple validation with rapper
-
-Quick validation of turtle RDF file using rapper on Unix 
-
-```shell
-sudo apt install raptor2-utils
-rapper -i turtle 181107-biolink-drugbank-reified-associations.ttl
-```
-
-### PyShEx
-
-https://github.com/hsolbrig/PyShEx
-
-```shell
-pip3 install PyShEx
-shexeval -h
-
-shexeval /home/vemonet/Desktop/181107_biolink-drugbank.jsonld /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
-
-# Turtle
-shexeval -f turtle /home/vemonet/Desktop/181121-biolink-drugbank.ttl /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
-# Json-ld
-shexeval -f json-ld /home/vemonet/Desktop/181107_biolink-drugbank.jsonld /home/vemonet/sandbox/biolink-model/shex/biolink-model.shex
-```
-
-### ShEx Java
-
-http://shexjava.lille.inria.fr/
-
-```shell
-# Start the UI
-java -jar shexjapp-0.0.1.jar
-
-# Commandline
-mvn exec:java -Dexec.classpathScope=test -Dexec.mainClass="fr.inria.lille.shexjava.commandLine.Validate" -Dexec.args="-s ../../shexTest/schemas/1dotSemi.shex -d file:///home/jdusart/Documents/Shex/workspace/shexTest/validation/Is1_Ip1_Io1.ttl -l http://a.example/S1 -f http://a.example/s1 -a recursive"
-```
-
-### Shex js
-
-NOT WORKING. 40 tests fail
-
-```shell
-# Install and test
-npm install --save shex
-npm explore shex 'npm install'
-
-# Tests (failing)
-npm explore shex 'npm test'
-```
-
-## KGX validate
-
-```shell
-cd ~/sandbox/kgx
-source env/bin/activate
-kgx validate /home/vemonet/sandbox/data-constructor/resources/biogrid_test.ttl
-```
-
-
-
-## Valid BioLink
-
-- Valid prefix for CURIE
-
-https://github.com/monarch-initiative/dipper/blob/master/dipper/curie_map.yaml
-
-- Spec
-
-https://docs.google.com/document/d/1TrvqJPe_HwmRJ5HCwZ7fsi9_mwGcwLOZ53Fnjo8Sh4E/edit
-
-Required for nodes: id, name, category
-
-
-
 # Use SPARQL for conversion
 
 Generating 2 types of generic SPARQL:
@@ -181,25 +102,25 @@ The programs that do the generic RDF transformation should generate a file forma
 
 
 
+# Use [RML](http://rml.io/) for conversion
 
+### [RMLStreamer](https://github.com/RMLio/RMLStreamer)
 
-# Use RML for conversion
+Scala implementation, require to run Kafka and Flink.
 
-Not used because of scalability issues. Everything is loaded in memory (at the root, they load all models in memory) https://github.com/RMLio/rmlmapper-java
+Documentation about running on Docker will be released soon.
 
-- Build
+### [RMLMapper](https://github.com/RMLio/rmlmapper-java)
+
+Java implementation, not used because of scalability issues.
 
 ```shell
+# Build
 mvn clean package -DskipTests
-```
-
-- Run
-
-```shell
-# HGNC
+# Run
 java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.1.0-r55-jar-with-dependencies.jar -c /data/drugbank/drugbank_config.properties
-
-# DrugBank. Java heap space outOfMemory error (for 900M)
-java -jar /home/vemonet/sandbox/rmlmapper-java/target/rmlmapper-4.0.0-r50-jar-with-dependencies.jar -c /home/vemonet/sandbox/rml_vs_sparql/rml/drugbank_config.properties
 ```
 
+### [RocketRML](https://github.com/semantifyit/RocketRML)
+
+NodeJS implementation focusing on XML and JSON conversion.
