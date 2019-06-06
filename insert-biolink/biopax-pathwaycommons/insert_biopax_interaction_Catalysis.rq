@@ -38,6 +38,7 @@ WHERE {
       #     - BiochemicalReaction
       #   - control
       #     - catalysis
+      # CHECK: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_21b1d7356c74a03e60104ee540fe317a
         
       OPTIONAL {
         ?reactionUri bp:participant ?participant . # other pathways or interactions
