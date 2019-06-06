@@ -1,9 +1,9 @@
-# data2services-insert
+# Get started
 
 ## Clone
 
 ```shell
-git clone --recursive https://github.com/MaastrichtU-IDS/data2services-insert
+git clone --recursive https://github.com/MaastrichtU-IDS/data2services-transform-repository
 ```
 
 ## Build
@@ -11,7 +11,7 @@ git clone --recursive https://github.com/MaastrichtU-IDS/data2services-insert
 Uses [data2services-sparql-operations](https://github.com/MaastrichtU-IDS/data2services-sparql-operations).
 
 ```shell
-docker build -t data2services-sparql-operations ./data2services-insert/data2services-sparql-operations
+docker build -t data2services-sparql-operations ./data2services-transform-repository/data2services-sparql-operations
 ```
 
 ## Run
