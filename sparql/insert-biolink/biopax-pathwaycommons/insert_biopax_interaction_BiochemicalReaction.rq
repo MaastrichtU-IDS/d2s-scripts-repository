@@ -5,17 +5,18 @@ INSERT
 {
   GRAPH <?_outputGraph> {  
 
-    # A physical entity consisting of a sequence of amino acids; a protein monomer; a single polypeptide chain. 
-    # Example: The epidermal growth factor receptor (EGFR) protein.
-
-        # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109704
-    # bp:pathwayComponent, bp:organism, bp:xref (for pubmed and shitty pc)
+    # BiochemicalReaction
+    # Reactome: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6785732
+    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109278
+    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23BiochemicalReaction_48c61a65e060f872b394636f8a8524eb
     
     ?reactionUri a bl:BiologicalProcess ; # Or bl:ThingToThingAssociation ?
           # http://purl.obolibrary.org/obo/NCBITaxon_9606 link using bl:AnatomicalEntityToAnatomicalEntityPartOfAssociation ?
           bl:name ?displayName ;
+          bl:synonym ?synonym ;
           bl:description ?comment ;
           #bl:category ?category ; # BiochemicalReaction?
+          #bl:located_in ?eCNumberUri ; # Or use bl:GenomicSequenceLocalization ?
           bl:has_input ?reactant ;
           #bl:object ?product ;
           #bl:relation bl:produces ; # should be 'is transformed into'? Directly use bl:produces atm
@@ -42,7 +43,8 @@ WHERE {
       OPTIONAL {
         ?reactionUri bp:participant ?participant . # other pathways or interactions
       } OPTIONAL {
-        ?reactionUri bp:eCNumber ?eCNumber . # e.g.: 2.7.10
+        ?reactionUri bp:eCNumber ?eCNumber . # e.g.: 2.7.10 identifiers.org/ec-code/3.1.3.5
+        #BIND(iri(concat("https://identifiers.org/ec-code/", ?eCNumber)) AS ?eCNumberUri)
       #} OPTIONAL {
       #  ?reactionUri bp:participantStoichiometry ?participantStoichiometry .
       } OPTIONAL {
@@ -64,6 +66,8 @@ WHERE {
         ?reactionUri bp:comment ?comment .
       } OPTIONAL {
         ?reactionUri bp:displayName ?displayName .
+      } OPTIONAL {
+        ?reactionUri bp:name ?synonym .
       } OPTIONAL {
         ?reactionUri bp:evidence [ bp:xref ?evidenceUri ] .
         ?evidenceUri a bp:PublicationXref . # only Pubmed identifiers.org

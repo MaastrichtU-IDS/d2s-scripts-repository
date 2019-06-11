@@ -287,7 +287,7 @@ WHERE
 
     ## RDF Distribution
     BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
-    BIND(concat("Converted to BioLink RDF using data2services framework. ", ?description) AS ?rdfDistributionDescription)
+    BIND(concat("Converted to BioLink RDF using the data2services framework. ", ?description) AS ?rdfDistributionDescription)
     VALUES (?dctFormatRdf) { ( <http://www.w3.org/ns/formats/Turtle> ) ( "application/n-quads" ) ( "application/rdf+xml" ) ( "application/n3" ) ( "application/ld+json" ) ( "text/turtle" ) }
     BIND("Institute of Data Science at Maastricht University" AS ?dctPublisherNameRdf) # Optional if external URI, to store publisher name in our graph if the URI already resolves
     BIND(<https://www.maastrichtuniversity.nl/research/institute-data-science> AS ?dctPublisherPageRdf) # Optional, to store publisher info in our graph if the URI already resolves
