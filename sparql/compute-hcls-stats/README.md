@@ -2,27 +2,23 @@
 
 Query to compute and insert [HCLS statistics](https://www.w3.org/TR/hcls-dataset/#s6_6) about a graph in a triplestore (the statistics are added to the metadata graph of this dataset).
 
-## Clone
+## Pull
+
+Uses [data2services-sparql-operations](https://hub.docker.com/r/vemonet/data2services-sparql-operations) to execute multiple query (all `.rq` file in a folder or in a GitHub repository).
 
 ```shell
-git clone --recursive https://github.com/MaastrichtU-IDS/data2services-insert
-```
-
-## Build
-
-```shell
-docker build -t data2services-sparql-operations ./data2services-sparql-operations
+docker pull vemonet/data2services-sparql-operations
 ```
 
 ## Run
 
 ```shell
-docker run -d --rm --name compute-hcls-stats \
-  data2services-sparql-operations \
+docker run -d \
+  vemonet/data2services-sparql-operations \
   -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" \
-  -ep "http://graphdb.dumontierlab.com/repositories/ncats-red-kg/statements" 
-  -un username -pw password 
-  -var inputGraph:https://w3id.org/data2services/graph/biolink/drugbank
+  -ep "http://graphdb.dumontierlab.com/repositories/test/statements" 
+  -un MYUSERNAME -pw MYPASSWORD 
+  -var inputGraph:https://w3id.org/data2services/graph/biolink/uniprot
 ```
 
 ## SPARQL query example
