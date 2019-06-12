@@ -14,6 +14,7 @@ INSERT
     ?pathwayUri a bl:Pathway ;
           #<http://purl.obolibrary.org/obo/NCBITaxon_9606> link using https://biolink.github.io/biolink-model/docs/AnatomicalEntityToAnatomicalEntityPartOfAssociation.html ?
           bl:name ?displayName ;
+          bl:synonym ?standardName ;
           bl:description ?comment ;
           bl:in_taxon ?pathwayOrganism ; # or part_of?
           bl:has_evidence ?xrefPublication ;
@@ -45,6 +46,11 @@ WHERE {
         ?pathwayUri bp:comment ?comment .
       } OPTIONAL {
         ?pathwayUri bp:displayName ?displayName .
+      } OPTIONAL {
+        ?pathwayUri bp:standardName ?standardName .
+      #} OPTIONAL { 
+        # Copyright related comment
+      #  ?pathwayUri bp:availability ?availability .
       } OPTIONAL {
         ?pathwayUri bp:evidence [ bp:xref ?evidenceUri ] .
         ?evidenceUri a bp:PublicationXref . # only Pubmed identifiers.org

@@ -7,9 +7,12 @@ INSERT
     #?pathwayUri bl:precedes ?nextStepProcess .
     
     ?pathwayStep a bl:BiologicalProcess ; # TODO: Or bl:Association? Atm it is the same type as BiochemicalReaction...
+      bl:description ?comment ;
       bl:has_participant ?stepProcess ; # e.g. BiochemicalReaction and Catalysis
       bl:precedes ?nextPathwayStep ;
-      bl:part_of ?pathwayUri .
+      bl:part_of ?pathwayUri ;
+      bl:has_evidence ?xrefPublication ;
+      bl:has_evidence ?evidenceUri .
  }
 }
 WHERE {
@@ -21,6 +24,9 @@ WHERE {
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .
       ?pathwayUri bp:pathwayOrder ?pathwayStep . # Order of processes in pathways
       #?pathwayStep a bp:PathwayStep . # Or use this? But can't filter dataSource
+
+      # All properties
+      # bp:comment, bp:stepProcess, bp:nextStep, bp:stepConversion, bp:stepDirection, bp:evidence
 
       # A PathwayStep can have multiple stepProcess: bp:BiochemicalReaction and bo:Catalysis for example. And multiple nextSteps
       # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23PathwayStep_096ee5f002fa354c8c00e45e09e8547b
@@ -36,9 +42,22 @@ WHERE {
       # And then we don't need to add information to point from the bl:Pathway to this pathwayStep
       # the bl:Pathway just holds information about has_participant
 
-      ?pathwayStep bp:stepProcess ?stepProcess .
       OPTIONAL {
+        ?pathwayStep bp:stepProcess ?stepProcess .
+      } OPTIONAL {
         ?pathwayStep bp:nextStep ?nextPathwayStep .
+      } OPTIONAL {
+        # The central process that take place at this step of the biochemical pathway.
+        ?pathwayStep bp:stepConversion ?stepConversion .
+      } OPTIONAL {
+        # LEFT_TO_RIGHT or RIGHT_TO_LEFT
+        ?pathwayStep bp:stepDirection ?stepDirection .
+      } OPTIONAL {
+        ?pathwayStep bp:comment ?comment .
+      } OPTIONAL {
+        ?pathwayUri bp:evidence [ bp:xref ?evidenceUri ] .
+        ?evidenceUri a bp:PublicationXref . # only Pubmed identifiers.org
+        # xref can be unificationXref (identifier resolution) or publicationXref or relationshipXref
       }
       
       #?nextPathwayStep bp:stepProcess ?nextStepProcess .
