@@ -17,20 +17,21 @@ INSERT
       bl:same_as ?uriSameasTargetId .
 
     # https://biolink.github.io/biolink-model/docs/GeneToGeneHomologyAssociation.html
-   #?associationUri a bl:PairwiseGeneToGeneInteraction ;
-   #         bl:pairwise_gene_to_gene_interaction_relation ?relationUri ; # activate etc
-   #         bl:gene_to_gene_association_subject ?uriProtSource ;
-   #         bl:gene_to_gene_association_object ?uriProtTarget ;
-   #         bl:has_confidence_level ?ConfidenceLevelUri .
-            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
+    ?associationUri a bl:PairwiseGeneToGeneInteraction ;
+      bl:pairwise_gene_to_gene_interaction_relation ?relationUri ; # activate etc
+      bl:gene_to_gene_association_subject ?uriProtSource ;
+      bl:gene_to_gene_association_object ?uriProtTarget ;
+      bl:has_confidence_level ?ConfidenceLevelUri .
+    # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
 
-    #?ConfidenceLevelUri a bl:ConfidenceLevel ;
-    #        bl:id "score" ;
-    #        bl:name "Score" ;
-    #        bl:node_property ?score .
+    # TODO: improve this?
+    ?ConfidenceLevelUri a bl:ConfidenceLevel ;
+      bl:id "score" ;
+      bl:name "Score" ;
+      bl:node_property ?score .
 
     # Direct relations
-    ?uriProtSource ?relationUri ?uriProtTarget .
+    #?uriProtSource ?relationUri ?uriProtTarget .
  }
 }
 WHERE {
