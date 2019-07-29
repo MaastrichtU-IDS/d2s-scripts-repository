@@ -8,42 +8,42 @@ PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
   GRAPH <?_outputGraph> {  
-   ?protUri a bl:Protein ;
+    ?protUri a bl:Protein ;
       bl:id ?protUriId . 
 
-   ?tissueUri a bl:GrossAnatomicalStructure ; # tissue
+    ?tissueUri a bl:GrossAnatomicalStructure ; # tissue
       bl:id ?tissueUriId ;
       bl:name ?tissueName .
 
-   ?pathwayUri a bl:Pathway ; # tissue-specific molecular pathway
+    ?pathwayUri a bl:Pathway ; # tissue-specific molecular pathway
       bl:id ?pathwayUriId ;
       bl:name ?pathwayName ;
       bl:part_of ?tissueUri .
 
-   ?interactionUri a bl:MacromolecularMachineToBiologicalProcessAssociation ;
-            bl:relation bl:expressed_in ;
-            bl:macromolecular_machine_to_biological_process_association_subject ?protUri ;
-            bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
-            bl:has_confidence_level ?pathwayPvalueUri ;
-            bl:quantifier_qualifier ?highScoreUri ;
-            bl:quantifier_qualifier ?specificScoreUri .
+    ?interactionUri a bl:MacromolecularMachineToBiologicalProcessAssociation ;
+      bl:relation bl:expressed_in ;
+      bl:macromolecular_machine_to_biological_process_association_subject ?protUri ;
+      bl:macromolecular_machine_to_biological_process_association_object ?pathwayUri ;
+      bl:has_confidence_level ?pathwayPvalueUri ;
+      bl:quantifier_qualifier ?highScoreUri ;
+      bl:quantifier_qualifier ?specificScoreUri .
 
     ?highScoreUri a bl:RelationshipQuantifier ;
-            bl:id "zScoreHighGpcrExpression" ;
-            bl:name "High GPCR z-score" ;
-            bl:description "z-score of GPCR represents how high the GPCR is expressed in the tissue" ;
-            bl:node_property ?zScoreHighGpcrExpression .
+      bl:id "zScoreHighGpcrExpression" ;
+      bl:name "High GPCR z-score" ;
+      bl:description "z-score of GPCR represents how high the GPCR is expressed in the tissue" ;
+      bl:node_property ?zScoreHighGpcrExpression .
 
     ?specificScoreUri a bl:SpecificityQuantifier ;
-            bl:id "zScoreSpecificExpression" ;
-            bl:name "Specific GPCR z-score" ;
-            bl:description "z-score of GPCR represents how specific the GPCR is expressed in the tissue" ;
-            bl:node_property ?zScoreSpecificExpression .
+      bl:id "zScoreSpecificExpression" ;
+      bl:name "Specific GPCR z-score" ;
+      bl:description "z-score of GPCR represents how specific the GPCR is expressed in the tissue" ;
+      bl:node_property ?zScoreSpecificExpression .
 
     ?pathwayPvalueUri a bl:ConfidenceLevel ;
-            bl:id "pathwayPvalue" ;
-            bl:name "p-value of the pathway" ;
-            bl:node_property ?pathwayPvalue .
+      bl:id "pathwayPvalue" ;
+      bl:name "p-value of the pathway" ;
+      bl:node_property ?pathwayPvalue .
 
  }
 }
@@ -77,8 +77,8 @@ WHERE {
          BIND( iri(concat(str(?interactionUri), "/specific_score")) AS ?specificScoreUri)
        }
 
-  # Avoid taking the first row with columns labels
-  FILTER( ?tissueName != "TissueName") 
-}
-}
+      # Avoid taking the first row with columns labels
+      FILTER( ?tissueName != "TissueName") 
+    }
+  }
 }

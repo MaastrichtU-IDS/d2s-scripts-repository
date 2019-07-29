@@ -16,8 +16,8 @@ docker pull vemonet/data2services-sparql-operations
 docker run -d \
   vemonet/data2services-sparql-operations \
   -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" \
-  -ep "http://graphdb.dumontierlab.com/repositories/test/statements" 
-  -un MYUSERNAME -pw MYPASSWORD 
+  -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
+  -un MYUSERNAME -pw MYPASSWORD \
   -var inputGraph:https://w3id.org/data2services/graph/biolink/uniprot
 ```
 
