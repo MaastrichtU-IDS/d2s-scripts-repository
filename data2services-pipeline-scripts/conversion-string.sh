@@ -21,8 +21,8 @@ docker run -it --rm --link drill:drill \
 # Run SPARQL conversion scripts
 #docker run -d --name convert_string --link graphdb:graphdb vemonet/data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/string" -ep "http://graphdb:7200/repositories/ncats-red-kg/statements" -un emonet -pw $PASSWORD -var serviceUrl:http://localhost:7200/repositories/ncats-test inputGraph:https://w3id.org/data2services/graph/autor2rml/string outputGraph:https://w3id.org/data2services/graph/biolink/string
 docker run -d --link graphdb:graphdb vemonet/data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/string" -ep "http://graphdb:7200/repositories/ncats-red-kg/statements" -un emonet -pw $PASSWORD -var serviceUrl:http://localhost:7200/repositories/test inputGraph:http://data2services/graph/autor2rml/string outputGraph:https://w3id.org/data2services/graph/biolink/string
-# f8752cf48a3da656a5bbed97919948e874f55b593a73722b83d7f119d684d46e
+# 1h:45m:43s
 
 # compute-hcls-stats
 docker run -d --link graphdb:graphdb vemonet/data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" -ep "http://graphdb:7200/repositories/ncats-red-kg/statements" -un emonet -pw $PASSWORD -var inputGraph:https://w3id.org/data2services/graph/biolink/string
-# 
+# 3m:49s
