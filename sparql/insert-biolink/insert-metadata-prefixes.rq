@@ -8,7 +8,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX d2svocab: <https://w3id.org/data2services/vocab/>
-PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX bl: <https://w3id.org/biolink/vocab/>
 INSERT DATA {
     GRAPH <https://w3id.org/data2services/graph/prefixes> {
         d2svocab:prefixes\/bl a d2svocab:Prefix ;

@@ -1,7 +1,7 @@
 PREFIX x2rm: <http://ids.unimaas.nl/xml2rdf/model#>
 PREFIX x2rd: <http://ids.unimaas.nl/xml2rdf/data/>
 PREFIX d2s: <https://w3id.org/data2services/vocab/>
-PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX bl: <https://w3id.org/biolink/vocab/>
 INSERT 
 { 
     GRAPH <?_outputGraph> {   

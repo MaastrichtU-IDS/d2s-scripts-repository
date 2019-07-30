@@ -1,4 +1,4 @@
-PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
