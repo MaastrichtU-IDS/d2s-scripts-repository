@@ -6,7 +6,7 @@ PREFIX idot: <http://identifiers.org/idot/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 
-SELECT ?source ?statements ?entities ?properties ?classes ?graph
+SELECT DISTINCT ?source ?statements ?entities ?properties ?classes ?graph
 WHERE {
   GRAPH ?g {
     ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .

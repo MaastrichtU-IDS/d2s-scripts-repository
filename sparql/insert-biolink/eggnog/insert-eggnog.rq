@@ -1,5 +1,4 @@
-#PREFIX d2sgeneric: <http://data2services/data/emonet/string/9606.protein.actions.v10.5.tsv/>
-PREFIX d2smodel: <http://data2services/model/>
+PREFIX d2smodel: <https://w3id.org/data2services/model/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -21,23 +20,13 @@ INSERT
             #SpeciesCount
             #ProteinCount: has_count? node_property? NO: quantifier qualifier
             #ProteinIDs to split properly
-            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html
-
-    #?uriProt1 a bl:Protein ; # We need to split the ProteinIDs
-    #    bl:id ?prot1 ;
-    #    bl:part_of ?groupUri .
-    
-    #?uriProt2 a bl:Protein ; # From ProteinIDs
-    #    bl:id ?prot2 ;
-    #    bl:part_of ?groupUri .
-    
+            # Also use? https://biolink.github.io/biolink-model/docs/interacting_molecules_category.html  
  }
 }
 WHERE {
   SERVICE <?_serviceUrl>  {
     GRAPH <?_inputGraph> {
 
-      #SELECT * {  # TO REMOVE
       ?s d2smodel:Groupname ?GroupName .
 
       BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/group/", ?GroupName)) AS ?groupUri )
@@ -53,19 +42,11 @@ WHERE {
       } OPTIONAL {
         ?s d2smodel:Cogfunctionalcategory ?COGFunctionalCategory .
       } OPTIONAL {
-        ?s d2smodel:Proteinids ?ProteinIDs . # The most important, really complex to process
-        #BIND ( strafter(?ProteinidsDs, ",") AS ?prot1 )
-        #BIND ( strbefore(?ProteinIDs, ",") AS ?prot2 )
-        #BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/protein/", ?prot1)) AS ?uriProt1 )
-        #BIND ( iri(concat("https://w3id.org/data2services/data/eggnog/protein/", ?prot2)) AS ?uriProt2 )
+        ?s d2smodel:Proteinids ?ProteinIDs . # Should be splitted before
       }
 
       # Avoid taking the first row with columns labels
       FILTER( ?TaxonomicLevel != "TaxonomicLevel")
-
-    #} # TO REMOVE
-    #LIMIT 10
-
-}
-}
+    }
+  }
 }

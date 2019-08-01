@@ -8,7 +8,7 @@ PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 
 # Show relations between classes in the graph, and count the number of distinct classes that are related
-SELECT ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+SELECT DISTINCT ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
   GRAPH ?g {
     ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
