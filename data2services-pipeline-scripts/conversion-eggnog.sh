@@ -23,20 +23,39 @@ docker run -d --link graphdb:graphdb \
   vemonet/data2services-sparql-operations -op split \
   --split-property "https://w3id.org/data2services/model/Proteinids" \
   --split-class "https://w3id.org/data2services/data/emonet/ncats/eggnog/NOG.members.tsv" \
-  --split-delimiter "," --split-delete \
+  --split-delimiter "," --trim-delimiter '"' --split-delete \
   -ep "http://graphdb:7200" \
   -uep "bio2vec-test" \
   -un emonet -pw $PASSWORD \
-  -var outputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog 
+  --var-outputGraph https://w3id.org/data2services/graph/autor2rml/eggnog 
 # 874a6c3c73349049931973d94381e1fdbf9f5b7ec88e4801fd4586dfb4754f6a
-# 1h:11m:23s and finish with org.eclipse.rdf4j.query.QueryEvaluationException: java.net.SocketException: Connection reset
-# But delete seems to have work well
+# Old 1by1 version: 1h:11m:23s
+# New bulk split: 0h:59m:31s
 
 
 # Convert generic RDF to BioLink
-docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/eggnog" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD -var serviceUrl:http://localhost:7200/repositories/bio2vec-test inputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog outputGraph:https://w3id.org/data2services/graph/biolink/eggnog
-# 2cfdd204ab551f8bffb3ea100ffafd3b842da8926d326c47ea4832d0d6c3a8c7
+docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/eggnog" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD \
+--inputGraph http://localhost:7200/repositories/bio2vec-test inputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog --outputGraph https://w3id.org/data2services/graph/biolink/eggnog
+# 4eee67d391b59f078f71f9ee1382365c3bfcf808aa7fe2bfe9dd861ca94ce777
 
 
 # Compute HCLS statistics
 docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD -var inputGraph:https://w3id.org/data2services/graph/biolink/eggnog
+
+
+
+docker run -d --link graphdb:graphdb \
+  vemonet/data2services-sparql-operations -op split \
+  --split-property "https://w3id.org/data2services/model/Proteinids" \
+  --split-class "https://w3id.org/data2services/data/emonet/ncats/eggnog/NOG.members.tsv" \
+  --split-delimiter "," \
+  -ep "http://graphdb:7200" \
+  -uep "test-vincent" \
+  -un emonet -pw $PASSWORD
+
+   \
+  -var outputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog
+
+  # Should not be useful anymore: -var outputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog
+# Run with Ammar updated version
+# 70197904873ac72c1eccbb551fd5bffccd60cb76a285e1d27709a211d04e794e

@@ -1,5 +1,4 @@
-PREFIX d2sgeneric: <https://w3id.org/data2services/autor2rml/data/ncats/pharmgkb/relationships/relationships.tsv/>
-PREFIX d2smodel: <https://w3id.org/data2services/autor2rml/model/>
+PREFIX d2smodel: <https://w3id.org/data2services/model/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -16,6 +15,7 @@ INSERT
       bl:transcript_to_gene_relationship_subject ?RefseqAccessionUri ;
       bl:transcript_to_gene_relationship_object ?hgncUri ;
       bl:relation bl:expresses .
+    # TODO: add evidence
 
 
 
@@ -70,7 +70,6 @@ WHERE {
          #LabelAnnotation,Pathway,VariantAnnotation
          #Literature,MultilinkAnnotation,Pathway,VariantAnnotation
 
-
        } OPTIONAL { 
          ?s d2smodel:PK ?PK . # "PK" or nothing
        
@@ -80,9 +79,6 @@ WHERE {
        } OPTIONAL { 
          ?s d2smodel:PMIDs ?PMIDs . # List of 15707415;22094953;23974086
        }
-
-  # Avoid taking the first row with columns labels
-  FILTER( ?Entity1_id != "Entity1_id") 
-}
-}
+    }
+  }
 }
