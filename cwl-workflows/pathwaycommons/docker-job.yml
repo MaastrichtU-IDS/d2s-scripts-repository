@@ -1,3 +1,0 @@
-src:
-  class: File
-  path: https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/biopax-pathwaycommons
