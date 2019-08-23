@@ -75,11 +75,10 @@ PREFIX void-ext: <http://ldf.fi/void-ext#>
 # Show relations between classes in the graph (and count)
 SELECT distinct ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
-  GRAPH ?g {
-    ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
-    ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-    ?rdfDistribution a void:Dataset ; 
-      dcat:accessURL ?graph .
+  GRAPH ?metadataGraph {
+    ?rdfDistribution a void:Dataset ;
+      idot:preferredPrefix ?source .
+      # Or Use dc:identifier ?
 
     ?rdfDistribution void:classPartition [
       void:class rdfs:Class ;
@@ -114,8 +113,9 @@ PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 INSERT {
-  GRAPH ?metadataGraph {
-    ?distributionRdfUri void:triples ?triples ;
+  GRAPH <?_inputGraph/metadata> {
+    <?_inputGraph> a void:Dataset ;
+      void:triples ?triples ;
       void:entities ?entities ;
       void:distinctSubjects ?distinctSubjects ;
       void:properties ?distinctProperties ;
@@ -130,11 +130,6 @@ INSERT {
       ] .
   }
 } WHERE { 
-  GRAPH ?metadataGraph {
-    ?distributionRdfUri a void:Dataset ;
-      dcat:accessURL <?_inputGraph> . 
-      # Only work when one dataset that has this URL as accessURL
-  }
 
   GRAPH <?_inputGraph> {
     { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } } # count triples

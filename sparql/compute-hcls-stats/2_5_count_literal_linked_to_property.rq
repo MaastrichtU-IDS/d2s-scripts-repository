@@ -7,20 +7,18 @@ PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 INSERT {
   GRAPH <?_inputGraph/metadata> {
-    ?distributionRdfUri void:propertyPartition [
-        void:property ?p ;
-        void:triples ?triples ;
-        void-ext:objectClassPartition [
-          void:class rdfs:Literal;
-          void:distinctObjects ?distinctLiterals
+    # Use input graph as RDF distribution URI
+    <?_inputGraph> a void:Dataset ;
+      void:propertyPartition [
+      void:property ?p ;
+      void:triples ?triples ;
+      void-ext:objectClassPartition [
+        void:class rdfs:Literal;
+        void:distinctObjects ?distinctLiterals
     ]] .
 
   }
 } WHERE { 
-  GRAPH ?metadataGraph {
-    ?distributionRdfUri a void:Dataset ;
-      dcat:accessURL <?_inputGraph> . 
-  }
 
   GRAPH <?_inputGraph> {
     SELECT ?p (COUNT(?p) AS ?triples) (COUNT(DISTINCT ?o) AS ?distinctLiterals) 
