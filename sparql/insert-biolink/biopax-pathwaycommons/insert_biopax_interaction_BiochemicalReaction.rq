@@ -3,7 +3,7 @@ PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # BiochemicalReaction
     # Reactome: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6785732
@@ -28,8 +28,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    #GRAPH <?_inputGraph> { # We need to use implicit graph for inference
+  SERVICE <?_service>  {
+    #GRAPH <?_input> { # We need to use implicit graph for inference
     #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?reactionUri a bp:BiochemicalReaction ;
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .

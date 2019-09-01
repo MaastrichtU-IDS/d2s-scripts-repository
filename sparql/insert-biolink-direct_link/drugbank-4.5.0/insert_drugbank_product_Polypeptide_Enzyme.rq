@@ -44,7 +44,7 @@ INSERT {
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
 
             # Iterate directly on enzymes

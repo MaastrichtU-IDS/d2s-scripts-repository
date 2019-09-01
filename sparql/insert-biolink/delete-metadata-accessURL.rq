@@ -1,9 +1,9 @@
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 DELETE
 {   
-  ?datasetMetadata dcat:accessURL <?_inputGraph>
+  ?datasetMetadata dcat:accessURL <?_input>
 }
 WHERE
 { 
-  ?datasetMetadata dcat:accessURL <?_inputGraph> .
+  ?datasetMetadata dcat:accessURL <?_input> .
 }

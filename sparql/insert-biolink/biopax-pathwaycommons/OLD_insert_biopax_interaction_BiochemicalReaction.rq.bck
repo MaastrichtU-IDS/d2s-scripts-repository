@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-139908
 
@@ -27,8 +27,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Inhibition: A process in which one biological entity  restrains, blocks, or suppresses another biological entity or interaction
 

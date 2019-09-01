@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     ?directedInteraction a bl:GeneToGeneAssociation ; # GeneProduct to Interaction association
           bl:id ?directedInteractionId ;
@@ -23,8 +23,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # TranscriptionTranslation: An interaction in which the source entity regulates or influences in the transcription or translation of a target entity. Also referred to as a Template Reaction.
 

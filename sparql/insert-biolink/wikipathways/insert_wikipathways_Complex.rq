@@ -12,7 +12,7 @@ PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 # Don't stop processing. But if used as select * it resolves in seconds. So the insert should work
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?dataNode a bl:MacromolecularComplex ;
           dc:identifier ?id ;
           bl:id ?dataNodeId ;
@@ -32,8 +32,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?dataNode a wp:Complex ;
       BIND (str(?dataNode) AS ?dataNodeId)
 

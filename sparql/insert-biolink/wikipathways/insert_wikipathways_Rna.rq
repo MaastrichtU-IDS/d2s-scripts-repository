@@ -11,7 +11,7 @@ PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?dataNode a bl:Transcript ;
           dc:identifier ?id ;
           bl:id ?dataNodeId ;
@@ -44,8 +44,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?dataNode a wp:Rna .
       BIND (str(?dataNode) AS ?dataNodeId)
 

@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     # Use https://biolink.github.io/biolink-model/docs/affects.html
 
     ?directedInteraction a bl:GeneToThingAssociation ; # Gene to Interaction (process) association
@@ -23,8 +23,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Stimulation: An interaction in which the source entity enhances the raate or extent of another reaction or entity
 

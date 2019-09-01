@@ -48,7 +48,7 @@ INSERT {
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <https://w3id.org/data2services/graph/xml2rdf> {
 
             # Iterate directly on targets

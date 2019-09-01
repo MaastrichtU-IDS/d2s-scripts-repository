@@ -6,9 +6,9 @@ PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 INSERT {
-  GRAPH <?_inputGraph/metadata> {
+  GRAPH <?_input/metadata> {
     # Use input graph as RDF distribution URI
-    <?_inputGraph> a void:Dataset ;
+    <?_input> a void:Dataset ;
       void:propertyPartition [
       void:property ?p ;
       void:triples ?triples ;
@@ -20,7 +20,7 @@ INSERT {
   }
 } WHERE { 
 
-  GRAPH <?_inputGraph> {
+  GRAPH <?_input> {
     SELECT ?p (COUNT(?p) AS ?triples) (COUNT(DISTINCT ?o) AS ?distinctLiterals) 
     { 
      ?s ?p ?o . 

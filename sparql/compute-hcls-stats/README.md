@@ -113,8 +113,8 @@ PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 INSERT {
-  GRAPH <?_inputGraph/metadata> {
-    <?_inputGraph> a void:Dataset ;
+  GRAPH <?_input/metadata> {
+    <?_input> a void:Dataset ;
       void:triples ?triples ;
       void:entities ?entities ;
       void:distinctSubjects ?distinctSubjects ;
@@ -131,7 +131,7 @@ INSERT {
   }
 } WHERE { 
 
-  GRAPH <?_inputGraph> {
+  GRAPH <?_input> {
     { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } } # count triples
     { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } } # count unique entities
     { SELECT (COUNT(DISTINCT ?s) AS ?distinctSubjects) {  ?s ?p ?o } }

@@ -7,14 +7,14 @@ PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?omimUri a bl:Phenotype ;
       bl:id ?omimCurie .
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?s d2smodel:Mim_number ?omim_id .
       ?s d2smodel:Mim_entry_type ?Mim_entry_type .
       #gene phenotype (predominantly phenotypes) moved/removed gene/phenotype

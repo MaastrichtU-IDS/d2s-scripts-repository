@@ -42,7 +42,7 @@ INSERT
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <?_drugbankInputGraph> {
         
             # Get drug primary ID

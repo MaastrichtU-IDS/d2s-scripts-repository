@@ -33,7 +33,7 @@ INSERT {
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://kraken/graph/xml2rdf> {
 
             # Get drug primary ID

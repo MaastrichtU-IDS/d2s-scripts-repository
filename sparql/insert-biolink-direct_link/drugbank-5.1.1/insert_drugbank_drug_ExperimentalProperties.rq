@@ -23,7 +23,7 @@ INSERT
     ?drugExpePropertiesType rdfs:subClassOf bl:Attribute .
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://kraken/graph/xml2rdf> {
             ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID

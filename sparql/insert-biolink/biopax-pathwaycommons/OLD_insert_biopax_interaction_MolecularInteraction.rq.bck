@@ -12,7 +12,7 @@ PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # A physical entity consisting of a sequence of amino acids; a protein monomer; a single polypeptide chain. 
     # Example: The epidermal growth factor receptor (EGFR) protein.
@@ -36,8 +36,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?interactionUri a bp:MolecularInteraction .
         #bp:pathwayOrder ?pathwayOrder . # order of the components in the pathway (bad uri)
         
@@ -76,8 +76,8 @@ WHERE {
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Binding: A binding interaction between two physical entities resulting in the formation of an explicit complex that is reversible without an external factor (e.g. protein complexes).
       # ComplexBinding: A binding interaction that specifically leads to the formation of a complex.

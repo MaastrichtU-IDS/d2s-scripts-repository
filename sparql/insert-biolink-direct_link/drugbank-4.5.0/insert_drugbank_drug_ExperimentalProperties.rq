@@ -24,7 +24,7 @@ INSERT
     ?drugExpePropertiesType rdfs:subClassOf bl:Attribute .
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://data2services/drugbank-full-4.5.0/graph> {
             ?drugObj a x2rm:drugbank.drug ;
                 # Get drug primary ID

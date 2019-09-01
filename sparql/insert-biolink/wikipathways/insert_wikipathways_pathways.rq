@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
 
     ?pathwayUri a bl:Pathway ;
@@ -26,8 +26,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?pathwayUri a wp:Pathway .
       BIND (str(?pathwayUri) AS ?pathwayUriId)
       # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328

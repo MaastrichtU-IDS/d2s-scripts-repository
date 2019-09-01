@@ -44,7 +44,7 @@ INSERT {
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://kraken/graph/xml2rdf> {
 
             # Iterate directly on transporters

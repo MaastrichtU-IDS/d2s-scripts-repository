@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     ?directedInteraction a bl:ChemicalToThingAssociation ; # Chemical causing molecular modification (conversion) to another Chemical 
           bl:id ?directedInteractionId ;
@@ -22,8 +22,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Binding: A binding interaction between two physical entities resulting in the formation of an explicit complex that is reversible without an external factor (e.g. protein complexes).
       # ComplexBinding: A binding interaction that specifically leads to the formation of a complex.

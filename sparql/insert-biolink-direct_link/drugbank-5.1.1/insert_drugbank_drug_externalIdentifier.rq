@@ -18,7 +18,7 @@ INSERT
     }
 }
 WHERE {
-    SERVICE <?_serviceUrl>  {
+    SERVICE <?_service>  {
         GRAPH <http://kraken/graph/xml2rdf> {
 
             ?drugObj a x2rm:drugbank.drug ;

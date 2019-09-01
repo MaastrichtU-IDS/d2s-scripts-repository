@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_016e8816ce51adda02fbc1a77c9f2e63
 
@@ -24,8 +24,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Catalysis: A process where  a chemical reaction is enhanced by the action of a catalyst.
 

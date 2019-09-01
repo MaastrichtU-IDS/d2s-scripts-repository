@@ -3,7 +3,7 @@ PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # A physical entity consisting of a sequence of amino acids; a protein monomer; a single polypeptide chain. 
     # Example: The epidermal growth factor receptor (EGFR) protein.
@@ -27,8 +27,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
     #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?pathwayUri a bp:Pathway ;
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .

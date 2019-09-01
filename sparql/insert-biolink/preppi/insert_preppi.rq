@@ -8,7 +8,7 @@ PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
    ?uniprotUri1 a bl:Protein . 
    ?uniprotUri2 a bl:Protein . 
 
@@ -96,8 +96,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?s d2smodel:Prot1 ?prot1 .
       ?s d2smodel:Prot2 ?prot2 .
 

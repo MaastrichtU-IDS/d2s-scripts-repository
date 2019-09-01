@@ -85,7 +85,7 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
+  SERVICE <?_service>  {
     GRAPH <?_hgncInputGraph> {
       ?s kraken:HgncId ?hgncid .
        OPTIONAL { 

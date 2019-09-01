@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     ?directedInteraction a bl:GeneToThingAssociation ; # GeneProduct to Interaction association
           bl:id ?directedInteractionId ;
@@ -23,8 +23,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
 
       # Catalysis: A process where  a chemical reaction is enhanced by the action of a catalyst.
 

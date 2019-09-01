@@ -7,7 +7,7 @@ PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?protUri a bl:Protein ;
       bl:id ?protUriId . 
 
@@ -48,8 +48,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       # gpcr_pathway.R: predicting G-protein independent pathways transduced by beta-arrestins.
       # gpcr_gp_pathway.R: predicting G-protein dependent pathways transduced by G-proteins.
       # do a bind on contains _gp_ to have different type?

@@ -3,7 +3,7 @@ PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     #?pathwayUri bl:precedes ?nextStepProcess .
     
     ?pathwayStep a bl:BiologicalProcess ; # TODO: Or bl:Association? Atm it is the same type as BiochemicalReaction...
@@ -16,8 +16,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
     #GRAPH <http://pathwaycommons.org/pc2/graph> {
 
       ?pathwayUri a bp:Pathway ;

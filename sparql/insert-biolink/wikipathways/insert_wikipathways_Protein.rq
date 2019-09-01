@@ -11,7 +11,7 @@ PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?dataNode a ?type ;
           bl:name ?label ; # Conflict with Uniprot?
           dc:identifier ?id ;
@@ -29,8 +29,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       ?dataNode a wp:Protein .
       BIND (str(?dataNode) AS ?dataNodeId)
 

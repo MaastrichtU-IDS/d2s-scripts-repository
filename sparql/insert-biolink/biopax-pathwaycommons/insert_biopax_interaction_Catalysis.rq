@@ -3,7 +3,7 @@ PREFIX bp: <http://www.biopax.org/release/biopax-level3.owl#>
 
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
 
     # Catalysis
     # Reactome: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_11051ed8630c89e065916082669cc7ed
@@ -27,8 +27,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
     #GRAPH <http://pathwaycommons.org/pc2/graph> {
       ?reactionUri a bp:BiochemicalReaction ;
         bp:dataSource <http://pathwaycommons.org/pc2/#reactome> .

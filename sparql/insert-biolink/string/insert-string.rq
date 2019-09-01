@@ -8,7 +8,7 @@ PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_outputGraph> {  
+  GRAPH <?_output> {  
     ?uriProtSource a bl:Protein ;
       bl:id ?uriProtSourceId ;
       bl:same_as ?uriSameasSourceId .
@@ -35,8 +35,8 @@ INSERT
  }
 }
 WHERE {
-  SERVICE <?_serviceUrl>  {
-    GRAPH <?_inputGraph> {
+  SERVICE <?_service>  {
+    GRAPH <?_input> {
       # Transform https://stringdb-static.org/download/protein.actions.v10.5/9606.protein.actions.v10.5.txt.gz
 
       ?s d2smodel:A_is_acting ?aIsActing . # f or t. 
