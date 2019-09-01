@@ -27,7 +27,7 @@ Execute all SPARQL Insert queries at a GitHub repository URL. See [data2services
 
 ```shell
 # Command to load UniProt organisms and Human proteins as BioLink
-docker run -it --link graphdb:graphdb vemonet/data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/uniprot" -ep "http://graphdb:7200/repositories/test/statements" -un MYUSERNAME -pw MYPASSWORD -var outputGraph:https://w3id.org/data2services/graph/biolink/uniprot
+docker run -it --link graphdb:graphdb vemonet/data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/uniprot" -ep "http://graphdb:7200/repositories/test/statements" -un MYUSERNAME -pw MYPASSWORD --var-output https://w3id.org/data2services/graph/biolink/uniprot
 ```
 
 ## Other examples
@@ -41,7 +41,7 @@ docker run -it --link graphdb:graphdb \
   -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/drugbank" \
   -ep "http://graphdb:7200/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
-  -var serviceUrl:http://localhost:7200/repositories/test inputGraph:https://w3id.org/data2services/graph/xml2rdf outputGraph:https://w3id.org/data2services/biolink/drugbank
+  --var-service http://localhost:7200/repositories/test --var-input https://w3id.org/data2services/graph/xml2rdf --var-output https://w3id.org/data2services/biolink/drugbank
 
 # HGNC conversion from AutoR2RML generic RDF
 docker run -it --link graphdb:graphdb \
@@ -49,7 +49,7 @@ docker run -it --link graphdb:graphdb \
   -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/hgnc" \
   -ep "http://graphdb:7200/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
-  -var serviceUrl:http://localhost:7200/repositories/test inputGraph:https://w3id.org/data2services/graph/autor2rml outputGraph:https://w3id.org/data2services/biolink/hgnc
+  --var-service http://localhost:7200/repositories/test --var-input https://w3id.org/data2services/graph/autor2rml --var-output https://w3id.org/data2services/biolink/hgnc
 ```
 
 * N.B.: remove `\` and put the command as one line for Windows PowerShell.

@@ -23,7 +23,7 @@ docker run -d \
   -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" \
   -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
-  --var-inputGraph https://w3id.org/data2services/graph/biolink/pathwaycommons
+  --var-input https://w3id.org/data2services/graph/biolink/pathwaycommons
 ```
 
 
