@@ -86,9 +86,6 @@ WHERE {
       OPTIONAL { 
         ?s d2smodel:Dataset ?dataset . # GTEx, U133A, NCI60, HPM_PRT
       }
-
-      # Avoid taking the first row with columns labels
-      FILTER( ?cellLineId != "Cell_line_ID") 
     }
   }
 }
