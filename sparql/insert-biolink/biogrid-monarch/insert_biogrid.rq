@@ -12,14 +12,16 @@ INSERT
   GRAPH <?_output> {  
     # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
 
-    ?associationSubject a bl:Gene .
-    ?associationObject a bl:Gene .
+    ?subjectUri a bl:Gene ;
+      bl:same_as ?associationSubject .
+    ?objectUri a bl:Gene ;
+      bl:same_as ?associationObject .
 
     ?association a bl:PairwiseGeneToGeneInteraction ;
-          bl:gene_to_gene_association_subject ?associationSubject ;
+          bl:gene_to_gene_association_subject ?subjectUri ;
           bl:pairwise_gene_to_gene_interaction_relation ?associationPredicate ; # Interacts_with http://purl.obolibrary.org/obo/RO_0002434, colocalize with http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002325, genetically interacts with genetically interacts with
           #bl:genetically_interacts_with or bl:interacts_with and bl:FunctionalAssociation ?
-          bl:gene_to_gene_association_object ?associationObject ;
+          bl:gene_to_gene_association_object ?objectUri ;
           bl:has_evidence ?evidenceUri .
 
     ?evidenceUri a bl:Publication ;
@@ -37,9 +39,10 @@ WHERE {
           dc:source ?associationSource ;
           <http://purl.obolibrary.org/obo/RO_0002558> ?associationEvidence .
 
-
+      BIND( iri(replace(str(?associationSubject), "http://www.ncbi.nlm.nih.gov/gene/", "https://identifiers.org/ncbigene:")) AS ?subjectUri )
+      BIND( iri(replace(str(?associationObject), "http://www.ncbi.nlm.nih.gov/gene/", "https://identifiers.org/ncbigene:")) AS ?objectUri )
       BIND ( iri(concat("https://w3id.org/data2services/data/evidence/", md5(concat(str(?associationSource), str(?associationEvidence))) )) AS ?evidenceUri )
 
-}
-}
+    }
+  }
 }
