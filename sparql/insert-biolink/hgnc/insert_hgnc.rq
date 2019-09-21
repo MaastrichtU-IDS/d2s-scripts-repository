@@ -8,11 +8,15 @@ PREFIX bl: <https://w3id.org/biolink/vocab/>
 PREFIX w3idvocab: <https://w3id.org/data2services/vocab/>
 INSERT
 {
-  GRAPH <?_output> {  
+  GRAPH <?_output> {
+
+    ## TODO: use ?geneSymbolUri as main URI for gene?
+
     ?hgncUri a bl:Gene ;
       bl:id ?hgncUriId ;
       bl:name ?Name ;
-      bl:systematic_synonym ?Symbol ;
+      bl:same_as ?geneSymbolUri ;
+      bl:systematic_synonym ?geneSymbol ;
       bl:synonym ?singleAlias_name ;
       w3idvocab:Status ?Status . # Use bl:ConfidenceLevel (Level of confidence in a statement)? Values: "Approved", "Symbol Withdrawn", "Entry Withdrawn"
 
@@ -111,7 +115,8 @@ WHERE {
          ?s d2sgeneric:Name ?Name .
        
        } OPTIONAL {
-         ?s d2sgeneric:Symbol ?Symbol .
+         ?s d2sgeneric:Symbol ?geneSymbol .
+         BIND( iri(concat("https://identifiers.org/hgnc.symbol:", ?geneSymbol)) AS ?geneSymbolUri)
        
        } OPTIONAL { 
          ?s d2sgeneric:Status ?Status .

@@ -9,6 +9,10 @@ echo -e "nreports\toutcome_concept_id\tdrug_concept_id\tndrugreports" > aeolus_f
 # http://arjanvandergaag.nl/blog/wrestling-json-with-jq.html
 
 
+#CSV
+# http://bigdatums.net/2017/09/30/convert-json-to-csv-with-jq/
+# https://stackoverflow.com/questions/32960857/how-to-convert-arbitrary-simple-json-to-csv-using-jq
+
 ### Too slow: almost 5min for 1 page
 # Iterates over pages in the API
 for (( i=0; i <= 631743; ++i )) ; do
@@ -22,18 +26,30 @@ for (( i=0; i <= 631743; ++i )) ; do
   #echo $json
   #for row in $(echo "${json}" | jq -r '.[0].result[] | @base64'); do
 
+  echo '{"key1":"val1", "myarray":["abc", "def", "ghi"]}' | jq -r '[.key1, .myarray[0]] | @csv'
 
+  curl -X GET "https://www.nsides.io/api/v1/aeolus/drugReactionCounts?q=0" -H "accept: */*" | jq -r '(.[0].result | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv'
+
+  curl -X GET "https://www.nsides.io/api/v1/aeolus/drugReactionCounts?q=0" -H "accept: */*" | jq -r '[.[0].result[]] | @csv'
 
   #| "\(.id) \(.name) \(.create.date)
-
-
-
-  for row in $(curl -X GET "https://www.nsides.io/api/v1/aeolus/drugReactionCounts?q=$i" -H "accept: */*" | jq -r '.[0].result[] | @base64'); do
-    _jq() {
-     echo ${row} | base64 --decode | jq -r ${1}
-    }
-   echo -e "$(_jq '.nreports')\t$(_jq '.outcome_concept_id')\t$(_jq '.drug_concept_id')\t$(_jq '.ndrugreports')" >> aeolus_flattened.tsv
+  for row in $(curl -X GET "https://www.nsides.io/api/v1/aeolus/drugReactionCounts?q=$i" -H "accept: */*" | jq -r '.[0].result[] | "\(.nreports) \(.outcome_concept_id) \(.ndrugreports)" '); do
+    #_jq() {
+    # echo ${row} | base64 --decode | jq -r ${1}
+    #}
+    echo 'test'
+    echo -e "${nreports}\t${outcome_concept_id}\t${drug_concept_id}\t${ndrugreports}\t"
+   #echo -e "$(_jq '.nreports')\t$(_jq '.outcome_concept_id')\t$(_jq '.drug_concept_id')\t$(_jq '.ndrugreports')" >> aeolus_flattened.tsv
   done
+
+
+
+#  for row in $(curl -X GET "https://www.nsides.io/api/v1/aeolus/drugReactionCounts?q=$i" -H "accept: */*" | jq -r '.[0].result[] | @base64'); do
+#    _jq() {
+#     echo ${row} | base64 --decode | jq -r ${1}
+#    }
+#   echo -e "$(_jq '.nreports')\t$(_jq '.outcome_concept_id')\t$(_jq '.drug_concept_id')\t$(_jq '.ndrugreports')" >> aeolus_flattened.tsv
+# done
 done
 
 

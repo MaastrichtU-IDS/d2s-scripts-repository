@@ -76,6 +76,7 @@ WHERE {
       }
       OPTIONAL { 
         ?s d2smodel:TargetSymbol ?targetSymbol . # CHRM3
+        FILTER(!contains(?targetSymbol, "c("))    # filter out symbol like c(\"CALM1\", \"CALM2\", \"CALM3\")
         BIND( iri(concat("http://identifiers.org/hgnc.symbol/", ?targetSymbol ) ) AS ?targetSymbolUri )
       } 
       OPTIONAL { 

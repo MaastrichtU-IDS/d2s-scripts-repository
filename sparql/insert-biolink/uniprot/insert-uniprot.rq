@@ -48,6 +48,8 @@ WHERE {
         # Only take human proteins
         FILTER( ?organism = <http://purl.uniprot.org/taxonomy/9606> )
 
+        # TODO: add proteome? http://purl.uniprot.org/proteomes/UP000005640#Chromosome%204
+
         OPTIONAL {
           ?uniprotUri up:created ?created . # "2017-05-10"xsd:date
 
