@@ -34,13 +34,13 @@ docker run -d --link graphdb:graphdb \
 
 
 # Convert generic RDF to BioLink
-docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/insert-biolink/eggnog" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD \
+docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/insert-biolink/eggnog" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD \
 --inputGraph http://localhost:7200/repositories/bio2vec-test inputGraph:https://w3id.org/data2services/graph/autor2rml/eggnog --outputGraph https://w3id.org/data2services/graph/biolink/eggnog
 # 4eee67d391b59f078f71f9ee1382365c3bfcf808aa7fe2bfe9dd861ca94ce777
 
 
 # Compute HCLS statistics
-docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD -var inputGraph:https://w3id.org/data2services/graph/biolink/eggnog
+docker run -d --link graphdb:graphdb data2services-sparql-operations -f "https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats" -ep "http://graphdb:7200/repositories/bio2vec/statements" -un emonet -pw $PASSWORD -var inputGraph:https://w3id.org/data2services/graph/biolink/eggnog
 
 
 

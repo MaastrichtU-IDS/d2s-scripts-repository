@@ -12,7 +12,7 @@ docker pull vemonet/data2services-sparql-operations
 
 ## Run
 
-This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats) to:
+This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats) to:
 
 * Compute the HCLS descriptive statistics for a defined graph (e.g. class and property counts, relations between entities) 
 * Insert them in the HCLS metadata that describes this graph in the triplestore
@@ -20,7 +20,7 @@ This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/data2s
 ```shell
 docker run -d \
   vemonet/data2services-sparql-operations \
-  -f "https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats" \
+  -f "https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats" \
   -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
   --var-input https://w3id.org/data2services/graph/biolink/pathwaycommons
