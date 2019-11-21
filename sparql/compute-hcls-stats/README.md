@@ -42,13 +42,13 @@ PREFIX idot: <http://identifiers.org/idot/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 
-SELECT distinct ?source ?statements ?entities ?properties ?classes ?graph
+SELECT distinct ?graph ?statements ?entities ?properties ?classes
 WHERE {
   GRAPH ?g {
-    ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
-    ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-    ?rdfDistribution a void:Dataset ; 
-      dcat:accessURL ?graph ; 
+    #?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
+    #?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
+    ?graph a void:Dataset ; 
+      #dcat:accessURL ?graph ; 
       void:triples ?statements ;
       void:entities ?entities ;
       void:properties ?properties .
@@ -73,19 +73,19 @@ PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 
 # Show relations between classes in the graph (and count)
-SELECT distinct ?source ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+SELECT distinct ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
   GRAPH ?metadataGraph {
-    ?rdfDistribution a void:Dataset ;
-      idot:preferredPrefix ?source .
+    ?graph a void:Dataset .
+      #idot:preferredPrefix ?source .
       # Or Use dc:identifier ?
 
-    ?rdfDistribution void:classPartition [
+    ?graph void:classPartition [
       void:class rdfs:Class ;
       void:distinctSubjects ?classes
     ] .
 
-    ?rdfDistribution void:propertyPartition [
+    ?graph void:propertyPartition [
         void:property ?relationWith ;
         void:classPartition [
             void:class ?class1 ;
