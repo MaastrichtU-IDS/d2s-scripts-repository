@@ -1,32 +1,32 @@
-# Compute [HCLS](https://www.w3.org/TR/hcls-dataset) statistics for a dataset
+# Compute HCLS statistics for a dataset
 
-Query to compute and insert [HCLS statistics](https://www.w3.org/TR/hcls-dataset/#s6_6) about a graph in a triplestore (the descritive statistics are added to the metadata graph of this dataset).
+Query to compute and insert [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset) about a graph in a triplestore (the descritive statistics are added to the metadata graph of this dataset).
 
 ## Pull
 
-Uses the docker image [vemonet/data2services-sparql-operations](https://hub.docker.com/r/vemonet/data2services-sparql-operations) to execute multiple SPARQL queries (all `.rq` file in a folder or in a GitHub repository).
+Uses the docker image [vemonet/d2s-sparql-operations](https://hub.docker.com/r/umids/d2s-sparql-operations) to execute multiple SPARQL queries (all `.rq` file in a folder or in a GitHub repository).
 
 ```shell
-docker pull vemonet/data2services-sparql-operations
+docker pull umids/d2s-sparql-operations
 ```
 
 ## Run
 
-This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats) to:
+This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-stats) to:
 
 * Compute the HCLS descriptive statistics for a defined graph (e.g. class and property counts, relations between entities) 
 * Insert them in the HCLS metadata that describes this graph in the triplestore
 
 ```shell
 docker run -d \
-  vemonet/data2services-sparql-operations \
-  -f "https://github.com/MaastrichtU-IDS/d2s-transform-repository/tree/master/sparql/compute-hcls-stats" \
+  umids/d2s-sparql-operations \
+  -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-stats" \
   -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
-  --var-input https://w3id.org/data2services/graph/biolink/pathwaycommons
+  --var-input https://w3id.org/d2s/graph/biolink/pathwaycommons
 ```
 
-
+> Example for the graph `https://w3id.org/d2s/graph/biolink/pathwaycommons`.
 
 ## Get HCLS statistics insights
 
@@ -99,11 +99,9 @@ WHERE {
 } ORDER BY ?source DESC(?classCount1) DESC(?classCount2)
 ```
 
-
-
 ## SPARQL insert HCLS query example
 
-[Example of a SPARQL query](https://github.com/MaastrichtU-IDS/data2services-insert/blob/master/compute-hcls-stats/1_1_global_stats_counts.rq) to compute global statistics about a graph:
+[Example of a SPARQL query](https://github.com/MaastrichtU-IDS/d2s-scripts-repository/blob/master/sparql/compute-hcls-stats/1_1_global_stats_counts.rq) to compute global statistics about a graph:
 
 ```SPARQL
 # 6.6.1 To specify the number of triples in the dataset and compute global stats
