@@ -1,5 +1,8 @@
+# Remove previous files
+rm -rf /data/d2s-workspace/blazegraph-load/*
+
 # Copy input RDF file to the blazegraph directory
-cp -r $1 /data/d2s-workspace/blazegraph/
+cp -r $1 /data/d2s-workspace/blazegraph-load/
 
 # Download dataloader file
 wget $2
