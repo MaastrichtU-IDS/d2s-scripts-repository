@@ -2,7 +2,7 @@
 cp -r $1 /data/d2s-workspace/blazegraph/
 
 # Download dataloader file
-wget https://raw.githubusercontent.com/MaastrichtU-IDS/d2s-scripts-repository/master/resources/blazegraph/dataloader.txt
+wget $2
 
 # Send query to bulk load file to Blazegraph
 curl -X POST --data-binary @dataloader.txt --header 'Content-Type:text/plain' \
