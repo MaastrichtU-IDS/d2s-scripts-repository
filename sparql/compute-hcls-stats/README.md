@@ -37,71 +37,71 @@ Insights about the triplestore's graphs content can be obtained by querying the 
 
 ```SPARQL
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX dct: <http://purl.org/dc/terms/>
-  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-  PREFIX dcat: <http://www.w3.org/ns/dcat#>
-  PREFIX void: <http://rdfs.org/ns/void#>
-  PREFIX dc: <http://purl.org/dc/elements/1.1/>
-  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
-  WHERE {
-    GRAPH ?graph {
-      [] ?dummyProp [] .
-      OPTIONAL {
-        ?dataset a dctypes:Dataset ;
-          dct:description ?description ;
-          foaf:page ?homepage .
-        ?version dct:isVersionOf ?dataset ;
-          dcat:distribution ?graph .
-      }
-      OPTIONAL {
-        ?graph a void:Dataset ;
-          void:triples ?statements ;
-          void:entities ?entities ;
-          void:properties ?properties .
-      }
-      OPTIONAL {
-        ?graph dct:issued ?dateGenerated .
-      }
-      OPTIONAL {
-        ?graph void:classPartition [
-          void:class rdfs:Class ;
-          void:distinctSubjects ?classes
-        ] .
-      }
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+WHERE {
+  GRAPH ?graph {
+    [] ?dummyProp [] .
+    OPTIONAL {
+      ?dataset a dctypes:Dataset ;
+        dct:description ?description ;
+        foaf:page ?homepage .
+      ?version dct:isVersionOf ?dataset ;
+        dcat:distribution ?graph .
     }
-  } ORDER BY DESC(?statements)
+    OPTIONAL {
+      ?graph a void:Dataset ;
+        void:triples ?statements ;
+        void:entities ?entities ;
+        void:properties ?properties .
+    }
+    OPTIONAL {
+      ?graph dct:issued ?dateGenerated .
+    }
+    OPTIONAL {
+      ?graph void:classPartition [
+        void:class rdfs:Class ;
+        void:distinctSubjects ?classes
+      ] .
+    }
+  }
+} ORDER BY DESC(?statements)
 ```
 
 ### Get all relations between classes in the different graphs
 
 ```SPARQL
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX dct: <http://purl.org/dc/terms/>
-  PREFIX bl: <http://w3id.org/biolink/vocab/>
-  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-  PREFIX idot: <http://identifiers.org/idot/>
-  PREFIX dcat: <http://www.w3.org/ns/dcat#>
-  PREFIX void: <http://rdfs.org/ns/void#>
-  PREFIX dc: <http://purl.org/dc/elements/1.1/>
-  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  PREFIX void-ext: <http://ldf.fi/void-ext#>
-  SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
-  WHERE {
-    GRAPH ?graph {
-      ?graph a void:Dataset .
-      ?graph void:propertyPartition [
-          void:property ?relationWith ;
-          void:classPartition [
-              void:class ?class1 ;
-              void:distinctSubjects ?classCount1 ;
-          ];
-          void-ext:objectClassPartition [
-            void:class ?class2 ;
-            void:distinctObjects ?classCount2 ;
-      ]] .
-    }
-  } ORDER BY DESC(?classCount1)
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX bl: <http://w3id.org/biolink/vocab/>
+PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX idot: <http://identifiers.org/idot/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX void-ext: <http://ldf.fi/void-ext#>
+SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+WHERE {
+GRAPH ?graph {
+  ?graph a void:Dataset .
+  ?graph void:propertyPartition [
+    void:property ?relationWith ;
+    void:classPartition [
+      void:class ?class1 ;
+      void:distinctSubjects ?classCount1 ;
+    ];
+    void-ext:objectClassPartition [
+    void:class ?class2 ;
+    void:distinctObjects ?classCount2 ;
+    ]] .
+  }
+} ORDER BY DESC(?classCount1)
 ```
 
 ## SPARQL insert HCLS query example
@@ -132,8 +132,8 @@ INSERT {
           void:distinctSubjects ?distinctLiterals 
       ] .
   }
+    
 } WHERE { 
-
   GRAPH <?_input> {
     { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } } # count triples
     { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } } # count unique entities
