@@ -24,6 +24,7 @@ docker run -d \
   -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
   --var-input https://w3id.org/d2s/graph/biolink/pathwaycommons
+  --var-output https://w3id.org/d2s/metadata
 ```
 
 > Example for the graph `https://w3id.org/d2s/graph/biolink/pathwaycommons`.
@@ -45,6 +46,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
   WHERE {
     GRAPH ?graph {
+      # To get all graphs, even if no HCLS stats
+      [] ?dummyProp [] .
       OPTIONAL {
         ?dataset a dctypes:Dataset ;
           dct:description ?description ;
