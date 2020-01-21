@@ -36,29 +36,39 @@ Insights about the triplestore's graphs content can be obtained by querying the 
 
 ```SPARQL
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-PREFIX idot: <http://identifiers.org/idot/>
-PREFIX dcat: <http://www.w3.org/ns/dcat#>
-PREFIX void: <http://rdfs.org/ns/void#>
-
-SELECT distinct ?graph ?statements ?entities ?properties ?classes
-WHERE {
-  GRAPH ?g {
-    #?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
-    #?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-    ?graph a void:Dataset ; 
-      #dcat:accessURL ?graph ; 
-      void:triples ?statements ;
-      void:entities ?entities ;
-      void:properties ?properties .
-
-    ?rdfDistribution void:classPartition [
-      void:class rdfs:Class ;
-      void:distinctSubjects ?classes
-    ] .
-  } 
-} ORDER BY DESC(?statements)
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX void: <http://rdfs.org/ns/void#>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+  WHERE {
+    GRAPH ?graph {
+      OPTIONAL {
+        ?dataset a dctypes:Dataset ;
+          dct:description ?description ;
+          foaf:page ?homepage .
+        ?version dct:isVersionOf ?dataset ;
+          dcat:distribution ?graph .
+      }
+      OPTIONAL {
+        ?graph a void:Dataset ;
+          void:triples ?statements ;
+          void:entities ?entities ;
+          void:properties ?properties .
+      }
+      OPTIONAL {
+        ?graph dct:issued ?dateGenerated .
+      }
+      OPTIONAL {
+        ?graph void:classPartition [
+          void:class rdfs:Class ;
+          void:distinctSubjects ?classes
+        ] .
+      }
+    }
+  } ORDER BY DESC(?statements)
 ```
 
 ### Get all relations between classes in the different graphs
@@ -75,7 +85,7 @@ PREFIX void-ext: <http://ldf.fi/void-ext#>
 # Show relations between classes in the graph (and count)
 SELECT distinct ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
-  GRAPH ?metadataGraph {
+  GRAPH ?graph {
     ?graph a void:Dataset .
       #idot:preferredPrefix ?source .
       # Or Use dc:identifier ?
