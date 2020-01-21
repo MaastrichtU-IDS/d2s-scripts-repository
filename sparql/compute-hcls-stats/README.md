@@ -111,7 +111,7 @@ PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
 INSERT {
-  GRAPH <?_input/metadata> {
+  GRAPH <?_output> {
     <?_input> a void:Dataset ;
       void:triples ?triples ;
       void:entities ?entities ;
