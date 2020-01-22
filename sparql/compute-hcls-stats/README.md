@@ -47,6 +47,8 @@ SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entiti
 WHERE {
   GRAPH ?graph {
     [] ?dummyProp [] .
+  }
+  GRAPH ?metadataGraph {
     OPTIONAL {
       ?dataset a dctypes:Dataset ;
         dct:description ?description ;
@@ -61,7 +63,7 @@ WHERE {
         void:properties ?properties .
     }
     OPTIONAL {
-      ?graph dct:issued ?dateGenerated .
+      ?graph dct:created ?dateGenerated .
     }
     OPTIONAL {
       ?graph void:classPartition [
@@ -88,7 +90,7 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
 SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
-GRAPH ?graph {
+GRAPH ?metadataGraph {
   ?graph a void:Dataset .
   ?graph void:propertyPartition [
     void:property ?relationWith ;
