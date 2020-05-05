@@ -22,7 +22,7 @@ WHERE {
   SERVICE <?_service>  {
     GRAPH <?_input> {
       # What to do with PMID?
-      #http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
+      #https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
 
       # Don't distinct between phenotype_annotation_hpoteam.tsv and phenotype_annotation.tsv
       ?s d2smodel:Db "OMIM" ;

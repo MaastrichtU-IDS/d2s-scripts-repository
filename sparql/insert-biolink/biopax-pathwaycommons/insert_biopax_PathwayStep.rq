@@ -29,8 +29,8 @@ WHERE {
       # bp:comment, bp:stepProcess, bp:nextStep, bp:stepConversion, bp:stepDirection, bp:evidence
 
       # A PathwayStep can have multiple stepProcess: bp:BiochemicalReaction and bo:Catalysis for example. And multiple nextSteps
-      # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23PathwayStep_096ee5f002fa354c8c00e45e09e8547b
-      # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23PathwayStep_ef1fb101b5a45d37c65550c3ea34dd86
+      # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23PathwayStep_096ee5f002fa354c8c00e45e09e8547b
+      # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23PathwayStep_ef1fb101b5a45d37c65550c3ea34dd86
       # In BioLink we need an entity that can combine an association/BiologicalProcess with a catalyser (which can be a BiochemicalReaction also) 
       # that can precedes multiple other steps. I can reuse the PathwayCommons pathwayStep URI
       # Just an bl:Association with catalysis reaction as relation that produces entities? Or something like "upregulate the production of"

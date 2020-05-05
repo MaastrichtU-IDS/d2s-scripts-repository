@@ -87,7 +87,7 @@ WHERE
 
     BIND("drugbank" AS ?datasetPrefix) # user input
 
-    BIND(<http://graphdb.dumontierlab.com/repositories/ncats-red-graph> AS ?sparqlEndpoint) # user input
+    BIND(<https://graphdb.dumontierlab.com/repositories/ncats-red-graph> AS ?sparqlEndpoint) # user input
 
     BIND(iri(concat("http://data2services/graph/biolink/", ?datasetPrefix)) AS ?accessURL) # TODO: generated from prefix
 

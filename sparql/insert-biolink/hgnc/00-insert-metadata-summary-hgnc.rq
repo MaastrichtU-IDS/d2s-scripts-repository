@@ -93,7 +93,7 @@ WHERE
 
     BIND("hgnc" AS ?idotPreferredPrefix) # Usually a May but required for data2services since it used as source ID to generate the graph URI.
 
-    BIND(<http://graphdb.dumontierlab.com/repositories/ncats-red-graph> AS ?voidSparqlEndpoint) # Usually a Should but required for data2services.
+    BIND(<https://graphdb.dumontierlab.com/repositories/ncats-red-graph> AS ?voidSparqlEndpoint) # Usually a Should but required for data2services.
 
 
     ### SHOULD

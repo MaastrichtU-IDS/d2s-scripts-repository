@@ -6,8 +6,8 @@ INSERT
   GRAPH <?_output> {  
 
     # Catalysis
-    # Reactome: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_11051ed8630c89e065916082669cc7ed
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_008eb159ed298ed6ee3b5822b00a2ce6
+    # Reactome: https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_11051ed8630c89e065916082669cc7ed
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_008eb159ed298ed6ee3b5822b00a2ce6
     # bp:controller and bp:controlled
     
     ?reactionUri a bl:BiologicalProcess ; # Or bl:ThingToThingAssociation ?

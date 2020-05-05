@@ -24,7 +24,7 @@ WHERE {
   SERVICE <?_service>  {
     GRAPH <?_input> { # bio2vec-test
       # What to do with PMID?
-      #http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
+      #https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fdata2services%2Fdata%2Fbio2vec%2Fphenomenet%2Fphenotype_annotation_hpoteam.tsv%2F87104
 
       ?entityOriginalUri a owl:Class ;
         rdfs:label ?phenotypeLabel .
@@ -46,7 +46,7 @@ WHERE {
           ( "cellular_component" bl:CellularComponent )
           ( "molecular_function" bl:MolecularActivity ) # Or bl:GeneOntologyClass?
           # GO: identifiers.org + id 
-          ( "uberon" bl:AnatomicalEntity ) # Anatomy (http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpurl.obolibrary.org%2Fobo%2FUBERON_0001255)
+          ( "uberon" bl:AnatomicalEntity ) # Anatomy (https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpurl.obolibrary.org%2Fobo%2FUBERON_0001255)
           ( "uberon/phenoscape-anatomy" bl:AnatomicalEntity ) # UBERON Anatomy
           ( "none" bl:AnatomicalEntity ) # UBERON Anatomy http://identifiers.org/ + id (UBERON:0001255)
           ( "cell" bl:Cell )

@@ -12,7 +12,7 @@ INSERT
 {
   GRAPH <?_output> {  
 
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_016e8816ce51adda02fbc1a77c9f2e63
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23Catalysis_016e8816ce51adda02fbc1a77c9f2e63
 
     ?directedInteraction a bl:GeneToThingAssociation ; # GeneProduct to Interaction association
           bl:gene_to_thing_association_subject ?source ; # GeneProduct

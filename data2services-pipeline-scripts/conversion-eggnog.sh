@@ -18,7 +18,7 @@ docker run -it --rm --link drill:drill \
 
 # Load RDF file in GraphDB ncats-test repository
 
-# Split ProteinsIds: http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fw3id.org%2Fdata2services%2Fdata%2Femonet%2Fncats%2Feggnog%2FNOG.members.tsv%2F100700
+# Split ProteinsIds: https://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fw3id.org%2Fdata2services%2Fdata%2Femonet%2Fncats%2Feggnog%2FNOG.members.tsv%2F100700
 docker run -d --link graphdb:graphdb \
   vemonet/data2services-sparql-operations -op split \
   --split-property "https://w3id.org/data2services/model/Proteinids" \

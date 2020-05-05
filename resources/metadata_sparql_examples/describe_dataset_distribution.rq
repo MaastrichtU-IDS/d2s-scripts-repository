@@ -254,8 +254,8 @@ WHERE
         BIND(concat(?versionTitle, " RDF Distribution") AS ?rdfDistributionTitle)
         BIND(concat("Converted to BioLink RDF using data2services framework. ", ?description) AS ?rdfDistributionDescription)
         BIND(<http://bioentity.io/vocab/> AS ?vocabulary) # user input
-        BIND(<http://graphdb.dumontierlab.com/graphs> AS ?rdfDownloadURL) # user input
-        BIND(<http://graphdb.dumontierlab.com/graphs> AS ?rdfDatadump) # user input
+        BIND(<https://graphdb.dumontierlab.com/graphs> AS ?rdfDownloadURL) # user input
+        BIND(<https://graphdb.dumontierlab.com/graphs> AS ?rdfDatadump) # user input
         BIND("Institute of Data Science at Maastricht University" AS ?rdfCreatorName) # user input
         BIND(<https://www.maastrichtuniversity.nl/research/institute-data-science> AS ?rdfCreatorPage) # user input
         BIND(iri(concat("http://data2services/agent/", md5(?rdfCreatorName))) AS ?rdfCreatorUri)

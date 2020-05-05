@@ -23,7 +23,7 @@ This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-sc
 docker run -d \
   umids/d2s-sparql-operations \
   -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-stats" \
-  -ep "http://graphdb.dumontierlab.com/repositories/test/statements" \
+  -ep "https://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
   --var-input https://w3id.org/d2s/graph/biolink/pathwaycommons
 ```
@@ -32,7 +32,7 @@ docker run -d \
 
 ## Get HCLS statistics insights
 
-Insights about the triplestore's graphs content can be obtained by querying the HCLS descriptive statistics. You can try on  the [ncats-red-kg](http://graphdb.dumontierlab.com/sparql) triplestore repository.
+Insights about the triplestore's graphs content can be obtained by querying the HCLS descriptive statistics. You can try on  the [ncats-red-kg](https://graphdb.dumontierlab.com/sparql) triplestore repository.
 
 ### Get all graph described using HCLS description 
 

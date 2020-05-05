@@ -8,7 +8,7 @@ INSERT
     # A physical entity consisting of a sequence of amino acids; a protein monomer; a single polypeptide chain. 
     # Example: The epidermal growth factor receptor (EGFR) protein.
 
-        # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109704
+        # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109704
     # bp:pathwayComponent, bp:organism, bp:xref (for pubmed and shitty pc)
     
     ?pathwayUri a bl:Pathway ;

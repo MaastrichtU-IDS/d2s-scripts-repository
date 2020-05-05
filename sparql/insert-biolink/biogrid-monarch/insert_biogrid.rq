@@ -10,7 +10,7 @@ PREFIX oban: <http://purl.org/oban/>
 INSERT
 {
   GRAPH <?_output> {  
-    # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
+    # See https://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
 
     ?subjectUri a bl:Gene ;
       bl:same_as ?associationSubject .

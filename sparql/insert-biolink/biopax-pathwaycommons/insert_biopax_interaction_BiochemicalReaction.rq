@@ -6,9 +6,9 @@ INSERT
   GRAPH <?_output> {  
 
     # BiochemicalReaction
-    # Reactome: http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6785732
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109278
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23BiochemicalReaction_48c61a65e060f872b394636f8a8524eb
+    # Reactome: https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6785732
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109278
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23BiochemicalReaction_48c61a65e060f872b394636f8a8524eb
     
     ?reactionUri a bl:BiologicalProcess ; # Or bl:ThingToThingAssociation ?
           # http://purl.obolibrary.org/obo/NCBITaxon_9606 link using bl:AnatomicalEntityToAnatomicalEntityPartOfAssociation ?

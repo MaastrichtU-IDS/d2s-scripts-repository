@@ -9,7 +9,7 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bl: <http://w3id.org/biolink/vocab/>
-# http://graphdb.dumontierlab.com/sparql in repository test_vincent
+# https://graphdb.dumontierlab.com/sparql in repository test_vincent
 INSERT {
     GRAPH <http://diff> {
       ?s ?p ?o

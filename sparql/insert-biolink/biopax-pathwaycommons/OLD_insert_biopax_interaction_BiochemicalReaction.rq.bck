@@ -12,7 +12,7 @@ INSERT
 {
   GRAPH <?_output> {  
 
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-139908
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-139908
 
     # left (same for right): The participants on the left side of the conversion interaction. Since conversion interactions may proceed in either 
     # the left-to-right or right-to-left direction, occupants of the left property may be either reactants or products

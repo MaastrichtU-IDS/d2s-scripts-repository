@@ -11,7 +11,7 @@ PREFIX wp: <http://vocabularies.wikipathways.org/wp#>
 INSERT
 {
   GRAPH <?_output> {  
-    # See http://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
+    # See https://graphdb.dumontierlab.com/resource?uri=https:%2F%2Fmonarchinitiative.org%2FMONARCH_0005916c58ab2315
 
     ?pathwayUri a bl:Pathway ;
           #<http://purl.obolibrary.org/obo/NCBITaxon_9606> link using https://biolink.github.io/biolink-model/docs/AnatomicalEntityToAnatomicalEntityPartOfAssociation.html ?
@@ -30,7 +30,7 @@ WHERE {
     GRAPH <?_input> {
       ?pathwayUri a wp:Pathway .
       BIND (str(?pathwayUri) AS ?pathwayUriId)
-      # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328
+      # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Fwikipathways%2FWP107_r89328
 
       OPTIONAL {
         ?pathwayUri dct:references ?pathwayReferences .

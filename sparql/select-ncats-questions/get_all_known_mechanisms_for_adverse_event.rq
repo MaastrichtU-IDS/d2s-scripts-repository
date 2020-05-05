@@ -4,7 +4,7 @@ PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX aopo: <http://aopkb.org/aop_ontology#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 
-# To execute in AOP-Wiki-V4 graph (ncats-test): http://graphdb.dumontierlab.com/sparql
+# To execute in AOP-Wiki-V4 graph (ncats-test): https://graphdb.dumontierlab.com/sparql
 
 # Get all known mechanisms (key events) for adverse event (Adverse Outcome Pathways) 1530 results
 

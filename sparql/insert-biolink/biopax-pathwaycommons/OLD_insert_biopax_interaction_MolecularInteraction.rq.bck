@@ -17,7 +17,7 @@ INSERT
     # A physical entity consisting of a sequence of amino acids; a protein monomer; a single polypeptide chain. 
     # Example: The epidermal growth factor receptor (EGFR) protein.
 
-        # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109704
+        # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fidentifiers.org%2Freactome%2FR-HSA-109704
     # bp:pathwayComponent, bp:organism, bp:xref (for pubmed and shitty pc)
     
     ?interactionUri a bl:Interaction ;
@@ -64,7 +64,7 @@ WHERE {
 
 
 
-    # http://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23MolecularInteraction_00f013c9-ad89-45d7-abac-470dae2c7f94__IM-17442-7_2579392_
+    # https://graphdb.dumontierlab.com/resource?uri=http:%2F%2Fpathwaycommons.org%2Fpc2%2F%23MolecularInteraction_00f013c9-ad89-45d7-abac-470dae2c7f94__IM-17442-7_2579392_
     # It has bp:participant, bp:evidence
 
     ?directedInteraction a bl:ChemicalToThingAssociation ; # Chemical causing molecular modification (conversion) to another Chemical 
