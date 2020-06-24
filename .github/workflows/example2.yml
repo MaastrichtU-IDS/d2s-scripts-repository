@@ -18,6 +18,6 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
     steps:
-    - run: build
+    - run: echo ${{toJson(matrix)}}
     # - run: echo ${{ needs.job1.outputs.matrix }}
 
