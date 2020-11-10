@@ -19,10 +19,11 @@ INSERT {
     
   }
 } WHERE { 
-
+  SERVICE <?_service>  {
     SELECT ?p (COUNT(?p) AS ?triples) ?otype (COUNT(DISTINCT ?o) AS ?ocount) 
     { 
-     ?s ?p ?o . 
-     ?o a ?otype .
+    ?s ?p ?o . 
+    ?o a ?otype .
     } GROUP BY ?p ?otype
+  }
 }

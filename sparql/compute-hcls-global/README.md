@@ -1,5 +1,7 @@
 # Compute HCLS statistics for a dataset
 
+Same as compute-hcls-stats but the HCLS stats RDF is loaded to a different SPARQL endpoint than the one containing the dataset
+
 Query to compute and insert [HCLS descriptive statistics](https://www.w3.org/TR/hcls-dataset) about a graph in a triplestore (the descritive statistics are added to the metadata graph of this dataset).
 
 ## Pull
@@ -20,11 +22,10 @@ This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-sc
 ```shell
 docker run -d \
   umids/d2s-sparql-operations \
-  -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-global" \
+  -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-stats" \
   -ep "https://graphdb.dumontierlab.com/repositories/test/statements" \
   -un MYUSERNAME -pw MYPASSWORD \
   --var-input https://w3id.org/d2s/graph/biolink/pathwaycommons
-  --var-output https://w3id.org/d2s/metadata
 ```
 
 > Example for the graph `https://w3id.org/d2s/graph/biolink/pathwaycommons`.
@@ -39,39 +40,26 @@ Insights about the triplestore's graphs content can be obtained by querying the 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+PREFIX idot: <http://identifiers.org/idot/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
+
+SELECT distinct ?graph ?statements ?entities ?properties ?classes
 WHERE {
-  GRAPH ?graph {
-    [] ?dummyProp [] .
-  }
-  GRAPH ?metadataGraph {
-    OPTIONAL {
-      ?dataset a dctypes:Dataset ;
-        dct:description ?description ;
-        foaf:page ?homepage .
-      ?version dct:isVersionOf ?dataset ;
-        dcat:distribution ?graph .
-    }
-    OPTIONAL {
-      ?graph a void:Dataset ;
-        void:triples ?statements ;
-        void:entities ?entities ;
-        void:properties ?properties .
-    }
-    OPTIONAL {
-      ?graph dct:created ?dateGenerated .
-    }
-    OPTIONAL {
-      ?graph void:classPartition [
-        void:class rdfs:Class ;
-        void:distinctSubjects ?classes
-      ] .
-    }
-  }
+  GRAPH ?g {
+    #?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
+    #?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
+    ?graph a void:Dataset ; 
+      #dcat:accessURL ?graph ; 
+      void:triples ?statements ;
+      void:entities ?entities ;
+      void:properties ?properties .
+
+    ?rdfDistribution void:classPartition [
+      void:class rdfs:Class ;
+      void:distinctSubjects ?classes
+    ] .
+  } 
 } ORDER BY DESC(?statements)
 ```
 
@@ -80,30 +68,37 @@ WHERE {
 ```SPARQL
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX bl: <http://w3id.org/biolink/vocab/>
 PREFIX dctypes: <http://purl.org/dc/dcmitype/>
 PREFIX idot: <http://identifiers.org/idot/>
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX void: <http://rdfs.org/ns/void#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX void-ext: <http://ldf.fi/void-ext#>
-SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+
+# Show relations between classes in the graph (and count)
+SELECT distinct ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
 WHERE {
-GRAPH ?metadataGraph {
-  ?graph a void:Dataset .
-  ?graph void:propertyPartition [
-    void:property ?relationWith ;
-    void:classPartition [
-      void:class ?class1 ;
-      void:distinctSubjects ?classCount1 ;
-    ];
-    void-ext:objectClassPartition [
-    void:class ?class2 ;
-    void:distinctObjects ?classCount2 ;
-    ]] .
-  }
-} ORDER BY DESC(?classCount1)
+  GRAPH ?metadataGraph {
+    ?graph a void:Dataset .
+      #idot:preferredPrefix ?source .
+      # Or Use dc:identifier ?
+
+    ?graph void:classPartition [
+      void:class rdfs:Class ;
+      void:distinctSubjects ?classes
+    ] .
+
+    ?graph void:propertyPartition [
+        void:property ?relationWith ;
+        void:classPartition [
+            void:class ?class1 ;
+            void:distinctSubjects ?classCount1 ;
+        ];
+        void-ext:objectClassPartition [
+          void:class ?class2 ;
+          void:distinctObjects ?classCount2 ;
+    ]] . 
+  } 
+} ORDER BY ?source DESC(?classCount1) DESC(?classCount2)
 ```
 
 ## SPARQL insert HCLS query example
@@ -134,8 +129,8 @@ INSERT {
           void:distinctSubjects ?distinctLiterals 
       ] .
   }
-    
 } WHERE { 
+
   GRAPH <?_input> {
     { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } } # count triples
     { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } } # count unique entities

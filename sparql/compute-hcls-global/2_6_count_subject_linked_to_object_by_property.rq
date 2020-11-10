@@ -22,11 +22,12 @@ INSERT {
     ]] . 
   }
 } WHERE { 
-
+  SERVICE <?_service>  {
     SELECT (COUNT(DISTINCT ?s) AS ?scount) ?stype ?p ?otype  (COUNT(DISTINCT ?o) AS ?ocount)  
     { 
-     ?s ?p ?o . 
-     ?s a ?stype .
-     ?o a ?otype .
+    ?s ?p ?o . 
+    ?s a ?stype .
+    ?o a ?otype .
     } GROUP BY ?p ?stype ?otype
+  }
 }

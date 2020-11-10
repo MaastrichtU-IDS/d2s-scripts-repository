@@ -19,10 +19,11 @@ INSERT {
 
   }
 } WHERE { 
-
+  SERVICE <?_service>  {
     SELECT ?p (COUNT(?p) AS ?triples) (COUNT(DISTINCT ?o) AS ?distinctLiterals) 
     { 
-     ?s ?p ?o . 
-     FILTER (isLiteral(?o))
+    ?s ?p ?o . 
+    FILTER (isLiteral(?o))
     } GROUP BY ?p 
+  }
 }
