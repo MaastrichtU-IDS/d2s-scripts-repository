@@ -20,12 +20,13 @@ This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-sc
 * Insert them in the HCLS metadata that describes this graph in the triplestore
 
 ```shell
-docker run -d \
-  umids/d2s-sparql-operations \
-  -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-stats" \
-  -ep "https://graphdb.dumontierlab.com/repositories/test/statements" \
-  -un MYUSERNAME -pw MYPASSWORD \
-  --var-input https://w3id.org/d2s/graph/biolink/pathwaycommons
+docker run -it umids/d2s-sparql-operations \
+  -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-global" \
+  -ep "https://graphdb.dumontierlab.com/repositories/test-vincent/statements" \
+  -un USERNAME -pw PASSWORD \
+  --var-service http://fairdata.systems:8990/sparql \
+  --var-input http://fairdata.systems:8990/sparql \
+  --var-output https://w3id.org/fair-endpoints/metadata
 ```
 
 > Example for the graph `https://w3id.org/d2s/graph/biolink/pathwaycommons`.
