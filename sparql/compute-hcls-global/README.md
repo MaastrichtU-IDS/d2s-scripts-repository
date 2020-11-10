@@ -20,10 +20,9 @@ This will execute [all SPARQL queries](https://github.com/MaastrichtU-IDS/d2s-sc
 * Insert them in the HCLS metadata that describes this graph in the triplestore
 
 ```shell
-docker run -it umids/d2s-sparql-operations \
+docker run -it umids/d2s-sparql-operations -op construct \
   -f "https://github.com/MaastrichtU-IDS/d2s-scripts-repository/tree/master/sparql/compute-hcls-global" \
-  -ep "https://graphdb.dumontierlab.com/repositories/test-vincent/statements" \
-  -un USERNAME -pw PASSWORD \
+  -ep "http://fairdata.systems:8990/sparql" \
   --var-service http://fairdata.systems:8990/sparql \
   --var-input http://fairdata.systems:8990/sparql \
   --var-output https://w3id.org/fair-endpoints/metadata
