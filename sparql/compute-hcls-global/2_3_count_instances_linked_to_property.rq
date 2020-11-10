@@ -18,11 +18,11 @@ CONSTRUCT {
     
   # }
 } WHERE { 
-  SERVICE <?_service>  {
+  # SERVICE <?_service>  {
     SELECT (COUNT(DISTINCT ?s) AS ?scount) ?stype ?p (COUNT(?p) AS ?triples) 
     { 
     ?s ?p ?o . 
     ?s a ?stype 
     } GROUP BY ?p ?stype 
-  }
+  # }
 }

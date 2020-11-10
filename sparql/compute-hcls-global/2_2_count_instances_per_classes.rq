@@ -15,7 +15,7 @@ CONSTRUCT {
     
   # }
 } WHERE { 
-  SERVICE <?_service>  {
+  # SERVICE <?_service>  {
     { SELECT ?o (COUNT(DISTINCT ?s) AS ?distinctInstances) { ?s a ?o } GROUP BY ?o }
-  }
+  # }
 }

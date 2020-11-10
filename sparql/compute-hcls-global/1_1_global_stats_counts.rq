@@ -23,7 +23,7 @@ CONSTRUCT {
       ] .
   # }
 } WHERE {
-  SERVICE <?_service>  {
+  # SERVICE <?_service>  {
     { SELECT (COUNT(*) AS ?triples) { ?s ?p ?o  } } # count triples
     { SELECT (COUNT(DISTINCT ?s) AS ?entities) { ?s a [] } } # count unique entities
     { SELECT (COUNT(DISTINCT ?s) AS ?distinctSubjects) {  ?s ?p ?o } }
@@ -31,5 +31,5 @@ CONSTRUCT {
     { SELECT (COUNT(DISTINCT ?o ) AS ?distinctObjects) {  ?s ?p ?o  FILTER(!isLiteral(?o)) } }
     { SELECT (COUNT(DISTINCT ?o) AS ?distinctClasses) { ?s a ?o } }
     { SELECT (COUNT(DISTINCT ?o) AS ?distinctLiterals) {  ?s ?p ?o  filter(isLiteral(?o)) }  }
-  }
+  # }
 }
